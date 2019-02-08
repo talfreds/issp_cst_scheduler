@@ -6,6 +6,14 @@ const bodyParser = require('body-parser');
 const homeRouter = require('./controllers/home');
 const loginRouter = require('./controllers/login');
 const logOutRouter = require('./controllers/logout');
+const instructorSchedule = require('./controllers/instructor_schedule');
+
+// fyi, any new routes require 3 things:
+// 1. the const require above, 
+// 2. the app.use('/', constName); at the bottom above the server start
+// 3. route matching link in html, located in views or partials directory
+
+
 
 
 // it would be nice to use bcrypt vanilla but we'd all need c++ and c# compilers.. saving these instructions for later if needed
@@ -17,7 +25,7 @@ var app = express();
 
 
 app.use(cookieSession({
-  name: 'connect4_session',
+  name: 'loginSession',
   keys: [ 'thiswillbesecretlater'],
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }))
@@ -38,6 +46,7 @@ app.use(bodyParser.urlencoded({
 app.use('/', homeRouter);
 app.use('/', loginRouter);
 app.use('/', logOutRouter);
+app.use('/', instructorSchedule);
 
 // start server
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
