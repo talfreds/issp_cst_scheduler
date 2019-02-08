@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> CST Course Scheduler 4 </title>
+    <link href="/css/home.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body onbeforeunload="return">
+    <center>
+    <div>
+        <h1> CST Course Scheduler </h1>
+    </div>
+        </center>
+
+    {{#unless loggedIn}}
+    {{> loginForm }}
+    {{/unless}}
+    {{#if loggedIn}}
+    <center>
+        <a href="/logout"><button class='submit_button shadow'>Log Out</button></a>
+    </center>
+    {{/if}}
+</body>
+
+</html>
+
+

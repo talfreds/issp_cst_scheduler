@@ -1,0 +1,20 @@
+{
+  "name": "cst_scheduler",
+  "version": "1.0.0",
+  "description": "A scheduler for CST Project,  a multi-year project designed to improve the safety, quality and consistency of patient care across three British Columbia health organizations: Vancouver Coastal Health (VCH), the Provincial Health Services Authority (PHSA) and Providence Health Care (PHC).",
+  "main": "server.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cookie-session": "^2.0.0-beta.3",
+    "express": "^4.16.4",
+    "hbs": "^4.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "CIT ISSP",
+  "license": "ISC"
+}

@@ -1,0 +1,7 @@
+<div id='users'>
+	{{#each user}}
+	<li>User: {{this.login}} has made {{this.moves_made}}</li>
+	{{else}}
+	<p class="empty">No Users in Database</p>
+	{{/each}}
+</div>
