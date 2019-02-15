@@ -14,8 +14,6 @@ const instructorSchedule = require('./controllers/instructor_schedule');
 // 3. route matching link in html, located in views or partials directory
 
 
-
-
 // it would be nice to use bcrypt vanilla but we'd all need c++ and c# compilers.. saving these instructions for later if needed
 // npm install -g node-gyp
 // npm install --global --production windows-build-tools
