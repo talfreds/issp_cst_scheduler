@@ -38,12 +38,15 @@ router.post('/loginAttempt', (request, response) => {
                     request.session.loggedIn = true;
                     request.session.userName = input_name;
                     request.session.uid = result[0]["uid"];
-                    response.render('home.hbs', {
+                    console.log('authenticated');
+                    // also shouldnt be a gender.. get /ba_admin ?
+                    response.render('ba_admin.hbs', {
                         // should actually render an administration panel here
                     });
 
                 } else {
                     request.session.loggedIn = false;
+                    console.log('bad password');
                     response.render('home.hbs', {
                         // tell user they entered the wrong password
                     });
