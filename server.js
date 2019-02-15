@@ -7,6 +7,7 @@ const homeRouter = require('./controllers/home');
 const loginRouter = require('./controllers/login');
 const logOutRouter = require('./controllers/logout');
 const instructorSchedule = require('./controllers/instructor_schedule');
+const inserts = require('./controllers/inserts');
 
 // fyi, any new routes require 3 things:
 // 1. the const require above, 
@@ -45,6 +46,7 @@ app.use('/', homeRouter);
 app.use('/', loginRouter);
 app.use('/', logOutRouter);
 app.use('/', instructorSchedule);
+app.use('/', inserts);
 
 // start server
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
