@@ -10,17 +10,31 @@
 
 
     <center>
-        <h1>Dev link for  convenience</h1>
+        <h1>Dev link for convenience</h1>
 
+        <a href="/ba_admin">Business Analyst Administration Inputs</a>
+        <div>
+            <h1> CST Course Scheduler </h1>
+        </div>
+    </center>
 
-         <a href="/instructor_schedule">Scheduler test</a>
-</br>
+    <center>
+        <h2> Instructor Schedule Access</h2>
+    </center>
 
-          <a href="/ba_admin">Business Analyst Administration Inputs</a>
-    <div>
-        <h1> CST Course Scheduler </h1>
+    <div id="login__wrapper">
+        <div class="form__group">
+            <form action="/instructor_schedule" method="post">
+            <select name="Instructors">
+                {{#each instructor_list}}
+                    <option value="{{this.instructorFirstName}}, {{this.instructorLastName}}">{{this.instructorFirstName}}, {{this.instructorLastName}}</option>
+                {{/each}}
+
+            </select>    
+            <input id="login-submit" class="submit_button shadow" type="submit" value="View Schedule">
+            </form>
+        </div>
     </div>
-        </center>
 
     {{#unless loggedIn}}
     {{> loginForm }}
@@ -33,5 +47,3 @@
 </body>
 
 </html>
-
-

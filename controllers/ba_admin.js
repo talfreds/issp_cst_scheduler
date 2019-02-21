@@ -17,8 +17,15 @@ router.get('/inputs/course_session', (request, response) => {
 });
 
 
-router.get('/inputs/examplelink', (request, response) => {
-    response.render('./inputs/examplelink.hbs', {
+router.get('/inputs/newKLR', (request, response) => {
+    response.render('./inputs/newKLR.hbs', {
+        loggedIn: request.session.loggedIn,
+        user: 'temp'
+    });
+});
+
+router.get('/inputs/newSessionName', (request, response) => {
+    response.render('./inputs/newSessionName.hbs', {
         loggedIn: request.session.loggedIn,
         user: 'temp'
     });
