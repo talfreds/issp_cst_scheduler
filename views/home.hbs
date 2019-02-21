@@ -27,7 +27,7 @@
             <form action="/instructor_schedule" method="post">
             <select name="Instructors">
                 {{#each instructor_list}}
-                    <option value="{{this.instructorFirstName}}, {{this.instructorLastName}}">{{this.instructorFirstName}}, {{this.instructorLastName}}</option>
+                    <option value="{{this.instructorLastName}}, {{this.instructorFirstName}}">{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
                 {{/each}}
 
             </select>    
