@@ -52,4 +52,11 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
     });
 });
 
+router.get('/inputs/instructor_to_session', (request, response) => {
+    response.render('./inputs/instructor_to_session.hbs', {
+        loggedIn: request.session.loggedIn,
+        user: 'temp'
+    });
+});
+
 module.exports = router;
