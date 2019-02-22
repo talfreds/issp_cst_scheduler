@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const { parse } = require('querystring');
+const {
+    parse
+} = require('querystring');
 const db_functions = require('../db_functions.js');
-
-
 
 
 
@@ -31,19 +31,20 @@ router.post('/loginAttempt', (request, response) => {
 
         } else {
             var hashed_pass = result[0]["password"];
-
             bcrypt.compare(request.body.ba_password, hashed_pass).then(function(authenticated) {
                 if (authenticated) {
 
                     request.session.loggedIn = true;
-                    request.session.userName = input_name;
-                    request.session.uid = result[0]["uid"];
-                    response.render('home.hbs', {
+                    request.session.user = request.body.ba_email;
+                    console.log('authenticated');
+                    // should this be get instead of render?
+                    response.render('ba_admin.hbs', {
                         // should actually render an administration panel here
                     });
 
                 } else {
                     request.session.loggedIn = false;
+                    console.log('bad password');
                     response.render('home.hbs', {
                         // tell user they entered the wrong password
                     });
@@ -52,7 +53,7 @@ router.post('/loginAttempt', (request, response) => {
                 console.log('bcrypt.compare Response: ', response);
                 console.log('bcrypt.compare Error: ', error);
             });
-            }
+        }
 
     }).catch((error) => {
         console.log('verify_ba Error: ', error);
@@ -62,44 +63,6 @@ router.post('/loginAttempt', (request, response) => {
 
 
 
-
-    // existing_users = load_database.getDatabase();
-
-    // for (i = 0; i < existing_users.length; i++) {
-    //     if (existing_users[i]['login'] == login_data_dict['login']) {
-    //         user_data = existing_users[i];
-    //     };
-    // };
-
-    // // user isnt in database
-    // if (!user_data || existing_users == []) {
-    //     response.render('registrationForm.hbs', {
-    //         formData_error: false,
-    //         nameIsNotValid: false,
-    //         duplicateName: false,
-    //         passIsNotValid: false,
-    //         passMatches: false,
-    //         emailIsNotValid: false
-    //     });
-    // } else {
-    //     bcrypt.compare(login_data_dict['password'], user_data['password']).then(function(comparison_valid) {
-    //         if (comparison_valid) {
-    //             request.session.loggedIn = true;
-    //             request.session.userName = user_data['login'];
-    //             request.session.usersDatabase = existing_users;
-    //             response.render('home.hbs', {
-    //                 loggedIn: request.session.loggedIn,
-    //                 user: request.session.usersDatabase
-    //             });
-    //         } else {
-    //             var users = { users: existing_users };
-    //             response.render('home.hbs', {
-    //                 loggedIn: request.session.loggedIn
-    //             });
-    //         };
-    //     });
-    // };
-// });
 
 
 module.exports = router;

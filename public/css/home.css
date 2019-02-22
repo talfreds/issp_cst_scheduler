@@ -54,7 +54,8 @@ label,
 
 
 #login__wrapper{
-    margin: auto;
+  text-align: center;
+  margin: auto;
   width: 25%;
   border: 1px solid lightgray;
   padding: 50px;

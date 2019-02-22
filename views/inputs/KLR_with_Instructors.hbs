@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<header>
+    <title> KLR with Instructors </title>
+    <link href = '/css/home.css' rel="stylesheet" type="text/css"/>
+</header>
+
+<body>
+  <div id='addDataBox'>
+    <div id='loginFormDiv'>
+      <form action="/insertData" method="post">
+
+        <div id="login__wrapper">
+            <h2>KLR with Instructors</h2>
+          <div class="form__group">
+            <input id="date" class="form__field" type="date" name="insertDate" placeholder="Enter Date">
+            <label for="date" class="form__label">Date</label>
+          </div>
+
+          <div class="form__group">  
+        <input id="instructor" class="form__field" type="text" name="instructor" placeholder="Enter Instructor">
+        <label for="instructor" class="form__label">Enter Instructor Name</label>
+        </div>
+
+        <div class="form__group">
+          <input id="startTime" class="form__field" type="time" name="startTime" placeholder="Enter Start Time">
+          <label for="startTime" class="form__label">From: </label>
+        </div>
+
+        <div class="form__group"> 
+        <input id="endTime" class="form__field" type="time" name="endTime" placeholder="Enter End Time">
+        <label for="endTime" class="form__label">To: </label>
+        </div> 
+        
+        <div class="form__group">  
+        <input id="classroom" class="form__field" type="text" name="classroom" placeholder="Enter Room Number">
+        <label for="classroom" class="form__label">Enter Room Number</label>
+        </div>
+
+        <div class="form__group">  
+            <input id="location" class="form__field" type="text" name="location" placeholder="Enter location">
+            <label for="location" class="form__label">Enter Location</label>
+        </div>
+        
+        <div class="form__group">              
+            <input id="capacity" class="form__field" type="number" name="capacity" placeholder="Enter the Capacity">
+            <label for="capacity" class="form__label">Enter the Capacity </label>
+        </div>
+
+        <div class="form__group">
+            <textarea id="capacity" class="form__field" rows="5" name="capacity" placeholder="Additional Comments"></textarea>
+            <label for="capacity" class="form__label">Additional Comments </label>
+        </div>
+        <br>
+        
+        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+      </form>
+    <a href="/registrationForm"> 
+      <button class='submit_button shadow'>Cancel</button>
+    </a>
+    </div>
+  </div>
+</body>
