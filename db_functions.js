@@ -70,7 +70,22 @@ var get_credentials = (input_email) => {
     });
 }
 
+var get_instructors = () => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT instructorLastName, instructorFirstName FROM instructor`;
+
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
 
 module.exports = {
-    get_credentials
+    get_credentials,
+    get_instructors
 };
