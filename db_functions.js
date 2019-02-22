@@ -2,7 +2,7 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const config = require('./db_config.js');
 const util = require("util");
-var mysql = config.mysql;
+var mysql = config.mysql; 
 
 var connection = config.connection;
 
@@ -10,9 +10,6 @@ var app = express();
 
 const helmet = require("helmet");
 app.use(helmet());
-
-// scheduler sends application/x-www-form-urlencoded requests,
-app.use(bodyParser.urlencoded({ extended: true })); 
 
 // you'll need these headers if your API is deployed on a different domain than a public page 
 // in production system you could set Access-Control-Allow-Origin to your domains
@@ -24,10 +21,8 @@ app.use(function(req, res, next) {
     next();
 });
 
-// return static pages from "./public" directory
-app.use(express.static(__dirname + "/public"));
 
-const router = require("./router");
+const router = require("./calendar_router");
 
 // open connection to mysql
 const connectionPool = mysql.createPool(connection);
