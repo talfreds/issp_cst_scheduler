@@ -44,7 +44,7 @@ app.use(bodyParser.urlencoded({
 app.use('/', homeRouter);
 app.use('/', loginRouter);
 app.use('/', logOutRouter);
-app.use('/', instructorSchedule);
+app.use('/basic', instructorSchedule);
 
 // start server
 var server_host = process.env.YOUR_HOST || '0.0.0.0';
