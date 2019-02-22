@@ -52,6 +52,7 @@ connection.connect(function(err) {
     }
 
     console.log('Connected to database with id: ' + connection.threadId);
+    console.log('hi from quinton');
 });
 
 
