@@ -66,4 +66,11 @@ router.get('/inputs/add_learner_to_courses', (request, response) => {
     });
 });
 
+router.get('/inputs/instructor_to_session', (request, response) => {
+    response.render('./inputs/instructor_to_session.hbs', {
+        loggedIn: request.session.loggedIn,
+        user: 'temp'
+    });
+});
+
 module.exports = router;
