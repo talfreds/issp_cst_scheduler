@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<header>
+    <title> CST Course Session Booker</title>
+    <link href="/css/home.css" rel="stylesheet" type="text/css" />
+</header>
+
+<body>
+  <div id='addDataBox'>
+    <div id='loginFormDiv'>
+      <form action="/insertData" method="post">
+
+        <div id="login__wrapper">
+            <h2>Insert Instructor</h2>
+          <div class="form__group">
+            <input id="instructorLastName" class="form__field" type="text" name="instructorLastName" placeholder="instructorLastName">
+            <label for="instructorLastName" class="form__label">Last Name</label>
+          </div>
+
+          <div class="form__group">
+            <input id="instructorFirstName" class="form__field" type="text" name="instructorFirstName" placeholder="instructorFirstName">
+            <label for="instructorFirstName" class="form__label">First Name</label>
+          </div>
+
+           <div class="form__group">
+            <input id="instructorEmail" class="form__field" type="text" name="instructorEmail" placeholder="instructorEmail">
+            <label for="instructorEmail" class="form__label">Email</label>
+          </div> 
+
+        <div id="teachCourses">
+        <div class="form__group">
+          <input id="insturctorCourse" class="form__field" type="text" name="insturctorCourse" placeholder="insturctorCourse">
+          <label for="insturctorCourse" class="form__label">Teach Course: </label>
+        </div>
+        </div>
+        <a href="#" onclick="addTeachCourse();return false;" class="form__label" style="font-size: small;">add another Teach Course</a>
+        <div><br style = "line-height:2;"></div>
+       
+        <div class="form__group" > 
+            <label for="AvailableDays" class="form__label">Available Days: </label>
+        </div> 
+        <div >
+        <div class="form__group" style="display:inline-block; position:relative">
+          <label for="Monday" class="form__label" style="position:relative;">Monday 
+              <input id="Monday" name="Monday" type="checkbox" checked>
+              <span ></span>
+            </label>
+        </div>
+
+        <div class="form__group"  style="display:inline-block; position:relative">
+          <label for="Tuesday" class="form__label" style="position:relative;" >Tuesday 
+              <input id="Tuesday" name="Tuesday" type="checkbox" checked>
+              <span ></span>
+            </label>
+        </div>
+        
+
+        <div class="form__group" style="display:inline-block; position:relative" >
+          <label for="Wednesday" class="form__label" style="position:relative;">Wednesday 
+              <input id="Wednesday" name="Wednesday" type="checkbox" checked>
+              <span ></span>
+            </label>
+        </div>
+        
+        <div class="form__group" style="display:inline-block; position:relative">
+          <label for="Thursday" class="form__label" style="position:relative;" >Thursday 
+              <input id="Thursday" name="Thursday" type="checkbox" checked>
+              <span ></span>
+            </label>
+        </div>
+
+        <div class="form__group" style="display:inline-block; position:relative">
+          <label for="Friday" class="form__label" style="position:relative;">Friday 
+              <input id="Friday" name="Friday" type="checkbox" checked>
+              <span ></span>
+            </label>
+        </div>
+        </div>
+
+        <div>
+        <div class="form__group"  style="display:inline-block; position:relative">
+          <label for="Saturday" class="form__label" style="position:relative;">Saturday 
+              <input id="Saturday" name="Saturday" type="checkbox" >
+              <span ></span>
+            </label>
+        </div>
+        
+        <div class="form__group"  style="display:inline-block; position:relative">
+          <label for="Sunday" class="form__label" style="position:relative;">Sunday 
+              <input id="Sunday" name="Sunday" type="checkbox" >
+              <span ></span>
+            </label>
+        </div>
+        </div>
+
+        <br>
+        <div class="form__group">  
+        <label for="Capacity" class="form__label">Vacation Days</label>
+        </div>
+        <div id="Vacations">
+        <div>
+        <div class="form__group" style="display:inline-block; position:relative"> 
+        <input id="instructorVacationStart" class="form__field" type="date" name="instructorVacationStart" >
+        <label for="instructorVacationStart" class="form__label">Start Days</label>
+        </div>
+
+        <div class="form__group"style="display:inline-block; position:relative"> 
+        <input id="instructorVacationEnd" class="form__field" type="date" name="instructorVacationEnd" >
+        <label for="instructorVacationEnd" class="form__label">End Days</label>
+        </div>
+        </div>
+        </div>
+        <a href="#" onclick="addVactions();return false;" class="form__label" style="font-size: small;">add another vacation</a>
+        <div><br style = "line-height:2;"></div>
+
+         
+        <div id=officeDays>
+        <div class="form__group">  
+        <label for="Capacity" class="form__label">Office Days</label>
+        </div>
+        
+        <div>
+        <div class="form__group" style="display:inline-block; position:relative"> 
+        <input id="instructorOfficeStart" class="form__field" type="date" name="instructorOfficeStart" >
+        <label for="instructorOfficeStart" class="form__label">Start Days</label>
+        </div>
+
+        <div class="form__group"style="display:inline-block; position:relative"> 
+        <input id="instructorOfficeEnd" class="form__field" type="date" name="instructorOfficeEnd" >
+        <label for="instructorOfficeEnd" class="form__label">End Days</label>
+        </div>
+        </div>
+        </div>
+        <a href="#" onclick="addOfficeDays();return false;" class="form__label" style="font-size: small;">add another office days</a>
+        <div><br style = "line-height:2;"></div>
+
+        <div id=otherLeaves>
+        <div class="form__group">  
+        <label for="otherLeaves" class="form__label">Other Leaves</label>
+        </div>
+        
+        <div>
+        <div class="form__group" style="display:inline-block; position:relative"> 
+        <input id="sLeaves" class="form__field" type="date" name="sLeaves" >
+        <label for="sLeaves" class="form__label">Start Days</label>
+        </div>
+
+        <div class="form__group"style="display:inline-block; position:relative"> 
+        <input id="eLeaves" class="form__field" type="date" name="eLeaves" >
+        <label for="eLeaves" class="form__label">End Days</label>
+        </div>
+        </div>
+        </div>
+        <a href="#" onclick="addLeaveDays();return false;" class="form__label" style="font-size: small;">add another leaves</a>
+        <div><br style = "line-height:2;"></div>
+
+        <div class="form__group">
+            <textarea id="comments" class="form__field" rows="5" name="comments" placeholder="Additional Comments"></textarea>
+            <label for="comments" class="form__label">Additional Comments </label>
+        </div>
+        <br>
+        
+        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+      </form>
+    <a href="/registrationForm"> 
+      <button class='submit_button shadow'>Cancel</button>
+    </a>
+    </div>
+  </div>
+</body>
+
+<script>
+  
+  function addTeachCourse(){
+
+    {{!-- <div class="form__group">
+          <input id="insturctorCourse" class="form__field" type="text" name="insturctorCourse" placeholder="insturctorCourse">
+          <label for="insturctorCourse" class="form__label">Teach Course: </label>
+        </div> --}}
+
+    var formGroup = document.createElement("div");    
+    var einput = document.createElement("input");    
+       
+
+    einput.className="form__field";
+    einput.type="text";
+    formGroup.appendChild(einput);                                                              
+    document.getElementById("teachCourses").appendChild(formGroup); 
+
+  };
+
+  function addVactions(){
+
+    addDate("Start Date","Vacations");
+    addDate("End Date","Vacations");
+
+  }
+
+  function addOfficeDays(){
+    addDate("Start Date","officeDays");
+    addDate("End Date","officeDays");
+  }
+
+  function addLeaveDays(){
+    addDate("Start Date","otherLeaves");
+    addDate("End Date","otherLeaves");
+  }
+
+  function addDate(ilabel,idiv){
+    var warpper = document.createElement("div");
+    var Startdiv = document.createElement("div");    
+    var sinput = document.createElement("input");
+    var slabel = document.createElement("LABEL");
+    var del = document.createElement("a");    
+       
+    Startdiv.style.position = "relative";
+    Startdiv.style.display = "inline-block";
+
+    sinput.setAttribute("class","form__field");
+    sinput.setAttribute("type","date");
+    sinput.type="date";
+
+
+    slabel.setAttribute("class","form__label");
+    slabel.innerHTML = ilabel;
+    slabel.style.position = 'relative';
+    slabel.style.marginTop = '20px';
+
+    
+    del.setAttribute('href','#');
+    del.setAttribute('onclick',"removetag();return false;");
+    del.setAttribute('class','form__label');
+    del.setAttribute('style','font-size:small;');
+    del.innerHTML = "Delete";
+    
+
+    Startdiv.appendChild(slabel);  
+    Startdiv.appendChild(sinput);                                                     
+    document.getElementById(idiv).appendChild(Startdiv);
+    
+    
+  }
+</script>
