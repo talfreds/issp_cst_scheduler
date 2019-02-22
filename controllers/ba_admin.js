@@ -73,4 +73,18 @@ router.get('/inputs/instructor_to_session', (request, response) => {
     });
 });
 
+router.get('/inputs/instructor', (request, response) => {
+    response.render('./inputs/instructor.hbs', {
+        loggedIn: request.session.loggedIn,
+        user: 'temp'
+    });
+});
+
+router.get('/inputs/siteClassroom', (request, response) => {
+    response.render('./inputs/siteClassroom.hbs', {
+        loggedIn: request.session.loggedIn,
+        user: 'temp'
+    });
+});
+
 module.exports = router;
