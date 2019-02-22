@@ -10,40 +10,41 @@
       <form action="/insertData" method="post">
 
         <div id="login__wrapper">
-          <h2>Insert Classroom</h2>
+          <h2>ICST Course Session Booker</h2>
+
+          <div class="form__group">
+            <input id="instructor" class="form__field" type="text" name="instructor" placeholder="Enter Instructor">
+            <label for="instructor" class="form__label">Enter Session Name</label>
+          </div>
+
           <div class="form__group">
             <input id="date" class="form__field" type="date" name="insertDate" placeholder="Enter Date">
             <label for="date" class="form__label">Date</label>
           </div>
 
           <div class="form__group">
-            <input id="instructor" class="form__field" type="text" name="instructor" placeholder="Enter Instructor">
-            <label for="instructor" class="form__label">Enter Instructor Name</label>
-          </div>
-
-          <div class="form__group">
             <input id="startTime" class="form__field" type="time" name="startTime" placeholder="Enter Start Time">
-            <label for="startTime" class="form__label">From: </label>
+            <label for="startTime" class="form__label">Start Time: </label>
           </div>
 
           <div class="form__group">
             <input id="endTime" class="form__field" type="time" name="endTime" placeholder="Enter End Time">
-            <label for="endTime" class="form__label">To: </label>
-          </div>
-
-          <div class="form__group">
-            <input id="classroom" class="form__field" type="text" name="classroom" placeholder="Enter Room Number">
-            <label for="classroom" class="form__label">Enter Room Number</label>
+            <label for="endTime" class="form__label">End Time: </label>
           </div>
 
           <div class="form__group">
             <input id="location" class="form__field" type="text" name="location" placeholder="Enter location">
-            <label for="location" class="form__label">Enter Location</label>
+            <label for="location" class="form__label">Site</label>
+          </div>
+
+          <div class="form__group">
+            <input id="classroom" class="form__field" type="text" name="classroom" placeholder="Enter Room Number">
+            <label for="classroom" class="form__label">Room Number</label>
           </div>
 
           <div class="form__group">
             <input id="capacity" class="form__field" type="number" name="capacity" placeholder="Enter the Capacity">
-            <label for="capacity" class="form__label">Enter the Capacity </label>
+            <label for="capacity" class="form__label">Capacity </label>
           </div>
 
           <div class="form__group">

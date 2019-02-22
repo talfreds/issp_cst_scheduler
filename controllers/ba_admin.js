@@ -52,4 +52,18 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
     });
 });
 
+router.get('/inputs/new_learner', (request, response) => {
+    response.render('./inputs/learners.hbs', {
+        loggedIn: request.session.loggedIn,
+        user: 'temp'
+    });
+});
+
+router.get('/inputs/add_learner_to_courses', (request, response) => {
+    response.render('./inputs/learners_into_courses.hbs', {
+        loggedIn: request.session.loggedIn,
+        user: 'temp'
+    });
+});
+
 module.exports = router;
