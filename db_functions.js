@@ -51,7 +51,16 @@ var get_instructors = () => {
 
 
 var get_instructor_schedules = (instructor_id) => {
-
+    return new Promise((resolve, reject) => {
+        var query = `SELECT startTime AS start_date, endTime AS end_date, comments AS text FROM classroomcourserecord WHERE instructorID = ` + connection.escape(instructor_id);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
 }
 
 
@@ -61,5 +70,6 @@ var get_instructor_schedules = (instructor_id) => {
 
 module.exports = {
     get_credentials,
-    get_instructors
+    get_instructors,
+    get_instructor_schedules
 };
