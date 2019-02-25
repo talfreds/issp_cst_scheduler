@@ -51,7 +51,6 @@ var get_instructors = () => {
 
 
 var get_instructor_schedules = (instructor_id) => {
-    instructor_id = 2;
     return new Promise((resolve, reject) => {
         var query = `SELECT startTime AS start_date, endTime AS end_date, comments AS text FROM classroomcourserecord WHERE instructorID = ` + connection.escape(instructor_id);
         connection.query(query, function(err, queryResult, fields) {

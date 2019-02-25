@@ -7,7 +7,7 @@ const db_functions = require('../db_functions.js');
 require("date-format-lite");
 
 router.post('/instructor_schedule', (request, response) => {
-    db_functions.get_instructor_schedules(2).then((result) => {
+    db_functions.get_instructor_schedules(request.body.Instructors).then((result) => {
         result.forEach((courseDate) => {
             courseDate.start_date = courseDate.start_date.format("YYYY-MM-DD hh:mm");
             courseDate.end_date = courseDate.end_date.format("YYYY-MM-DD hh:mm");
