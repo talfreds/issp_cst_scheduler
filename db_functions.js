@@ -37,7 +37,7 @@ var get_credentials = (input_email) => {
 
 var get_instructors = () => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT instructorLastName, instructorFirstName FROM instructor`;
+        var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor`;
 
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
@@ -51,6 +51,7 @@ var get_instructors = () => {
 
 
 var get_instructor_schedules = (instructor_id) => {
+    instructor_id = 2;
     return new Promise((resolve, reject) => {
         var query = `SELECT startTime AS start_date, endTime AS end_date, comments AS text FROM classroomcourserecord WHERE instructorID = ` + connection.escape(instructor_id);
         connection.query(query, function(err, queryResult, fields) {

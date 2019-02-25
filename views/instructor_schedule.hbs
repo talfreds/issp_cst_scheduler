@@ -36,9 +36,9 @@
     <script>
         // set format of dates in the data source
         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-        scheduler.init('scheduler_here', new Date(), "month");
-        {{!-- scheduler.setLoadMode("year"); --}}
-        scheduler.load("/classroomcourserecord", "json");
+        scheduler.init('scheduler_here', new Date(), "week");
+        scheduler.parse({{{instructor_schedule}}}, "json")
+        {{!-- scheduler.load("/classroomcourserecord", "json"); --}}
     </script>
 </body>
 

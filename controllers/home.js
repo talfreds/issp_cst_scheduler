@@ -11,7 +11,7 @@ router.get('/', (request, response) => {
         });
 
     }).catch((error) => {
-        var instructors = [{ instructorLastName: 'No instructors found', instructorFirstName: '' }];
+        var instructors = [{ instructorLastName: 'No instructors found', instructorFirstName: '', instructorID: 'No ID Found' }];
         response.render('home.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
@@ -21,7 +21,3 @@ router.get('/', (request, response) => {
 });
 
 module.exports = router;
-
-
-
-
