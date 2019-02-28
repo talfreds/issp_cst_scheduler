@@ -27,7 +27,7 @@ app.use(function(req, res, next) {
 // return static pages from "./public" directory
 app.use(express.static(__dirname + "/public"));
 
-const router = require("./router");
+const router = require("./calender_router");
 
 // open connection to mysql
 const connectionPool = mysql.createPool(connection);
@@ -37,11 +37,6 @@ connectionPool.query = util.promisify(connectionPool.query);
 const Storage = require("./storage");
 const eventsStorage = new Storage(connectionPool);
 router.setRoutes(app, "/events", eventsStorage);
-
-// add listeners to basic CRUD with recurring events support
-const RecurringStorage = require("./storage_recurring");
-const recurringEventsStorage = new RecurringStorage(connectionPool);
-router.setRoutes(app, "/recurring_events", recurringEventsStorage)
 
 // why isnt this an arrow function?
 // dont ask me
