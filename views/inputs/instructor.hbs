@@ -7,7 +7,7 @@
 <body>
   <div id='addDataBox'>
     <div id='loginFormDiv'>
-      <form action="/insertData" method="post">
+      <form action="/insertInstructor" method="post">
 
         <div id="login__wrapper">
             <h2>Insert Instructor</h2>
@@ -19,6 +19,11 @@
           <div class="form__group">
             <input id="instructorFirstName" class="form__field" type="text" name="instructorFirstName" placeholder="instructorFirstName">
             <label for="instructorFirstName" class="form__label">First Name</label>
+          </div>
+
+          <div class="form__group">
+            <input id="instructorCSTID" class="form__field" type="text" name="instructorCSTID" placeholder="instructorCSTID">
+            <label for="instructorCSTID" class="form__label">instructor CST ID</label>
           </div>
 
            <div class="form__group">
@@ -140,12 +145,12 @@
         
         <div>
         <div class="form__group" style="display:inline-block; position:relative"> 
-        <input id="sLeaves" class="form__field" type="date" name="sLeaves" >
+        <input id="sLeaves" class="form__field" type="date" name="LeavesStart" >
         <label for="sLeaves" class="form__label">Start Days</label>
         </div>
 
         <div class="form__group"style="display:inline-block; position:relative"> 
-        <input id="eLeaves" class="form__field" type="date" name="eLeaves" >
+        <input id="eLeaves" class="form__field" type="date" name="LeavesEnd" >
         <label for="eLeaves" class="form__label">End Days</label>
         </div>
         </div>
@@ -179,8 +184,8 @@
 
     var formGroup = document.createElement("div");    
     var einput = document.createElement("input");    
-       
-
+    console.log('get to hbs');
+    einput.name = "insturctorCourse";
     einput.className="form__field";
     einput.type="text";
     formGroup.appendChild(einput);                                                              
@@ -190,22 +195,22 @@
 
   function addVactions(){
 
-    addDate("Start Date","Vacations");
-    addDate("End Date","Vacations");
+    addDate("Start Date","Vacations","instructorVacationStart");
+    addDate("End Date","Vacations","instructorVacationEnd");
 
   }
 
   function addOfficeDays(){
-    addDate("Start Date","officeDays");
-    addDate("End Date","officeDays");
+    addDate("Start Date","officeDays","instructorOfficeStart");
+    addDate("End Date","officeDays","instructorOfficeEnd");
   }
 
   function addLeaveDays(){
-    addDate("Start Date","otherLeaves");
-    addDate("End Date","otherLeaves");
+    addDate("Start Date","otherLeaves","LeavesStart");
+    addDate("End Date","otherLeaves","LeavesEnd");
   }
 
-  function addDate(ilabel,idiv){
+  function addDate(ilabel,idiv,iname){
     var warpper = document.createElement("div");
     var Startdiv = document.createElement("div");    
     var sinput = document.createElement("input");
@@ -217,6 +222,7 @@
 
     sinput.setAttribute("class","form__field");
     sinput.setAttribute("type","date");
+    sinput.setAttribute("name",iname);
     sinput.type="date";
 
 

@@ -52,7 +52,7 @@ connection.connect(function(err) {
     }
 
     console.log('Connected to database with id: ' + connection.threadId);
-    console.log('hi from quinton');
+   
 });
 
 
@@ -85,8 +85,61 @@ var get_instructors = () => {
     });
 }
 
+var insertClassroom = (obj)=>{
+    console.log(obj)
+    obj.capacity = parseInt(Object.values(obj)[3])
+    obj.Projector = obj.Projector ? true:false
+    obj.ProjectorScreen = obj.ProjectorScreen? true : false
+
+    
+    return new Promise((resolve,reject)=>{
+        var query = `INSERT INTO classroom (${Object.keys(obj)}) VALUES (?,?,?,?,?,?,?)`
+        var values = Object.values(obj)
+        connection.query(query,values, function(err, queryResult, fields) {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(queryResult);
+            console.log("Number of records inserted: " + queryResult.affectedRows);
+        }
+        });
+        })
+    }
+
+    var insertInstructor = (obj)=>{
+        console.log('beginning: ',Object.keys(obj))
+        var objKeys = []
+        var objvalues = []
+        
+        for(var i = 0;i<4;i++){
+            objKeys.push(Object.keys(obj)[i]);
+            objvalues.push(Object.values(obj)[i]);
+        }
+        objKeys.push(Object.keys(obj).pop())
+        objvalues.push(Object.values(obj).pop())
+
+        console.log('keys: ',objKeys);
+        console.log('keys: ',objvalues);
+    
+        
+        return new Promise((resolve,reject)=>{
+            var query = `INSERT INTO instructor (${objKeys}) VALUES (?,?,?,?,?)`
+            connection.query(query,objvalues, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
+            });
+            })
+        }
+    
+
 
 module.exports = {
     get_credentials,
-    get_instructors
+    get_instructors,
+    insertClassroom,
+    insertInstructor
 };

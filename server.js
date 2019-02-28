@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const homeRouter = require("./controllers/home");
 const loginRouter = require("./controllers/login");
 const logOutRouter = require("./controllers/logout");
+const insertClassroomRouter = require("./controllers/addData");
 const instructorSchedule = require("./controllers/instructor_schedule");
 const baAdmin = require("./controllers/ba_admin");
 const inputRoutes = require("./controllers/input_routes");
@@ -51,6 +52,8 @@ app.use("/", logOutRouter);
 app.use("/", instructorSchedule);
 app.use("/", baAdmin);
 app.use("/", inputRoutes);
+app.use("/", insertClassroomRouter);
+
 
 // start server
 var server_host = process.env.YOUR_HOST || "0.0.0.0";
