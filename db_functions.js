@@ -8,36 +8,6 @@ var connection = config.connection;
 
 var app = express();
 
-const helmet = require("helmet");
-app.use(helmet());
-
-// scheduler sends application/x-www-form-urlencoded requests,
-app.use(bodyParser.urlencoded({ extended: true })); 
-
-// you'll need these headers if your API is deployed on a different domain than a public page 
-// in production system you could set Access-Control-Allow-Origin to your domains
-// or drop this expression - by default CORS security is turned on in browsers
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods", "*");
-    next();
-});
-
-// return static pages from "./public" directory
-app.use(express.static(__dirname + "/public"));
-
-const router = require("./calender_router");
-
-// open connection to mysql
-const connectionPool = mysql.createPool(connection);
-connectionPool.query = util.promisify(connectionPool.query);
-
-// add listeners to basic CRUD requests
-const Storage = require("./storage");
-const eventsStorage = new Storage(connectionPool);
-router.setRoutes(app, "/events", eventsStorage);
-
 // why isnt this an arrow function?
 // dont ask me
 connection.connect(function(err) {
@@ -45,7 +15,6 @@ connection.connect(function(err) {
         console.error('Database connection failed: ' + err.stack);
         return;
     }
-
     console.log('Connected to database with id: ' + connection.threadId);
 });
 
@@ -67,7 +36,7 @@ var get_credentials = (input_email) => {
 
 var get_instructors = () => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT instructorLastName, instructorFirstName FROM instructor`;
+        var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor`;
 
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
@@ -80,7 +49,26 @@ var get_instructors = () => {
 }
 
 
+var get_instructor_schedules = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT startTime AS start_date, endTime AS end_date, comments AS text FROM classroomcourserecord WHERE instructorID = ` + connection.escape(instructor_id);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+
+
+
+
+
 module.exports = {
     get_credentials,
-    get_instructors
+    get_instructors,
+    get_instructor_schedules
 };
