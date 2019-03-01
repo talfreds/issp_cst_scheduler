@@ -34,6 +34,21 @@ var get_credentials = (input_email) => {
     });
 }
 
+var get_instructors_in_session = () => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT courseName, courseRecordID FROM cstscheduling.classroomcourserecord group by courseName`;
+
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+
 var get_instructors = () => {
     return new Promise((resolve, reject) => {
         var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor`;
@@ -63,12 +78,9 @@ var get_instructor_schedules = (instructor_id) => {
 }
 
 
-
-
-
-
 module.exports = {
     get_credentials,
     get_instructors,
-    get_instructor_schedules
+    get_instructor_schedules,
+    get_instructors_in_session
 };
