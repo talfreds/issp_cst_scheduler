@@ -11,9 +11,10 @@ router.post('/instructor_schedule', (request, response) => {
         result.forEach((courseDate) => {
             courseDate.start_date = courseDate.start_date.format("YYYY-MM-DD hh:mm");
             courseDate.end_date = courseDate.end_date.format("YYYY-MM-DD hh:mm");
-            courseDate.text = 'placeholder';
         });
         var parsed_result = JSON.stringify(result);
+        console.log(request.body.Instructors);
+        console.log(parsed_result);
         response.render('instructor_schedule.hbs', {
             loggedIn: request.session.loggedIn,
             instructor_schedule: parsed_result
