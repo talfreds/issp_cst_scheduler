@@ -24,9 +24,21 @@ router.post('/loginAttempt', (request, response) => {
         console.log("verify_ba result", result);
         if (result.length != 1) {
             request.session.loggedIn = false;
-            response.render('home.hbs', {
-                // provide details about problem here, as error messages on the input
-            });
+            db_functions.get_instructors().then((result) => {
+                response.render('home.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    user: 'temp',
+                    instructor_list: result
+                });
+        
+            }).catch((error) => {
+                var instructors = [{ instructorLastName: 'No instructors found', instructorFirstName: '', instructorID: 'No ID Found' }];
+                response.render('home.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    user: 'temp',
+                    instructor_list: instructors
+                });
+            })
 
 
         } else {
@@ -45,9 +57,23 @@ router.post('/loginAttempt', (request, response) => {
                 } else {
                     request.session.loggedIn = false;
                     console.log('bad password');
-                    response.render('home.hbs', {
-                        // tell user they entered the wrong password
-                    });
+                    db_functions.get_instructors().then((result) => {
+                        response.render('home.hbs', {
+                            loggedIn: request.session.loggedIn,
+                            user: 'temp',
+                            instructor_list: result,
+                            incorrectPassword: true
+                        });
+                
+                    }).catch((error) => {
+                        var instructors = [{ instructorLastName: 'No instructors found', instructorFirstName: '', instructorID: 'No ID Found' }];
+                        response.render('home.hbs', {
+                            loggedIn: request.session.loggedIn,
+                            user: 'temp',
+                            instructor_list: instructors,
+                            incorrectPassword: true
+                        });
+                    })
                 }
             }).catch((error) => {
                 console.log('bcrypt.compare Response: ', response);
