@@ -21,9 +21,6 @@ var connection = mysql.createConnection({
 // run this directly if you want to do remote database stuff
 // otherwise import it to use the database
 
-
-
-
 module.exports = {
     mysql, connection
 };

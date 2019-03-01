@@ -8,7 +8,6 @@ var connection = config.connection;
 
 var app = express();
 
-
 // why isnt this an arrow function?
 // dont ask me
 connection.connect(function(err) {
@@ -34,6 +33,21 @@ var get_credentials = (input_email) => {
         });
     });
 }
+
+var get_instructors_in_session = () => {
+    return new Promise((resolve, reject) => {
+        // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
+        var query = `SELECT courseName, courseRecordID FROM classroomcourserecord`;
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
 
 var get_instructors = () => {
     return new Promise((resolve, reject) => {
@@ -64,12 +78,9 @@ var get_instructor_schedules = (instructor_id) => {
 }
 
 
-
-
-
-
 module.exports = {
     get_credentials,
     get_instructors,
-    get_instructor_schedules
+    get_instructor_schedules,
+    get_instructors_in_session
 };
