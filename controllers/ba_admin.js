@@ -80,8 +80,9 @@ router.get('/inputs/instructor_to_session', (request, response) => {
             });
         })
     }).catch((error) => {
+        console.log(error);
         var sessions = [{ courseName: 'No sessions found' }];
-        response.render('', {
+        response.render('ba_admin.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
             session_list: sessions
