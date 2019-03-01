@@ -36,8 +36,8 @@ var get_credentials = (input_email) => {
 
 var get_instructors_in_session = () => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT courseName, courseRecordID FROM cstscheduling.classroomcourserecord group by courseName`;
-
+        // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
+        var query = `SELECT courseName, courseRecordID FROM classroomcourserecord`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
