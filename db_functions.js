@@ -106,25 +106,40 @@ var insertClassroom = (obj)=>{
         })
     }
 
-    var insertInstructor = (obj)=>{
-        console.log('beginning: ',Object.keys(obj))
-        var objKeys = []
-        var objvalues = []
-        
-        for(var i = 0;i<4;i++){
-            objKeys.push(Object.keys(obj)[i]);
-            objvalues.push(Object.values(obj)[i]);
-        }
-        objKeys.push(Object.keys(obj).pop())
-        objvalues.push(Object.values(obj).pop())
-
-        console.log('keys: ',objKeys);
-        console.log('keys: ',objvalues);
+var insertInstructor = (obj)=>{
+    console.log('beginning: ',Object.keys(obj))
+    var objKeys = []
+    var objvalues = []
     
+    for(var i = 0;i<4;i++){
+        objKeys.push(Object.keys(obj)[i]);
+        objvalues.push(Object.values(obj)[i]);
+    }
+    objKeys.push(Object.keys(obj).pop())
+    objvalues.push(Object.values(obj).pop())
+
+    return new Promise((resolve,reject)=>{
+        var query = `INSERT INTO instructor (${objKeys}) VALUES (?,?,?,?,?)`
+        connection.query(query,objvalues, function(err, queryResult, fields) {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(queryResult);
+            console.log("Number of records inserted: " + queryResult.affectedRows);
+        }
+        });
+        })
+    }
+
+var insertInstructorCourses = (obj)=>{
+    console.log(typeof(Object.values(obj)[4]))
+    if (typeof(Object.values(obj)[4]) == "string"){
         
         return new Promise((resolve,reject)=>{
-            var query = `INSERT INTO instructor (${objKeys}) VALUES (?,?,?,?,?)`
-            connection.query(query,objvalues, function(err, queryResult, fields) {
+            var query = `INSERT INTO instructorCourses (courses,instructorID) VALUES (?,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
+            
+            connection.query(query,Object.values(obj)[4],
+            function(err, queryResult, fields) {
             if (err) {
                 reject(err);
             } else {
@@ -133,7 +148,25 @@ var insertClassroom = (obj)=>{
             }
             });
             })
-        }
+        }else{ 
+            return new Promise((resolve,reject)=>{
+                var query = `INSERT INTO instructorCourses (courses,instructorID) VALUES (?,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
+                for (var i=0;i<Object.values(obj)[4].length;i++){
+                    connection.query(query,Object.values(obj)[4][i],
+                    function(err, queryResult, fields) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(queryResult);
+                        console.log("Number of records inserted: " + queryResult.affectedRows);
+                    }
+                }
+                
+            ) }
+        })
+    }
+}
+
     
 
 
@@ -141,5 +174,6 @@ module.exports = {
     get_credentials,
     get_instructors,
     insertClassroom,
-    insertInstructor
+    insertInstructor,
+    insertInstructorCourses
 };

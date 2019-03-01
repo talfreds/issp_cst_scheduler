@@ -23,13 +23,24 @@ router.post('/insertClassroom', (request, response) => {
 
 
 router.post('/insertInstructor', (request, response) => {
-    
-    console.log("Request.body :", request.body);
 
+    console.log("Request.body :", request.body);
+    if (request.body.courses){
+        db_functions.insertInstructor(request.body).then(()=>{
+          
+            db_functions.insertInstructorCourses(request.body).then((result) => {
+                console.log("verify_status", result);
+                response.render('home.hbs', {});
+                }).catch(error=> console.log('add courses error ',error))
+        })
+        .catch(error=> console.log('add instructor error ',error))
+   
+    }else{
+        
     db_functions.insertInstructor(request.body).then((result) => {
         console.log("verify_status", result);
         response.render('home.hbs', {});
-     }).catch(error=> console.log('add classroom error ',error))
+     }).catch(error=> console.log('add instructor error ',error))}
 
 });
 
