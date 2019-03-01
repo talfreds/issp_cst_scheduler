@@ -47,4 +47,40 @@ router.post("/addKLR_with_instructors", (request, response) => {
     });
 });
 
+router.post("/addNewLearner", (request, response) => {
+    request.session.loggedIn = false;
+    var login_data_dict = request.body;
+    console.log(request);
+    console.log(request.body);
+    console.log(login_data_dict);
+
+    response.render("ba_admin.hbs", {
+        loggedIn: request.session.loggedIn
+    });
+});
+
+router.post("/add_learner_to_course", (request, response) => {
+    request.session.loggedIn = false;
+    var login_data_dict = request.body;
+    console.log(request);
+    console.log(request.body);
+    console.log(login_data_dict);
+
+    response.render("ba_admin.hbs", {
+        loggedIn: request.session.loggedIn
+    });
+});
+
+router.post("/addNewLearner", (request, response) => {
+    request.session.loggedIn = false;
+    var login_data_dict = request.body;
+    console.log(request);
+    console.log(request.body);
+    console.log(login_data_dict);
+
+    response.render("ba_admin.hbs", {
+        loggedIn: request.session.loggedIn
+    });
+});
+
 module.exports = router;
