@@ -36,14 +36,9 @@
     <script>
         // set format of dates in the data source
         scheduler.config.xml_date = "%Y-%m-%d %H:%i";
-        scheduler.init('scheduler_here', new Date(2018, 0, 20), "month");
-
-        scheduler.load("http://localhost:3000/data", "json");
-
-        var dp = new dataProcessor("http://localhost:3000/data");
-        // use RESTful API on the backend
-        dp.setTransactionMode("REST");
-        dp.init(scheduler);
+        scheduler.init('scheduler_here', new Date(), "week");
+        scheduler.parse({{{instructor_schedule}}}, "json")
+        {{!-- scheduler.load("/classroomcourserecord", "json"); --}}
     </script>
 </body>
 

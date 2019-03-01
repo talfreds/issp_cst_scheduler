@@ -10,16 +10,16 @@
 
 
     <center>
-        <h1>Dev link for  convenience</h1>
-         <a href="/basic.html">Scheduler test</a>
     <div>
         <h1> CST Course Scheduler </h1>
         <h1>Dev link for convenience</h1>
 
+        {{!-- {{#if loggedIn}} --}}
         <a href="/ba_admin">Business Analyst Administration Inputs</a>
         <div>
             <h1> CST Course Scheduler </h1>
         </div>
+        {{!-- {{/if}} --}}
     </center>
 
     <center>
@@ -31,7 +31,7 @@
             <form action="/instructor_schedule" method="post">
             <select name="Instructors">
                 {{#each instructor_list}}
-                    <option value="{{this.instructorLastName}}, {{this.instructorFirstName}}">{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
+                    <option value={{this.instructorID}}>{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
                 {{/each}}
 
             </select>    
