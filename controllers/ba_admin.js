@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const db_functions = require('../db_functions.js');
+
 
 router.get('/ba_admin', (request, response) => {
     response.render('ba_admin.hbs', {
@@ -67,11 +69,27 @@ router.get('/inputs/add_learner_to_courses', (request, response) => {
 });
 
 router.get('/inputs/instructor_to_session', (request, response) => {
-    response.render('./inputs/instructor_to_session.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp'
-    });
+    const instructors = db_functions.get_instructors();
+    db_functions.get_instructors_in_session().then((result) => {
+        db_functions.get_instructors().then((result2) => {
+            response.render('./inputs/instructor_to_session.hbs', {
+                loggedIn: request.session.loggedIn,
+                user: 'temp',
+                session_list: result,
+                instructor_list: result2
+            });
+        })
+    }).catch((error) => {
+        var sessions = [{ courseName: 'No sessions found' }];
+        response.render('', {
+            loggedIn: request.session.loggedIn,
+            user: 'temp',
+            session_list: sessions
+        });
+    })
 });
+
+
 
 router.get('/inputs/instructor', (request, response) => {
     response.render('./inputs/instructor.hbs', {

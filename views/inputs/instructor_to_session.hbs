@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <header>
-    <title> Instructor with Session </title>
+    <title> Assign Instructors to Session </title>
     <link href = '/css/home.css' rel="stylesheet" type="text/css"/>
 </header>
 
@@ -10,48 +10,32 @@
       <form action="/insertData" method="post">
 
         <div id="login__wrapper">
-            <h2>Instructor with Session</h2>
-          <div class="form__group">
-            <input id="date" class="form__field" type="date" name="insertDate" placeholder="Enter Date">
-            <label for="date" class="form__label">Date</label>
-          </div>
-
+            <h2>Assign Instructors to Session</h2>
           <div class="form__group">  
-        <input id="instructor" class="form__field" type="text" name="instructor" placeholder="Enter Instructor">
-        <label for="instructor" class="form__label">Enter Instructor Name</label>
+        <select style="width:100%; height:34px" name="Sessions">
+                {{#each session_list}}
+                    <option value={{this.courseRecordID}}>{{this.courseName}}</option>
+                {{/each}}
+
+        </select>   
+        <label for="instructor" class="form__label">Select Session Name</label>
         </div>
 
-        <div class="form__group">
-          <input id="startTime" class="form__field" type="time" name="startTime" placeholder="Enter Start Time">
-          <label for="startTime" class="form__label">From: </label>
-        </div>
-
-        <div class="form__group"> 
-        <input id="endTime" class="form__field" type="time" name="endTime" placeholder="Enter End Time">
-        <label for="endTime" class="form__label">To: </label>
-        </div> 
-        
-        <div class="form__group">  
-        <input id="classroom" class="form__field" type="text" name="classroom" placeholder="Enter Room Number">
-        <label for="classroom" class="form__label">Enter Room Number</label>
-        </div>
-
-        <div class="form__group">  
-            <input id="location" class="form__field" type="text" name="location" placeholder="Enter location">
-            <label for="location" class="form__label">Enter Location</label>
-        </div>
-        
-        <div class="form__group">              
-            <input id="capacity" class="form__field" type="number" name="capacity" placeholder="Enter the Capacity">
-            <label for="capacity" class="form__label">Enter the Capacity </label>
-        </div>
-
-        <div class="form__group">
-            <textarea id="capacity" class="form__field" rows="5" name="capacity" placeholder="Additional Comments"></textarea>
-            <label for="capacity" class="form__label">Additional Comments </label>
-        </div>
         <br>
-        
+        <div id="instructorSessions">
+        <div class="form__group">
+        <select style="width:100%; height:34px" name="Instructors">
+            {{#each instructor_list}}
+                <option value={{this.instructorID}}>{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
+            {{/each}}
+
+        </select>   
+          <label for="instructorSession" class="form__label">Select Instructor</label>
+        </div>
+        </div>
+        <a href="#" onclick="addInstructor();return false;" class="form__label" style="font-size: small;">add another instructor</a>
+        <div><br style = "line-height:2;"></div> 
+
         <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
       </form>
     <a href="/registrationForm"> 
@@ -60,3 +44,22 @@
     </div>
   </div>
 </body>
+
+<script>
+  function addInstructor(){
+    {{!-- <div class="form__group">
+          <input id="instructorSession" class="form__field" type="text" name="instructorSession" placeholder="instructorSession">
+          <label for="instructorSession" class="form__label">Teach Course: </label>
+        </div> --}}
+
+    var formGroup = document.createElement("div");    
+    var einput = document.createElement("input");    
+       
+
+    einput.className="form__field";
+    einput.type="text";
+    formGroup.appendChild(einput);                                                              
+    document.getElementById("instructorSessions").appendChild(formGroup); 
+
+  };
+</script>
