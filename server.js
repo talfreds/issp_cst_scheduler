@@ -45,24 +45,6 @@ app.use(
 );
 
 
-const config = require('./db_config.js');
-const util = require("util");
-var mysql = config.mysql;
-var connection = config.connection;
-
-const helmet = require("helmet");
-app.use(helmet());
-// you'll need these headers if your API is deployed on a different domain than a public page 
-// in production system you could set Access-Control-Allow-Origin to your domains
-// or drop this expression - by default CORS security is turned on in browsers
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     res.header("Access-Control-Allow-Methods", "*");
-//     next();
-// });
-
-
 
 // route to homepage
 app.use("/", homeRouter);
