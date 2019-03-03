@@ -111,11 +111,11 @@ var insertInstructor = (obj)=>{
 
 var insertInstructorCourses = (obj)=>{
     console.log(typeof(Object.values(obj)[4]))
+    var query = `INSERT INTO instructorCourses (courses,instructorID) VALUES (?,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
     if (typeof(Object.values(obj)[4]) == "string"){
         
         return new Promise((resolve,reject)=>{
-            var query = `INSERT INTO instructorCourses (courses,instructorID) VALUES (?,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
-            
+             
             connection.query(query,Object.values(obj)[4],
             function(err, queryResult, fields) {
             if (err) {
@@ -128,7 +128,7 @@ var insertInstructorCourses = (obj)=>{
             })
         }else{ 
             return new Promise((resolve,reject)=>{
-                var query = `INSERT INTO instructorCourses (courses,instructorID) VALUES (?,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
+               
                 for (var i=0;i<Object.values(obj)[4].length;i++){
                     connection.query(query,Object.values(obj)[4][i],
                     function(err, queryResult, fields) {
