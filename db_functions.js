@@ -63,11 +63,58 @@ var get_instructors = () => {
     });
 }
 
+var get_session_categories = () => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT courseTypeID, Type FROM coursetype`;
+
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+var get_KLRs = () => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT klrID, klrName FROM KLR`;
+
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
 var insertClassroom = (obj, tablename) => {
     console.log(obj)
     obj.capacity = parseInt(Object.values(obj)[3])
         // obj.Projector = obj.Projector ? true : false
         // obj.ProjectorScreen = obj.ProjectorScreen ? true : false
+
+    var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
+
+    return new Promise((resolve, reject) => {
+        var query = `INSERT INTO ` + tablename + ` (${Object.keys(obj)}) VALUES (?` + values_vars + `)`
+        var values = Object.values(obj)
+        connection.query(query, values, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
+        });
+    })
+}
+
+var insertGeneralData = (obj, tablename) => {
+    console.log(obj)
 
     var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
 
@@ -171,5 +218,8 @@ module.exports = {
     insertInstructor,
     insertInstructorCourses,
     get_instructor_schedules,
-    get_instructors_in_session
+    get_instructors_in_session,
+    insertGeneralData,
+    get_session_categories,
+    get_KLRs
 };
