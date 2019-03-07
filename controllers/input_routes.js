@@ -17,22 +17,18 @@ router.post("/addSite", (request, response) => {
 
 
 router.post("/addNewLearner", (request, response) => {
-    console.log(request.body);
+    db_functions.insertNewLearner(request.body).then((result) => {
+        console.log("verify_status", result);
+        // response.render('home.hbs', {});
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    
+    }).catch(error=> console.log('add classroom error ',error));;
 
-    response.render("ba_admin.hbs", {
-        loggedIn: request.session.loggedIn
-    });
 });
 
 router.post("/add_learner_to_course", (request, response) => {
-    console.log(request.body);
-
-    response.render("ba_admin.hbs", {
-        loggedIn: request.session.loggedIn
-    });
-});
-
-router.post("/addNewLearner", (request, response) => {
     console.log(request.body);
 
     response.render("ba_admin.hbs", {
