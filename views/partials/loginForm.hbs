@@ -13,6 +13,13 @@
     <div class="form__group">
       <input type="password" id="password" class="form__field" placeholder="Password" name="ba_password">
       <label for="email" class="form__label">Password</label>
+      {{#if incorrectPassword}}
+      <div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+  Incorrect Password, please retry.
+</div>
+
+{{/if}}
     </div>
     <input id="login-submit" class="submit_button shadow" type="submit" value="Login">
   </form>

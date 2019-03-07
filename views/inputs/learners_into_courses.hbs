@@ -7,30 +7,60 @@
 <body>
   <div id='addDataBox'>
     <div id='loginFormDiv'>
-      <form action="/insertData" method="post">
+      <form action="/add_learner_to_course" method="post">
 
         <div id="login__wrapper">
-            <h2>Assign Learner into Courses</h2>
+            <h2>Assigning Sessions to Learners</h2>
 
             <div class="form__group">
-                <input id="Pemail" class="form__field" type="text" name="Pemail" placeholder="Primary E-mail">
-                <label for="Pemail" class="form__label">Learner's Primary E-mail</label>
+                <input id="Pemail" class="form__field" type="email" name="Pemail" placeholder="Primary E-mail">
+                <label for="Pemail" class="form__label">Insert Learner's Primary E-mail</label>
+            </div>
+
+          <div class="form__group"> 
+            <div id="sessionsGroup">
+              <select style="width:100%; height:34px" name="Sessions">
+                      {{#each session_list}}
+                          <option value={{this.courseRecordID}}>{{this.courseName}}</option>
+                      {{/each}}
+
+              </select>   
+              <label for="learner" class="form__label">Select Session Name</label>
             </div>
         </div>
-        <div id="login__wrapper">
 
-            <div class="form__group">
-                <input id="New Course" class="form__field" type="text" name="Pemail" placeholder="Primary E-mail">
-                <label for="New Course" class="form__label">Add New Course</label>
-            </div>
         <br>
-        
+        <button onclick="addCourse();return false;">Add Another Session</button>
+        <br>
+
         <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+        <a href="/ba_admin"> 
+          <button class='submit_button shadow'>Cancel</button>
+        </a>
       </form>
-      <a href="/registrationForm"> 
-        <button class='submit_button shadow'>Cancel</button>
-      </a>
-      </div>
     </div>
   </div>
 </body>
+
+<script>
+  function addCourse(){
+    {{!-- <div class="form__group">
+         <select style="width:100%; height:34px" name="Sessions">
+                {{#each session_list}}
+                    <option value={{this.courseRecordID}}>{{this.courseName}}</option>
+                {{/each}}
+
+          </select> 
+          <label for="Sessions" class="form__label">Select Session Name: </label>
+        </div> --}}
+
+    var formGroup = document.createElement("div");    
+    var einput = document.createElement("select");    
+       
+
+    einput.className="form__field";
+    formGroup.appendChild(einput);                                                              
+    document.getElementById("sessionsGroup").appendChild(formGroup); 
+
+  };
+</script>
