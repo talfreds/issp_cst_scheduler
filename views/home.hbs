@@ -8,23 +8,17 @@
 
 <body onbeforeunload="return">
 
+    <img style="position: absolute; height: 102px; width: 250px;" src="/imgs/cst_logo.png" alt="CST Logo">
 
-    <center>
-    <div>
-        <h1> CST Course Scheduler </h1>
-        <h1>Dev link for convenience</h1>
-
-        <a href="/ba_admin">Business Analyst Administration Inputs</a>
-        <div>
-            <h1> CST Course Scheduler </h1>
-        </div>
-    </center>
+    <header id="header" role="banner">
+        
+    </header>
 
     <center>
         <h2> Instructor Schedule Access</h2>
     </center>
 
-    <div id="login__wrapper">
+    <div style="display: inline-block" id="login__wrapper">
         <div class="form__group">
             <form action="/instructor_schedule" method="post">
             <select name="Instructors">
@@ -46,6 +40,20 @@
         <a href="/logout"><button class='submit_button shadow'>Log Out</button></a>
     </center>
     {{/if}}
+
+
+    <center>
+    <div>
+        <h1>Dev link for convenience</h1>
+
+        <a href="/ba_admin">Business Analyst Administration Inputs</a>
+        <div>
+        </div>
+    </center>
+
+    <center>
+        <h2> Instructor Schedule Access</h2>
+    </center>
 </body>
 
 </html>
