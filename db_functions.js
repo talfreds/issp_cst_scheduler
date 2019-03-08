@@ -133,7 +133,7 @@ var insertGeneralData = (obj, tablename) => {
 }
 
 var insertInstructor = (obj) => {
-    console.log('beginning: ', Object.keys(obj))
+    console.log( Object.keys(obj))
     var objKeys = []
     var objvalues = []
 
@@ -157,13 +157,58 @@ var insertInstructor = (obj) => {
     })
 }
 
-var insertInstructorCourses = (obj) => {
-    console.log(typeof(Object.values(obj)[4]))
-    if (typeof(Object.values(obj)[4]) == "string") {
+var insertInstructorDays = (obj,tablename) =>{
+    
+    var query = `INSERT INTO ${tablename} (${Object.keys(obj)}) VALUES (?,?,?,?)`
+    if (typeof(Object.values(obj)[1]) == "string") {
 
         return new Promise((resolve, reject) => {
-            var query = `INSERT INTO instructorCourses (courses,instructorID) VALUES (?,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
+           
+            connection.query(query, Object.values(obj),
+                function(err, queryResult, fields) {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(queryResult);
+                        console.log("Number of records inserted: " + queryResult.affectedRows);
+                    }
+                });
+        })
+    } else {
+        var start = Object.keys(obj)[1]
+        var end = Object.keys(obj)[2]
+        return new Promise((resolve, reject) => {
+            
+            startdays=Object.values(obj)[1]
+            enddays=Object.values(obj)[2]
+            
+            
+            for (var i = 0; i<startdays.length ; i++) {
+                
+                obj[start] = startdays[i]
+                obj[end] = enddays[i]
+                
+                connection.query(query, Object.values(obj),
+                    function(err, queryResult, fields) {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(queryResult);
+                            console.log("Number of records inserted: " + queryResult.affectedRows);
+                        }
+                    }
 
+                )
+            }
+        })
+    }
+ }
+
+var insertInstructorCourses = (obj) => {
+    console.log(typeof(Object.values(obj)[4]))
+    var query = `INSERT INTO instructorCourses (courses,instructorID) VALUES (?,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
+    if (typeof(Object.values(obj)[4]) == "string") {
+        return new Promise((resolve, reject) => {
             connection.query(query, Object.values(obj)[4],
                 function(err, queryResult, fields) {
                     if (err) {
@@ -175,8 +220,7 @@ var insertInstructorCourses = (obj) => {
                 });
         })
     } else {
-        return new Promise((resolve, reject) => {
-            var query = `INSERT INTO instructorCourses (courses,instructorID) VALUES (?,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
+        return new Promise((resolve, reject) => {         
             for (var i = 0; i < Object.values(obj)[4].length; i++) {
                 connection.query(query, Object.values(obj)[4][i],
                     function(err, queryResult, fields) {
@@ -195,7 +239,18 @@ var insertInstructorCourses = (obj) => {
 }
 
 
-
+var get_all_instructors_teaching_day = (date) => {
+    return new Promise((resolve, reject) => {
+        var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourserecord ccr on i.instructorID = ccr.instructorID where courseDate = ` + connection.escape(date);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
 
 var get_instructor_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
@@ -210,34 +265,61 @@ var get_instructor_schedules = (instructor_id) => {
     });
 }
 
-var insertNewLearner = (obj)=>{
-    console.log('db_function consolelog: ' ,obj)
+var updateGeneralData = (obj, tablename) => {
+    console.log(obj)
 
-    return new Promise((resolve,reject)=>{
-        console.log("promise console: ", Object.keys(obj));
-        var query = `INSERT INTO learner (${Object.keys(obj)}) VALUES (?,?,?,?,?,?,?)`
+    var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
+
+    return new Promise((resolve, reject) => {
+        var query = `REPLACE INTO ` + tablename + ` (${Object.keys(obj)}) VALUES (?` + values_vars + `)`
         var values = Object.values(obj)
-        connection.query(query,values, function(err, queryResult, fields) {
-        if (err) {
-            reject(err);
-        } else {
-            resolve(queryResult);
-            console.log("Number of records inserted: " + queryResult.affectedRows);
-        }
+        connection.query(query, values, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
         });
-        })
-    } 
+    })
+}
+
+var deleteGeneralData = (obj, tablename) => {
+    console.log(obj)
+
+    return new Promise((resolve, reject) => {
+        var values = Object.values(obj)
+        var query = `DELETE FROM ` + tablename + ` WHERE ${Object.keys(obj)} = ` + values[0]
+        console.log(query);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
+        });
+    })
+}
+
+
+
 
 module.exports = {
     get_credentials,
     get_instructors,
-    insertClassroom,
     insertInstructor,
     insertInstructorCourses,
+    insertInstructorDays,
+    insertNewLearner,
+    insertInstructorDays,
     insertNewLearner,
     get_instructor_schedules,
     get_instructors_in_session,
     insertGeneralData,
+    deleteGeneralData,
+    updateGeneralData,
     get_session_categories,
-    get_KLRs
+    get_KLRs,
+    get_all_instructors_teaching_day
 };

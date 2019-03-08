@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<header>
+    <title> CST Course Session Booker</title>
+    <link href="/css/home.css" rel="stylesheet" type="text/css" />
+</header>
+
+<body>
+  <div id='addDataBox'>
+    <div id='loginFormDiv'>
+      <form action="/insertInstructorLeaves" method="post">
+
+        <div id="login__wrapper">
+            <h2>Insert Instructor Leaves</h2>
+          
+        <div id="instructorleaves">
+        <div class="form__group">
+        <select style="width:100%; height:34px" name="Instructors">
+            {{#each instructor_list}}
+                <option value={{this.instructorID}}>{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
+            {{/each}}
+
+        </select>   
+          <label for="instructorSession" class="form__label">Select Instructor</label>
+        </div>
+        </div>
+
+        <br style = "line-height:2;"></br>
+        <div class="form__group">  
+        <label for="Capacity" class="form__label">Leaves </label>
+        </div>
+        <div id="instructorLeaves">
+        <div>
+        <div class="form__group" style="display:inline-block; position:relative"> 
+        <input id="instructorLeavesStart" class="form__field" type="date" name="instructorLeavesStart" >
+        <label for="instructorLeavesStart" class="form__label">Start Days</label>
+        </div>
+
+        <div class="form__group"style="display:inline-block; position:relative"> 
+        <input id="instructorLeavesEnd" class="form__field" type="date" name="instructorLeavesEnd" >
+        <label for="instructorLeavesEnd" class="form__label">End Days</label>
+        </div>
+        </div>
+        </div>
+        <a href="#" onclick="addLeaveDays();return false;" class="form__label" style="font-size: small;">add another Leaves</a>
+        <div><br style = "line-height:2;"></div>
+
+         
+        
+
+        <div class="form__group">
+            <textarea id="comments" class="form__field" rows="5" name="comments" placeholder="Additional Comments"></textarea>
+            <label for="comments" class="form__label">Additional Comments </label>
+        </div>
+        <br>
+        
+        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+      </form>
+      <a href="/ba_admin"> 
+      <button class='submit_button shadow'>Cancel</button>
+    </a>
+    
+   
+    </div>
+  </div>
+
+  <script src="/javascript/input_forms.js"></script>
+</body>
+
