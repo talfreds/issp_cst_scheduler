@@ -265,6 +265,23 @@ var get_instructor_schedules = (instructor_id) => {
     });
 }
 
+var insertNewLearner = (obj)=>{
+    console.log('db_function consolelog: ' ,obj)
+
+    return new Promise((resolve,reject)=>{
+        console.log("promise console: ", Object.keys(obj));
+        var query = `INSERT INTO learner (${Object.keys(obj)}) VALUES (?,?,?,?,?,?,?)`
+        var values = Object.values(obj)
+        connection.query(query,values, function(err, queryResult, fields) {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(queryResult);
+            console.log("Number of records inserted: " + queryResult.affectedRows);
+        }
+        });
+        })
+    } 
 
 module.exports = {
     get_credentials,
@@ -273,6 +290,7 @@ module.exports = {
     insertInstructor,
     insertInstructorCourses,
     insertInstructorDays,
+    insertNewLearner,
     get_instructor_schedules,
     get_instructors_in_session,
     insertGeneralData,
