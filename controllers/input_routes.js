@@ -21,7 +21,7 @@ router.post("/addNewLearner", (request, response) => {
         response.render('ba_admin.hbs', {
             databaseConfirmation: true
         });
-    
+
     }).catch((error) => {
         console.log(error);
         response.render('ba_admin.hbs', {
@@ -74,6 +74,7 @@ router.post('/insertClassroom', (request, response) => {
             databaseError: true
         });
     })
+});
 
 
 router.post('/insertInstructor', (request, response) => {
@@ -82,18 +83,18 @@ router.post('/insertInstructor', (request, response) => {
     if (request.body.courses) {
         db_functions.insertInstructor(request.body).then(() => {
 
-                db_functions.insertInstructorCourses(request.body).then((result) => {
-                    console.log("verify_status", result);
-                    response.render('ba_admin.hbs', {
-                        databaseConfirmation: true
-                    });
-                }).catch((error) => {
-                    console.log(error);
-                    response.render('ba_admin.hbs', {
-                        databaseError: true
-                    });
-                })
+            db_functions.insertInstructorCourses(request.body).then((result) => {
+                console.log("verify_status", result);
+                response.render('ba_admin.hbs', {
+                    databaseConfirmation: true
+                });
+            }).catch((error) => {
+                console.log(error);
+                response.render('ba_admin.hbs', {
+                    databaseError: true
+                });
             })
+        })
             .catch((error) => {
                 console.log(error);
                 response.render('ba_admin.hbs', {
@@ -163,9 +164,9 @@ router.post('/showInstructorsOnDay', (request, response) => {
 
     db_functions.get_all_instructors_teaching_day(request.body.searchInstructorsOnDay).then((result) => {
         console.log("verify_status", result);
-        
+
         response.render('./inputs/show_instructors_on_day.hbs', {
-            instructorlist:result,
+            instructorlist: result,
             loggedIn: request.session.loggedIn,
             user: 'temp'
         });

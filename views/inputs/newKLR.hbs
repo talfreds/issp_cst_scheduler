@@ -13,9 +13,13 @@
 
         <div class="form__group">
         <select name="klrID">
+          
           {{#each klrList}}
           <option value={{this.klrID}}>{{this.klrName}}</option>
           {{/each}}
+
+          <input type="text" name="klrName" placeholder="New KLR Name">
+
 
         </select>
     </div>
@@ -32,8 +36,6 @@
 
         <div id="login__wrapper">
           <h2>Add KLR</h2>
-
-
           <div class="form__group">
             <input id="courses" class="form__field" type="text" name="klrName" placeholder="KLR ID">
             <label for="courses" class="form__label">KLR Name or ID</label>
