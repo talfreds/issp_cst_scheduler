@@ -312,6 +312,8 @@ module.exports = {
     insertInstructorCourses,
     insertInstructorDays,
     insertNewLearner,
+    insertInstructorDays,
+    insertNewLearner,
     get_instructor_schedules,
     get_instructors_in_session,
     insertGeneralData,

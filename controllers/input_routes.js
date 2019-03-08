@@ -76,8 +76,6 @@ router.post('/insertClassroom', (request, response) => {
     })
 
 
-
-
 router.post('/insertInstructor', (request, response) => {
 
     console.log("Request.body :", request.body);
