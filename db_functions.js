@@ -210,34 +210,56 @@ var get_instructor_schedules = (instructor_id) => {
     });
 }
 
-var insertNewLearner = (obj)=>{
-    console.log('db_function consolelog: ' ,obj)
+var updateGeneralData = (obj, tablename) => {
+    console.log(obj)
 
-    return new Promise((resolve,reject)=>{
-        console.log("promise console: ", Object.keys(obj));
-        var query = `INSERT INTO learner (${Object.keys(obj)}) VALUES (?,?,?,?,?,?,?)`
+    var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
+
+    return new Promise((resolve, reject) => {
+        var query = `REPLACE INTO ` + tablename + ` (${Object.keys(obj)}) VALUES (?` + values_vars + `)`
         var values = Object.values(obj)
-        connection.query(query,values, function(err, queryResult, fields) {
-        if (err) {
-            reject(err);
-        } else {
-            resolve(queryResult);
-            console.log("Number of records inserted: " + queryResult.affectedRows);
-        }
+        connection.query(query, values, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
         });
-        })
-    } 
+    })
+}
+
+var deleteGeneralData = (obj, tablename) => {
+    console.log(obj)
+
+    return new Promise((resolve, reject) => {
+        var values = Object.values(obj)
+        var query = `DELETE FROM ` + tablename + ` WHERE ${Object.keys(obj)} = ` + values[0]
+        console.log(query);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
+        });
+    })
+}
+
+
+
 
 module.exports = {
     get_credentials,
     get_instructors,
-    insertClassroom,
     insertInstructor,
     insertInstructorCourses,
-    insertNewLearner,
     get_instructor_schedules,
     get_instructors_in_session,
     insertGeneralData,
+    deleteGeneralData,
+    updateGeneralData,
     get_session_categories,
     get_KLRs
 };

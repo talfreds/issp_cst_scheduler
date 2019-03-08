@@ -20,7 +20,21 @@ router.get('/inputs/course_session', (request, response) => {
 
 
 router.get('/inputs/newKLR', (request, response) => {
-    response.render('./inputs/newKLR.hbs', {});
+    
+    db_functions.get_KLRs().then((result) => {
+            response.render('./inputs/newKLR.hbs', {
+                loggedIn: request.session.loggedIn,
+                klrList: result
+            });
+    }).catch((error) => {
+        console.log(error);
+        var klrList = [{
+            klrName: 'Database Connection error. '
+        }];
+        response.render('./inputs/newKLR.hbs', {
+            klrList: klrList
+        });
+    })
 });
 
 router.get('/inputs/newSessionName', (request, response) => {
@@ -50,10 +64,10 @@ router.get('/inputs/KLR_with_Instructors', (request, response) => {
     }).catch((error) => {
         console.log(error);
         var klrList = [{
-            klrName: 'No KLR entries found in the database. '
+            klrName: 'Database Connection error. '
         }];
         var instructor_list = [{
-            instructorFirstName: 'No Instructors found'
+            instructorFirstName: 'Database Connection error'
         }];
         response.render('./inputs/KLR_with_Instructors.hbs', {
             klrList: klrList,
@@ -76,10 +90,10 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
     }).catch((error) => {
         console.log(error);
         var klrList = [{
-            klrName: 'No KLR entries found in the database. '
+            klrName: 'Database Connection error. '
         }];
         var course_type_list = [{
-            courseName: 'No Course Categories or Names found'
+            courseName: 'Database Connection error'
         }];
         response.render('./inputs/KLR_with_Name_of_Sessions.hbs', {
             klrList: klrList,
@@ -116,7 +130,7 @@ router.get('/inputs/instructor_to_session', (request, response) => {
     }).catch((error) => {
         console.log(error);
         var sessions = [{
-            courseName: 'No sessions found'
+            courseName: 'Database Connection error'
         }];
         response.render('./inputs/instructor_to_session.hbs', {
             loggedIn: request.session.loggedIn,
