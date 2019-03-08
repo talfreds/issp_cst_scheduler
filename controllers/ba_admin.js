@@ -142,4 +142,52 @@ router.get('/inputs/siteClassroom', (request, response) => {
     });
 });
 
+router.get('/inputs/instructor_vacations', (request, response) => {
+    
+    db_functions.get_instructors().then((result2) => {
+        response.render('./inputs/instructor_vacations.hbs', {
+            loggedIn: request.session.loggedIn,
+            user: 'temp',
+            instructor_list: result2
+        });
+    }).catch((error) => {
+        console.log(error);       
+    })
+});
+
+router.get('/inputs/instructor_office_days', (request, response) => {
+    
+    db_functions.get_instructors().then((result2) => {
+        response.render('./inputs/instructor_office_days.hbs', {
+            loggedIn: request.session.loggedIn,
+            user: 'temp',
+            instructor_list: result2
+        });
+    }).catch((error) => {
+        console.log(error);       
+    })
+});
+
+router.get('/inputs/instructor_leaves', (request, response) => {
+    
+    db_functions.get_instructors().then((result2) => {
+        response.render('./inputs/instructor_leaves.hbs', {
+            loggedIn: request.session.loggedIn,
+            user: 'temp',
+            instructor_list: result2
+        });
+    }).catch((error) => {
+        console.log(error);       
+    })
+});
+
+router.get('/inputs/show_instructors_on_day', (request, response) => {
+    
+    response.render('./inputs/show_instructors_on_day.hbs', {
+        instructorlist:null,
+        loggedIn: request.session.loggedIn,
+        user: 'temp'
+    });
+});
+
 module.exports = router;
