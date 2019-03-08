@@ -207,9 +207,6 @@ var insertInstructorCourses = (obj) => {
     }
 }
 
-
-
-
 var get_instructor_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
         var query = `SELECT startTime AS start_date, endTime AS end_date, comments AS text FROM classroomcourserecord WHERE instructorID = ` + connection.escape(instructor_id);
@@ -261,6 +258,23 @@ var assign_learner_session = (obj) => {
     })
 }
 
+var insertNewLearner = (obj)=>{
+    console.log('db_function consolelog: ' ,obj)
+
+    return new Promise((resolve,reject)=>{
+        console.log("promise console: ", Object.keys(obj));
+        var query = `INSERT INTO learner (${Object.keys(obj)}) VALUES (?,?,?,?,?,?,?)`
+        var values = Object.values(obj)
+        connection.query(query,values, function(err, queryResult, fields) {
+        if (err) {
+            reject(err);
+        } else {
+            resolve(queryResult);
+            console.log("Number of records inserted: " + queryResult.affectedRows);
+        }
+        });
+        })
+    } 
 
 module.exports = {
     get_credentials,
@@ -269,6 +283,7 @@ module.exports = {
     insertClassroom,
     insertInstructor,
     insertInstructorCourses,
+    insertNewLearner,
     get_instructor_schedules,
     get_instructors_in_session,
     insertGeneralData,
