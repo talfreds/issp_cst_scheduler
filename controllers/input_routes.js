@@ -17,17 +17,12 @@ router.post("/addSite", (request, response) => {
 
 
 router.post("/addNewLearner", (request, response) => {
-    request.session.loggedIn = false;
-    var login_data_dict = request.body;
-    console.log(request);
-    console.log(request.body);
-    console.log(login_data_dict);
     db_functions.insertNewLearner(request.body).then((result) => {
         console.log("verify_status", result);
         // response.render('home.hbs', {});
-        response.render("ba_admin.hbs", {
-            loggedIn: request.session.loggedIn
-    })
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
     
     }).catch(error=> console.log('add classroom error ',error));;
 
