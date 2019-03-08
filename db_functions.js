@@ -289,7 +289,7 @@ var deleteGeneralData = (obj, tablename) => {
 
     return new Promise((resolve, reject) => {
         var values = Object.values(obj)
-        var query = `DELETE FROM ` + tablename + ` WHERE ${Object.keys(obj)} = ` + values[0]
+        var query = `DELETE FROM ` + tablename + ` WHERE ${Object.keys(obj)[0]} = ` + values[0]
         console.log(query);
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
@@ -311,9 +311,6 @@ module.exports = {
     insertInstructor,
     insertInstructorCourses,
     insertInstructorDays,
-    insertNewLearner,
-    insertInstructorDays,
-    insertNewLearner,
     get_instructor_schedules,
     get_instructors_in_session,
     insertGeneralData,
