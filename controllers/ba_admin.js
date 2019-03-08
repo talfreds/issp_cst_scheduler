@@ -89,9 +89,12 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
 });
 
 router.get('/inputs/new_learner', (request, response) => {
-    response.render('./inputs/learners.hbs', {
+    db_functions.get_learners().then((result2) => {
+    response.render('./inputs/new_learner.hbs', {
         loggedIn: request.session.loggedIn,
-        user: 'temp'
+        user: 'temp',
+        learner_list: result2
+        });
     });
 });
 
@@ -106,7 +109,6 @@ router.get('/inputs/learners_into_courses', (request, response) => {
         });
     })
       }).catch((error) => {
-        console.log(error);
         var sessions = [{
             courseName: 'No sessions found'
         }];
@@ -131,7 +133,6 @@ router.get('/inputs/instructor_to_session', (request, response) => {
             });
         })
     }).catch((error) => {
-        console.log(error);
         var sessions = [{
             courseName: 'No sessions found'
         }];
@@ -158,5 +159,6 @@ router.get('/inputs/siteClassroom', (request, response) => {
         user: 'temp'
     });
 });
+
 
 module.exports = router;

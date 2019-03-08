@@ -76,6 +76,8 @@ var get_learners = () => {
     });
 }
 
+
+
 var get_session_categories = () => {
     return new Promise((resolve, reject) => {
         var query = `SELECT courseTypeID, Type FROM coursetype`;
@@ -274,7 +276,7 @@ var insertNewLearner = (obj)=>{
         }
         });
         })
-    } 
+    }
 
 module.exports = {
     get_credentials,

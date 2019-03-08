@@ -7,10 +7,23 @@
 <body>
   <div id='addDataBox'>
     <div id='loginFormDiv'>
+        <div id="login__wrapper">
+            <h2>Add or Edit Learners</h2>
+        <div id="learnerSessions">
+            <div class="form__group">
+                <select style="width:100%; height:34px" name="Learners">
+                    {{#each learner_list}}
+                        <option value={{this.learnerID}}>{{this.learnerLastName}}, {{this.learnerFirstName}}</option>
+                     {{/each}}
+                  </select>   
+        <input id="login-submit" class="submit_button shadow" type="submit" value="Edit Learner">
+                    
+              <label for="Session" class="form__label">Select Learner</label>
+            </div>
+        </div>
+
       <form action="/addNewLearner" method="post">
 
-        <div id="login__wrapper">
-            <h2>Learners</h2>
             <div class="form__group">
                 <input id="LName" class="form__field" type="text" name="learnerLastName" placeholder="Last Name">
                 <label for="LName" class="form__label">Last Name</label>
