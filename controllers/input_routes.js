@@ -58,14 +58,14 @@ router.post('/insertClassroom', (request, response) => {
 
 });
 
-<<<<<<< HEAD
+
 router.post('/insertClassroom', (request, response) => {
 
     console.log("Request.body :", request.body);
 
     var tablename = 'classroom';
 
-    db_functions.insertClassroom(request.body, tablename).then((result) => {
+    db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
         response.render('ba_admin.hbs', {});
     }).catch((error) => {
@@ -74,9 +74,6 @@ router.post('/insertClassroom', (request, response) => {
             databaseError: true
         });
     })
-=======
->>>>>>> b7694e9af50361cdf587317be66829fe2797764c
-
 
 
 router.post('/insertInstructor', (request, response) => {

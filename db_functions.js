@@ -310,11 +310,10 @@ module.exports = {
     get_instructors,
     insertInstructor,
     insertInstructorCourses,
-<<<<<<< HEAD
-=======
     insertInstructorDays,
     insertNewLearner,
->>>>>>> b7694e9af50361cdf587317be66829fe2797764c
+    insertInstructorDays,
+    insertNewLearner,
     get_instructor_schedules,
     get_instructors_in_session,
     insertGeneralData,
