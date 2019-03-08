@@ -122,6 +122,22 @@ router.post('/insertInstructorOfficeDays', (request, response) => {
 
 });
 
+router.post('/showInstructorsOnDay', (request, response) => {
+
+    console.log("Request.body :", request.body);
+
+    db_functions.get_all_instructors_teaching_day(request.body.searchInstructorsOnDay).then((result) => {
+        console.log("verify_status", result);
+        
+        response.render('./inputs/show_instructors_on_day.hbs', {
+            instructorlist:result,
+            loggedIn: request.session.loggedIn,
+            user: 'temp'
+        });
+    }).catch(error => console.log('add instructor vacations error ', error))
+
+});
+
 router.post('/addCourseType', (request, response) => {
     var tablename = 'coursetype';
 

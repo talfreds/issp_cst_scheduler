@@ -208,10 +208,7 @@ var insertInstructorCourses = (obj) => {
     console.log(typeof(Object.values(obj)[4]))
     var query = `INSERT INTO instructorCourses (courses,instructorID) VALUES (?,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
     if (typeof(Object.values(obj)[4]) == "string") {
-
         return new Promise((resolve, reject) => {
-           
-
             connection.query(query, Object.values(obj)[4],
                 function(err, queryResult, fields) {
                     if (err) {
@@ -223,8 +220,7 @@ var insertInstructorCourses = (obj) => {
                 });
         })
     } else {
-        return new Promise((resolve, reject) => {
-            
+        return new Promise((resolve, reject) => {         
             for (var i = 0; i < Object.values(obj)[4].length; i++) {
                 connection.query(query, Object.values(obj)[4][i],
                     function(err, queryResult, fields) {
@@ -243,7 +239,18 @@ var insertInstructorCourses = (obj) => {
 }
 
 
-
+var get_all_instructors_teaching_day = (date) => {
+    return new Promise((resolve, reject) => {
+        var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourserecord ccr on i.instructorID = ccr.instructorID where courseDate = ` + connection.escape(date);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
 
 var get_instructor_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
@@ -270,5 +277,6 @@ module.exports = {
     get_instructors_in_session,
     insertGeneralData,
     get_session_categories,
-    get_KLRs
+    get_KLRs,
+    get_all_instructors_teaching_day
 };

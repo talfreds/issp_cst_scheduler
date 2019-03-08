@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<header>
+    <title> CST Course Session Booker</title>
+    <link href="/css/home.css" rel="stylesheet" type="text/css" />
+</header>
+
+<body>
+  <div id='addDataBox'>
+    <div id='loginFormDiv'>
+      <form action="/showInstructorsOnDay" method="post">
+
+        <div id="login__wrapper">
+            <h2>Search All Instructors Teaching on The Day</h2>
+
+        <div id="searchInstructorsByDay">       
+        <div class="form__group" style="display:inline-block; position:relative"> 
+        <input id="searchInstructorsOnDay" class="form__field" type="date" name="searchInstructorsOnDay" >
+        <label for="searchInstructorsOnDay" class="form__label">Enter A Date :</label>
+        </div>
+        </div>
+        <br>
+        
+        <input id="siteClassromm-submit" class="submit_button shadow" type="submit" value="Submit">
+      </form>
+
+    
+    <a href="/ba_admin"> 
+      <button class='submit_button shadow'>Cancel</button>
+    </a>
+    </div>
+
+    <div><br style = "line-height:2;"></div>
+
+    <table>
+        <tr>
+            <th>Instructor First Name</th>
+            <th>Instructor Last Name</th>
+        </tr>
+        
+         {{#each instructorlist}}
+        <tr>
+            <td>{{this.instructorfirstName}}</td>
+            <td>{{this.instructorlastname}}</td>
+        </tr>
+                
+        {{/each}}
+    </table>
+  </div>
+</body>

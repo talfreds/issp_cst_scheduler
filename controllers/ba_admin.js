@@ -181,4 +181,13 @@ router.get('/inputs/instructor_leaves', (request, response) => {
     })
 });
 
+router.get('/inputs/show_instructors_on_day', (request, response) => {
+    
+    response.render('./inputs/show_instructors_on_day.hbs', {
+        instructorlist:null,
+        loggedIn: request.session.loggedIn,
+        user: 'temp'
+    });
+});
+
 module.exports = router;
