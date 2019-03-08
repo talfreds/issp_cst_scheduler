@@ -4,16 +4,8 @@ body {
   background-color: #F3F2EE;
 }
 
-#header {
-  height: 120px;
-  width: 100%;
-}
-
 html {
-  font-family: 'Roboto', sans-serif;
-  font-weight: 300;
-  line-height: 1.5;
-  color: #444;
+    font-family: 'Roboto', sans-serif;
 }
 
 .form__group {
@@ -55,18 +47,8 @@ label,
     color: #9b9b9b;
 }
 
-<<<<<<< HEAD
-.select_field {
-  width:100%; 
-  height:34px;
-}
-
-.form__field:focus ~ .form__label {
-  color: #009788;
-=======
 .form__field:focus~.form__label {
     color: #009788;
->>>>>>> 81dfc40efc5700671b28cb78d110ee641fae1936
 }
 
 .form__field:focus {

@@ -24,12 +24,26 @@ router.post("/addNewLearner", (request, response) => {
     });
 });
 
-router.post("/add_learner_to_course", (request, response) => {
+router.post("/add_learner_to_courses", (request, response) => {
     console.log(request.body);
 
     response.render("ba_admin.hbs", {
         loggedIn: request.session.loggedIn
     });
+
+    var tablename = 'classroomcourserecord';
+
+    db_functions.insertGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
 });
 
 router.post("/addNewLearner", (request, response) => {
@@ -163,6 +177,35 @@ router.post('/addKLR_with_instructors', (request, response) => {
 
 });
 
+router.post('/assignInstructor', (request, response) => {
+    db_functions.assign_instructor_session(request.body).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/assignLearner', (request, response) => {
+    db_functions.assign_learner_session(request.body).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
 
 
 module.exports = router;
