@@ -1,24 +1,47 @@
 <!DOCTYPE html>
 <header>
-    <title> Add a new KLR</title>
-    <link href = '/css/home.css' rel="stylesheet" type="text/css"/>
+  <title> Add a new KLR</title>
+  <link href='/css/home.css' rel="stylesheet" type="text/css" />
 </header>
 
 <body>
   <div id='addDataBox'>
     <div id='loginFormDiv'>
+      <form method="post">
+        <div id="login__wrapper">
+        <h2>Edit KLR</h2>
+
+        <div class="form__group">
+        <select name="klrID">
+          
+          {{#each klrList}}
+          <option value={{this.klrID}}>{{this.klrName}}</option>
+          {{/each}}
+
+          <input type="text" name="klrName" placeholder="New KLR Name">
+
+
+        </select>
+    </div>
+    <input id="login-submit" class="submit_button shadow" type="submit" value="Edit" formaction="/editKLR">
+    <input id="login-submit" class="submit_button shadow" type="submit" value="Delete" formaction="/deleteKLR">
+    </form>
+    </div>
+  </div>
+  </div>
+
+  <div id='addDataBox'>
+    <div id='loginFormDiv'>
       <form action="/addKLR" method="post">
 
         <div id="login__wrapper">
-            <h2>Add KLR</h2>
+          <h2>Add KLR</h2>
+          <div class="form__group">
+            <input id="courses" class="form__field" type="text" name="klrName" placeholder="KLR ID">
+            <label for="courses" class="form__label">KLR Name or ID</label>
+          </div>
 
-
-          <div class="form__group">  
-        <input id="courses" class="form__field" type="text" name="klrName" placeholder="KLR ID">
-        <label for="courses" class="form__label">KLR Name or ID</label>
-        </div>
-        
-        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+          <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
       </form>
     </div>
   </div>
