@@ -5,49 +5,74 @@
     <title> CST Course Scheduler 4 </title>
     <link href="/css/home.css" rel="stylesheet" type="text/css" />
 </head>
+<style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
 
+th, td {
+    text-align: center;
+    padding: 5px;
+}
+
+tr:nth-child(odd) {background-color: rgb(47, 77, 72);}
+</style>
 <body onbeforeunload="return">
-
-
-    <center>
-    <div>
-        <h1> CST Course Scheduler </h1>
-        <h1>Dev link for convenience</h1>
-
-        {{!-- {{#if loggedIn}} --}}
-        <a href="/ba_admin">Business Analyst Administration Inputs</a>
+<table>
+    <tr style="background-color:#BDB76B">
+        <td>
+        <center>
         <div>
             <h1> CST Course Scheduler </h1>
+            <h1>Dev link for convenience</h1>
+            {{!-- {{#if loggedIn}} --}}
+            <a href="/ba_admin">Business Analyst Administration Inputs</a>
+            <div>
+                <h1> CST Course Scheduler </h1>
+            </div>
+            {{!-- {{/if}} --}}
+        </center>
+        </td>
+    </tr>
+</table>
+<table>
+    {{!-- <tr background="/image/home_page.jpg"> --}}
+    <tr style="background-image:url('/image/home_page.jpg');background-repeat:no-repeat;background-size:cover;">
+        <td>
+        <center>
+            <h2> Instructor Schedule Access</h2>
+        </center>
+
+        <div id="login__wrapper">
+            <div class="form__group">
+                <form action="/instructor_schedule" method="post">
+                <select name="Instructors">
+                    {{#each instructor_list}}
+                        <option value={{this.instructorID}}>{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
+                    {{/each}}
+
+                </select>    
+                <input id="login-submit" class="submit_button shadow" type="submit" value="View Schedule">
+                </form>
+            </div>
         </div>
-        {{!-- {{/if}} --}}
-    </center>
+        </td>
 
-    <center>
-        <h2> Instructor Schedule Access</h2>
-    </center>
+        <td>
+        {{#unless loggedIn}}
+        {{> loginForm }}
+        {{/unless}}
+        {{#if loggedIn}}
+        <center>
+            <a href="/logout"><button class='submit_button shadow'>Log Out</button></a>
+        </center>
+        {{/if}}
+        </td>
+    </tr>
+</table>
 
-    <div id="login__wrapper">
-        <div class="form__group">
-            <form action="/instructor_schedule" method="post">
-            <select name="Instructors">
-                {{#each instructor_list}}
-                    <option value={{this.instructorID}}>{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
-                {{/each}}
-
-            </select>    
-            <input id="login-submit" class="submit_button shadow" type="submit" value="View Schedule">
-            </form>
-        </div>
-    </div>
-
-    {{#unless loggedIn}}
-    {{> loginForm }}
-    {{/unless}}
-    {{#if loggedIn}}
-    <center>
-        <a href="/logout"><button class='submit_button shadow'>Log Out</button></a>
-    </center>
-    {{/if}}
 </body>
 
 </html>
