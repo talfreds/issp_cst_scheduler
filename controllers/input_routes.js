@@ -58,13 +58,14 @@ router.post('/insertClassroom', (request, response) => {
 
 });
 
+
 router.post('/insertClassroom', (request, response) => {
 
     console.log("Request.body :", request.body);
 
     var tablename = 'classroom';
 
-    db_functions.insertClassroom(request.body, tablename).then((result) => {
+    db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
         response.render('ba_admin.hbs', {});
     }).catch((error) => {
@@ -74,7 +75,7 @@ router.post('/insertClassroom', (request, response) => {
         });
     })
 
-});
+
 
 
 router.post('/insertInstructor', (request, response) => {
@@ -116,6 +117,61 @@ router.post('/insertInstructor', (request, response) => {
             });
         })
     }
+
+});
+
+router.post('/insertInstructorVacations', (request, response) => {
+
+    console.log("Request.body :", request.body);
+
+    var tablename = 'InstructorVacations';
+
+    db_functions.insertInstructorDays(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {});
+    }).catch(error => console.log('add instructor vacations error ', error))
+
+});
+
+router.post('/insertInstructorLeaves', (request, response) => {
+
+    console.log("Request.body :", request.body);
+
+    var tablename = 'Instructorleaves';
+
+    db_functions.insertInstructorDays(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {});
+    }).catch(error => console.log('add instructor vacations error ', error))
+
+});
+
+router.post('/insertInstructorOfficeDays', (request, response) => {
+
+    console.log("Request.body :", request.body);
+
+    var tablename = 'Instructorofficedays';
+
+    db_functions.insertInstructorDays(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {});
+    }).catch(error => console.log('add instructor vacations error ', error))
+
+});
+
+router.post('/showInstructorsOnDay', (request, response) => {
+
+    console.log("Request.body :", request.body);
+
+    db_functions.get_all_instructors_teaching_day(request.body.searchInstructorsOnDay).then((result) => {
+        console.log("verify_status", result);
+        
+        response.render('./inputs/show_instructors_on_day.hbs', {
+            instructorlist:result,
+            loggedIn: request.session.loggedIn,
+            user: 'temp'
+        });
+    }).catch(error => console.log('add instructor vacations error ', error))
 
 });
 
