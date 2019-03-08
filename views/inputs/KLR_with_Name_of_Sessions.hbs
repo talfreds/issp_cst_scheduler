@@ -1,40 +1,43 @@
 <!DOCTYPE html>
 <header>
-    <title> KLR with Name of Sessions </title>
-    <link href = '/css/home.css' rel="stylesheet" type="text/css"/>
+  <title> Assign a required KLR to a Course Type </title>
+  <link href='/css/home.css' rel="stylesheet" type="text/css" />
 </header>
 
 <body>
-  <div id='addDataBox'>
-    <div id='loginFormDiv'>
-      <form action="/addKLR_with_name_of_sessions" method="post">
+<div id='addDataBox'>
+  <div id='loginFormDiv'>
+    <div id="login__wrapper">
+      <h2>Assign a required KLR to a Course Type</h2>
+      <br>
+      <br>
+      <br>
+      <div class="form__group">
+        <form action="/addKLR_with_CategoryName" method="post">
+          <select name="courseTypeID">
+            {{#each courseTypeList}}
+            <option value={{this.courseTypeID}}>{{this.Type}}</option>
+            {{/each}}
+          </select>
 
-        <div id="login__wrapper">
-            <h2>Add KLR and Name of Sessions</h2>  
-            <br>
-            <br>
-            <br>      
-        <div class="form__group">  
-        <input id="KLR" class="form__field" type="text" name="KLR" placeholder="Enter New KLR">
-        <label for="KLR" class="form__label">Enter New KLR</label>
-        </div>
-        
-        <br>
-        <br>
-        <br>
-        <br>
-        <div class="form__group">  
-            <input id="location" class="form__field" type="text" name="location" placeholder="Enter Session Name">
-            <label for="location" class="form__label">Enter Session Name</label>
-        </div>
-        <br>
-        <br>
-        
-        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
-      </form>
-    <a href="/registrationForm"> 
-      <button class='submit_button shadow'>Cancel</button>
-    </a>
+
+          <select name="klrID">
+            {{#each klrList}}
+            <option value={{this.klrID}}>{{this.klrName}}</option>
+            {{/each}}
+
+          </select>
+
+          <br>
+          <br>
+
+          <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+        </form>
+        <a href="/ba_admin">
+          <button class='submit_button shadow'>Cancel</button>
+        </a>
+      </div>
     </div>
   </div>
+</div>
 </body>
