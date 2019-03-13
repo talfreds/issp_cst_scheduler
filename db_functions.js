@@ -63,6 +63,21 @@ var get_instructors = () => {
     });
 }
 
+var get_learners = () => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT learnerID, learnerFirstName, learnerLastName FROM learner`;
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+
+
 var get_session_categories = () => {
     return new Promise((resolve, reject) => {
         var query = `SELECT courseTypeID, Type FROM coursetype`;
@@ -238,7 +253,6 @@ var insertInstructorCourses = (obj) => {
     }
 }
 
-
 var get_all_instructors_teaching_day = (date) => {
     return new Promise((resolve, reject) => {
         var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourserecord ccr on i.instructorID = ccr.instructorID where courseDate = ` + connection.escape(date);
@@ -263,6 +277,44 @@ var get_instructor_schedules = (instructor_id) => {
             }
         });
     });
+}
+
+var assign_instructor_session = (obj) => {
+    console.log(obj);
+
+    var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
+
+    return new Promise((resolve, reject) => {
+        var query = `UPDATE classroomcourserecord SET instructorID = ${obj.Instructors} WHERE courseRecordID = ${obj.Sessions}`;
+        var values = Object.values(obj)
+        connection.query(query, values, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
+        });
+    })
+}
+
+var assign_learner_session = (obj) => {
+    console.log(obj);
+
+    var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
+
+    return new Promise((resolve, reject) => {
+        var query = `UPDATE classroomcourserecord SET learnerID = ${obj.Learners} WHERE courseRecordID = ${obj.Sessions}`;
+        var values = Object.values(obj)
+        connection.query(query, values, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
+        });
+    })
 }
 
 var updateGeneralData = (obj, tablename) => {
@@ -308,6 +360,8 @@ var deleteGeneralData = (obj, tablename) => {
 module.exports = {
     get_credentials,
     get_instructors,
+    get_learners,
+    insertClassroom,
     insertInstructor,
     insertInstructorCourses,
     insertInstructorDays,
@@ -318,5 +372,7 @@ module.exports = {
     updateGeneralData,
     get_session_categories,
     get_KLRs,
+    assign_instructor_session,
+    assign_learner_session,
     get_all_instructors_teaching_day
 };
