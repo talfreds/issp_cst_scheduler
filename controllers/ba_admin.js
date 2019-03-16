@@ -161,16 +161,33 @@ router.get('/inputs/instructor_to_session', (request, response) => {
 
 
 router.get('/inputs/instructor', (request, response) => {
-    response.render('./inputs/instructor.hbs', {
+    db_functions.get_instructors().then((result2) => {
+        response.render('./inputs/instructor.hbs', {
         loggedIn: request.session.loggedIn,
-        user: 'temp'
+        user: 'temp',
+        instructor_list: result2,
+        instructor_last_name:null,
+        instructor_first_name:null,
+        instructor_email:null,
+        Monday:null,
+        Tuesday:null,
+        Wednesday:null,
+        Thursday:null,
+        Friday:null,
+        Saturday:null,
+        Sunday:null,
+        comment:null,
+        instructorID:null,
+        update_instructor:false  
     });
+    })
 });
 
 router.get('/inputs/siteClassroom', (request, response) => {
     response.render('./inputs/siteClassroom.hbs', {
         loggedIn: request.session.loggedIn,
         user: 'temp'
+        
     });
 });
 

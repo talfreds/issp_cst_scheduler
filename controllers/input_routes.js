@@ -96,37 +96,79 @@ router.post('/insertClassroom', (request, response) => {
 router.post('/insertInstructor', (request, response) => {
 
     console.log("Request.body :", request.body);
-    if (request.body.courses) {
-        db_functions.insertInstructor(request.body).then(() => {
-
-            db_functions.insertInstructorCourses(request.body).then((result) => {
-                console.log("verify_status", result);
-                response.render('ba_admin.hbs', {
-                    databaseConfirmation: true
-                });
-            })
-        })
-            .catch((error) => {
-                console.log(error);
-                response.render('ba_admin.hbs', {
-                    databaseError: true
-                });
-            })
-
-    } else {
-
-        db_functions.insertInstructor(request.body).then((result) => {
+    
+    db_functions.insertInstructor(request.body).then(() => {
+        console.log('get to afterinsertinstructor')
+        db_functions.insertInstructorAvailability(request.body).then((result) => {
             console.log("verify_status", result);
             response.render('ba_admin.hbs', {
-                databaseError: true
+                databaseConfirmation: true
             });
-        }).catch((error) => {
+        })
+
+
+    })
+        .catch((error) => {
             console.log(error);
             response.render('ba_admin.hbs', {
                 databaseError: true
             });
         })
-    }
+
+});
+
+router.post('/editInstructor', (request, response) => {
+
+    
+    db_functions.get_this_instructor(request.body).then((result) => {
+        var instructorID = request.body.Instructors
+        db_functions.get_instructors_ab_day(request.body).then((result3) => {
+            
+            db_functions.get_instructors().then((result2) => {
+                response.render('./inputs/instructor.hbs', {
+                loggedIn: request.session.loggedIn,
+                user: 'temp',
+                instructor_list: result2,
+                instructor_last_name:result[0].instructorLastName ,
+                instructor_first_name:result[0].instructorFirstName,
+                instructor_email:result[0].instructorEmail,
+                Monday:result3[0].Monday,
+                Tuesday:result3[0].Tuesday,
+                Wednesday:result3[0].Wednesday,
+                Thursday:result3[0].Thursday,
+                Friday:result3[0].Friday,
+                Saturday:result3[0].Saturday,
+                Sunday:result3[0].Sunday,
+                comment:result[0].comments,
+                instructorID:instructorID,
+                update_instructor: true
+            });
+        });
+        })
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/updateInstructor', (request, response) => {
+
+    console.log("Request.body :", request.body);
+    db_functions.updateInstructor(request.body).then((result) => {
+        db_functions.updateInstructorAB(request.body).then(()=>{
+            response.render('ba_admin.hbs', {
+                databaseConfirmation: true
+            });
+        });  
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
 
 });
 
