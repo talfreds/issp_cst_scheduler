@@ -270,6 +270,41 @@ router.post('/addCourseType', (request, response) => {
 
 });
 
+router.post('/editCourseType', (request, response) => {
+    var tablename = 'coursetype';
+
+    db_functions.updateGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/deleteCourseType', (request, response) => {
+    var tablename = 'coursetype';
+
+    db_functions.deleteGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+
 router.post('/addKLR', (request, response) => {
     var tablename = 'KLR';
 

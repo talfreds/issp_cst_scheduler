@@ -19,11 +19,26 @@ connection.connect(function(err) {
 });
 
 
+
 var get_credentials = (input_email) => {
     console.log(input_email);
     return new Promise((resolve, reject) => {
         var query = `SELECT * FROM ba_users WHERE user = ` + connection.escape(input_email);
 
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+var getAllGeneral = (tablename) => {
+    console.log(tablename);
+    return new Promise((resolve, reject) => {
+        var query = `SELECT * FROM ${tablename}`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -456,5 +471,6 @@ module.exports = {
     get_KLRs,
     assign_instructor_session,
     assign_learner_session,
-    get_all_instructors_teaching_day
+    get_all_instructors_teaching_day,
+    getAllGeneral
 };

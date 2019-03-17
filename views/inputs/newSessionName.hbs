@@ -7,6 +7,29 @@
 <body>
   <div id='addDataBox'>
     <div id='loginFormDiv'>
+
+      <form method="post">
+        <div id="login__wrapper">
+        <h2>Edit or Delete Course Category Name</h2>
+
+        <div class="form__group">
+        <select name="courseTypeID">
+          
+          {{#each courseTypes}}
+          <option value={{this.courseTypeID}}>{{this.Type}}</option>
+          {{/each}}
+
+          <input type="text" name="Type" placeholder="New Course Type Name">
+
+
+        </select>
+    </div>
+    <input id="login-submit" class="submit_button shadow" type="submit" value="Edit" formaction="/editCourseType">
+    <input id="login-submit" class="submit_button shadow" type="submit" value="Delete" formaction="/deleteCourseType">
+    </form>
+  </div>
+
+
       <form action="/addCourseType" method="post">
 
         <div id="login__wrapper">
@@ -20,6 +43,9 @@
         
         <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
       </form>
+
+
+
     </div>
   </div>
 </body>
