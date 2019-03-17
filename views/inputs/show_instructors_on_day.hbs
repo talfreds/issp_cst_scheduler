@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <header>
-    <title> CST Course Session Booker</title>
+    <title> Search All Instructors Teaching on The Day</title>
     <link href="/css/home.css" rel="stylesheet" type="text/css" />
 </header>
 
@@ -32,12 +32,9 @@
     <div><br style = "line-height:2;"></div>
 
     <table>
-        <tr>
-            <th>Instructor First Name</th>
-            <th>Instructor Last Name</th>
-        </tr>
+
         
-         {{#each instructorlist}}
+        {{#each instructorlist}}
         <tr>
             <td>{{this.instructorfirstName}}</td>
             <td>{{this.instructorlastname}}</td>

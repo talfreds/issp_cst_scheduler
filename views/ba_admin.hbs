@@ -6,7 +6,7 @@
     <link href="/css/home.css" rel="stylesheet" type="text/css" />
     <style>
     table {
-        font-family: arial, sans-serif;
+        font-family: "arial", sans-serif;
         border-collapse: collapse;
         width: 100%;
         height: 100%;
@@ -19,14 +19,14 @@
 
     tr:nth-child(odd) {
         background-color: #b69fb6;
+        {{!-- vertical-align: -webkit-baseline-middle; --}}
         }
     </style>
 </head>
 
 <body>
-<table>
+<table id="ba_damin_table">
     <tr>
-
     {{#if databaseError}}
     <div class="alert">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
@@ -44,105 +44,95 @@
 
     {{/if}}
 
-    <div id="login__wrapper">
+    <td>
+    <div id="td__wrapper">
         <div class="form__group">
 
             <a href="/inputs/course_session">Create a classroom Course Session</a>
-            <br />
+            <hr />
 
         </div>
     </div>
+    </td>
 
-
-    <div id="login__wrapper">
+    <td>
+    <div id="td__wrapper">
         <div class="form__group">
             <a href="/inputs/instructor_to_session">Assign an Instructor to a Learning Session</a>
-
-            <br />
+            <hr />
 
             <a href="/inputs/learners_into_courses">Assign a Learner to a Course</a>
             <hr />
 
             <a href="/inputs/KLR_with_Name_of_Sessions">Assign a required KLR to a Course Type</a>
-            <br />
+            <hr />
             <a href="/inputs/KLR_with_Instructors">Assign a teachable KLR to an instructors qualifications</a>
-            <br />
+            <hr />
 
 
         </div>
     </div>
+    </td>
 
-
-    <div id="login__wrapper">
+    <td>
+    <div id="td__wrapper">
         <div class="form__group">
             <a href="/inputs/new_learner">Add a New Learner </a>
             <hr />
+            
 
             <a href="/inputs/instructor">Add a New instructor</a>
-             <br/>
-            <a href="/inputs/instructor_office_days">Add a New instructor office days</a>
-            <br/>
-            <a href="/inputs/instructor_vacations">Add a New instructor vacation</a>
-            <br/>
-            <a href="/inputs/instructor_leaves">Add a New instructor leaves</a>
+            <hr />
 
+            <a href="/inputs/inserts_site">Add Learning Site</a>
+            <hr />
 
+            <a href="/inputs/siteClassroom">Add a Classroom</a>
+            <hr />
+
+            <a href="/inputs/newKLR">Add a new KLR</a>
+            <hr />
 
         </div>
+    </div>
+    </td>
 
-        <td id="login__wrapper">
-            <div class="form__group">
-                <a href="/inputs/course_session">Create a classroom Course Session</a>
-                <br />
-            </div>
-        </td>
+    <td>
+    <div id="td__wrapper">
+        <div class="form__group">
+            <a href="/inputs/newSessionName">Add a New Session Category Name</a>
+            <hr />
 
-        <td id="login__wrapper">
-            <div class="form__group">
-                <a href="/inputs/instructor_to_session">Assign an Instructor to a Learning Session</a>
-                <br />
-                <a href="/inputs/add_learner_to_courses">Assign a Learner to a Course</a>
-                <hr />
-                <a href="/inputs/KLR_with_Name_of_Sessions">Assign a required KLR to a Course Type</a>
-                <hr />
-                <a href="/inputs/KLR_with_Instructors">Assign a teachable KLR to an instructors qualifications</a>
-                <br />
-            </div>
-        </td>
+            <a href="/inputs/instructor_vacations">Add a New instructor vacation</a>
+            <hr />
+            <a href="/inputs/instructor_leaves">Add a New instructor leaves</a>
+            <hr />
 
-        <td id="login__wrapper">
+            <a href="/inputs/instructor_office_days">Add a New instructor office days</a>
+            <hr />
+
+        </div>
+    </div>
+    </td>
+
+
+
+
+    <td>
+        <div id="td__wrapper">
             <div class="form__group">
-                <a href="/inputs/new_learner">Add a New Learner </a>
+                <a href="/inputs/show_instructors_on_day">Search Instructors by day </a>
                 <hr />
-                <a href="/inputs/instructor">Add a New instructor</a>
             </div>
-        </td>     
-        <td id="login__wrapper">
-            <div class="form__group">
-                <a href="/inputs/inserts_site">Add a New Site </a>
-                <hr />
-                <a href="/inputs/siteClassroom">Add a new classroom </a>
-                <hr />
-                <a href="/inputs/newSessionName">Add a Course Category Type</a>
-                <hr />
-                <a href="/inputs/newKLR">Add a New KLR ID (A specific learning module, which can be taken/earned
-                    during a course)</a>
-            </div>
-        </td>
+        </div>
+    </td>
+
     </tr>
     <div>
-        <img src="/image/ba_admin_page.jpg"; width="100%" />
+        <img src="/image/ba_admin_page.jpg"; id="ba_damin_pic"/>
     </div>
-
+    
 </table>
-
-
-     <div id="login__wrapper">
-        <div class="form__group">
-            <a href="/inputs/show_instructors_on_day">Search Instructors by day </a>
-            <hr />
-        </div>
-    </div>
 
 </body>
 

@@ -1,12 +1,15 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
 body {
-  background-color: #F3F2EE;
+    background-color: #F3F2EE;
+    background-size:contain;
+    margin: 0px;
 }
 
 html {
-    font-family: 'Roboto', sans-serif;
+    font-family: "arial", sans-serif;
     color: #444;
+    margin: 0px;
 }
 
 .form__group {
@@ -41,7 +44,7 @@ html {
 label,
 .form__field:focus~.form__label {
     position: absolute;
-    top: 0;
+    top: 0px;
     display: block;
     transition: 0.2s;
     font-size: 12px;
@@ -57,12 +60,31 @@ label,
     border-bottom: 2px solid #009788;
 }
 
+#loginFormDiv {
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+}
+#td__wrapper {
+    text-align: center;
+    height: auto;
+}
+
+
+#ba_damin_pic {
+    height: 54vh;
+    width:100%;
+}
 #login__wrapper {
     text-align: center;
     margin: auto;
     width: 25%;
+    height: 100%;
     border: 1px solid lightgray;
-    padding: 50px;
+    padding: 10px;
+}
+#login__wrapper:hover {
+    background-color: #e1ebe1;
 }
 
 #login-submit {
@@ -71,9 +93,10 @@ label,
 #addDataBox {
     background-image: url("/image/addDataBox.jpg");
     background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
+    background-size: 100% 100%;
+    width: 100vw;
     height: 100vh;
+    overflow: scroll;
 }
 
 /*rgba(0, 0, 0, 0.3)*/
@@ -111,17 +134,38 @@ label,
 table {
     border-collapse: collapse;
     width: 50%;
-    margin: auto;
-  }
-  
-  th, td {
+    }
+
+    th, td {
     text-align: left;
     padding: 8px;
-  }
-  
-  tr:nth-child(even){background-color: #f2f2f2}
-  
-  th {
+    height: 42vh;
+    }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+
+    th {
     background-color: #4CAF50;
     color: white;
-  }
+    }
+
+a:link {
+    color: rgb(38, 38, 233);
+    text-decoration: unset;
+    }
+
+  /* visited link */
+a:visited {
+    color: rgb(106, 20, 117);
+    }
+
+  /* mouse over link */
+a:hover {
+    color: red;
+    background: #009788;   
+    }
+
+  /* selected link */
+a:active {
+    color: yellow;
+    } 
