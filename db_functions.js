@@ -110,21 +110,6 @@ var get_learners = () => {
 }
 
 
-
-var get_session_categories = () => {
-    return new Promise((resolve, reject) => {
-        var query = `SELECT courseTypeID, Type FROM coursetype`;
-
-        connection.query(query, function(err, queryResult, fields) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(queryResult)
-            }
-        });
-    });
-}
-
 var get_KLRs = () => {
     return new Promise((resolve, reject) => {
         var query = `SELECT klrID, klrName FROM KLR`;
