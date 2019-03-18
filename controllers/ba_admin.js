@@ -214,12 +214,15 @@ router.get('/inputs/instructor_vacations', (request, response) => {
         response.render('./inputs/instructor_vacations.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            instructor_list: result2
+            instructor_list: result2,
+            vacations:null,
+            edit:false
         });
     }).catch((error) => {
         console.log(error);
     })
 });
+
 
 router.get('/inputs/instructor_office_days', (request, response) => {
 
@@ -227,7 +230,9 @@ router.get('/inputs/instructor_office_days', (request, response) => {
         response.render('./inputs/instructor_office_days.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            instructor_list: result2
+            instructor_list: result2,
+            officeDays:null,
+            edit:false
         });
     }).catch((error) => {
         console.log(error);
@@ -240,7 +245,9 @@ router.get('/inputs/instructor_leaves', (request, response) => {
         response.render('./inputs/instructor_leaves.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            instructor_list: result2
+            instructor_list: result2,
+            leaves:null,
+            edit:false
         });
     }).catch((error) => {
         console.log(error);

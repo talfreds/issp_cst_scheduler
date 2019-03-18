@@ -20,6 +20,8 @@
             {{/each}}
 
         </select>   
+        <div><br/></div>     
+        <input id="edit-instructor-leaves-submit" name= "edit-instructor-leaves-submit" formaction="/editInstructorLeaves" class="submit_button shadow" type="submit" value="Edit Leaves">
           <label for="instructorSession" class="form__label">Select Instructor</label>
         </div>
         </div>
@@ -29,6 +31,28 @@
         <label for="Capacity" class="form__label">Leaves </label>
         </div>
         <div id="instructorLeaves">
+
+          {{#each leaves}}
+           <div class="form__group" style="display:inline-block; position:relative"> 
+        <input id="instructorLeavesStart" class="form__field" type="date" name="instructorLeavesStart" value="{{formatDate this.instructorLeavesStart}}">
+        <label for="instructorLeavesStart" class="form__label">Start Days</label>
+        </div>
+
+        <div class="form__group"style="display:inline-block; position:relative"> 
+        <input id="instructorLeavesEnd" class="form__field" type="date" name="instructorLeavesEnd" value="{{formatDate this.instructorLeavesEnd}}" >
+        <label for="instructorLeavesEnd" class="form__label">End Days</label>
+        </div>
+
+        <div class="form__group">
+            <textarea id="comments" class="form__field" rows="5" name="comments" placeholder="Additional Comments">{{this.comments}}</textarea>
+            <label for="comments" class="form__label">Additional Comments </label>
+        </div>
+
+        <a href="#" onclick="removeDate(this);return false;" class="form__label" style="font-size: small;">Delete</a>
+        <br>
+
+          {{/each}}
+
         <div>
         <div class="form__group" style="display:inline-block; position:relative"> 
         <input id="instructorLeavesStart" class="form__field" type="date" name="instructorLeavesStart" >
@@ -54,7 +78,15 @@
         </div>
         <br>
         
-        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+      {{#if instructorID}}
+      <div class="form__group">
+        <input style="opacity:0" id="instructorID" class="form__field" type="text" name="instructorID" placeholder="instructorID" value="{{instructorID}}">
+        <label style="opacity:0" for="instructorID" class="form__label">Instructor ID</label>
+      </div>
+      {{/if}}
+
+
+        <input id="login-submit" class="submit_button shadow"{{#if edit}}formaction="/updateInstructorLeaves" {{/if}} type="submit" value="Submit">
       </form>
       <a href="/ba_admin"> 
       <button class='submit_button shadow'>Cancel</button>

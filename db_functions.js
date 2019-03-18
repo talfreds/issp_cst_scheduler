@@ -166,7 +166,6 @@ var insertGeneralData = (obj, tablename) => {
 }
 
 var insertInstructor = (obj) => {
-    console.log(Object.keys(obj))
     var objKeys = []
     var objvalues = []
 
@@ -191,7 +190,6 @@ var insertInstructor = (obj) => {
 }
 
 var updateInstructor = (obj) => {
-    console.log(Object.keys(obj))
     var objKeys = []
     var objvalues = []
     for (var i = 1; i < 4; i++) {
@@ -216,14 +214,14 @@ var updateInstructor = (obj) => {
 }
 
 
-var insertInstructorAvailability = (obj) => {
-    console.log('ab day:', obj)
+var insertInstructorAvailability = (obj) =>{
+   
     var keys = [];
     var values = [];
-    console.log('length: ', Object.keys(obj).length - 6)
-    for (i = 0; i < Object.keys(obj).length - 6; i++) {
-        keys.push(Object.keys(obj)[i + 4])
-        values.push(Object.values(obj)[i + 4])
+    
+    for (i=0;i<Object.keys(obj).length-6;i++){
+        keys.push(Object.keys(obj)[i+4])
+        values.push(Object.values(obj)[i+4])
     }
 
     keys.push('instructorID');
@@ -302,19 +300,26 @@ var insertInstructorDays = (obj, tablename) => {
                 });
         })
     } else {
+        console.log('updeate iday: ',obj)
         var start = Object.keys(obj)[1]
         var end = Object.keys(obj)[2]
+        var comments = Object.keys(obj)[3]
         return new Promise((resolve, reject) => {
 
-            startdays = Object.values(obj)[1]
-            enddays = Object.values(obj)[2]
-
-
-            for (var i = 0; i < startdays.length; i++) {
-
+            
+            startdays=Object.values(obj)[1]
+            enddays=Object.values(obj)[2]
+            newComments = Object.values(obj)[3]
+            
+            
+            for (var i = 0; i<startdays.length ; i++) {
+                
                 obj[start] = startdays[i]
                 obj[end] = enddays[i]
-
+                obj[comments] = newComments[i]
+                
+              
+              // does this need a  } to close the loop?
                 connection.query(query, Object.values(obj),
                     function(err, queryResult, fields) {
                         if (err) {
@@ -331,9 +336,24 @@ var insertInstructorDays = (obj, tablename) => {
     }
 }
 
+
+
 var get_all_instructors_teaching_day = (date) => {
     return new Promise((resolve, reject) => {
         var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourserecord ccr on i.instructorID = ccr.instructorID where courseDate = ` + connection.escape(date);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+var get_data_from_database =(sqlquery,param) =>{
+    return new Promise((resolve, reject) => {
+        var query = sqlquery + connection.escape(param)
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -488,6 +508,7 @@ module.exports = {
     get_this_instructor,
     get_instructors_ab_day,
     get_learners,
+    get_data_from_database,
     insertClassroom,
     insertInstructor,
     updateInstructor,
