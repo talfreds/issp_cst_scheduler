@@ -5,8 +5,8 @@ const db_functions = require('../db_functions.js');
 
 router.get('/ba_admin', (request, response) => {
     response.render('ba_admin.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp'
+        databaseError: false,
+        databaseConfirmation: false
     });
 });
 
@@ -65,13 +65,16 @@ router.get('/inputs/inserts_site', (request, response) => {
 
 router.get('/inputs/KLR_with_Instructors', (request, response) => {
 
-    db_functions.get_KLRs().then((result) => {
-        db_functions.get_instructors().then((result2) => {
-            response.render('./inputs/KLR_with_Instructors.hbs', {
-                loggedIn: request.session.loggedIn,
-                klrList: result,
-                instructor_list: result2
-            });
+    db_functions.getAllGeneral('KLR').then((KLR) => {
+        db_functions.getAllGeneral('instructor').then((instructor) => {
+            db_functions.getAllGeneral('instructorcourses').then((instructorcourses) => {
+                response.render('./inputs/KLR_with_Instructors.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    klrList: KLR,
+                    instructor_list: instructor,
+                    instructorcoursesList: instructorcourses
+                });
+            })
         })
     }).catch((error) => {
         console.log(error);
@@ -89,15 +92,16 @@ router.get('/inputs/KLR_with_Instructors', (request, response) => {
 });
 
 router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
-
-    db_functions.get_KLRs().then((result) => {
-        db_functions.get_session_categories().then((result2) => {
-            console.log(result2);
-            response.render('./inputs/KLR_with_Name_of_Sessions.hbs', {
-                loggedIn: request.session.loggedIn,
-                klrList: result,
-                courseTypeList: result2
-            });
+    db_functions.getAllGeneral('KLR').then((KLR) => {
+        db_functions.getAllGeneral('coursetype').then((coursetype) => {
+            db_functions.getAllGeneral('courseTypesAvailableKLRs').then((courseTypesAvailableKLRs) => {
+                response.render('./inputs/KLR_with_Name_of_Sessions.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    klrList: KLR,
+                    courseTypeList: coursetype,
+                    courseTypesAvailableKLRs: courseTypesAvailableKLRs
+                });
+            })
         })
     }).catch((error) => {
         console.log(error);
