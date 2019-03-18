@@ -19,7 +19,9 @@
                 <option value={{this.instructorID}}>{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
             {{/each}}
 
-        </select>   
+        </select> 
+         <div><br/></div>         
+         <input id="edit-instructor-office-day-submit" name= "edit-instructor-office-days-submit" formaction="/editInstructorOfficeDays" class="submit_button shadow" type="submit" value="Edit OfficeDays">
           <label for="instructorSession" class="form__label">Select Instructor</label>
         </div>
         </div>
@@ -29,6 +31,27 @@
         <label for="Capacity" class="form__label">Office Days</label>
         </div>
         <div id="OfficeDays">
+          {{#each officeDays}}
+           
+        <div class="form__group" style="display:inline-block; position:relative"> 
+        <input id="instructorOfficeDaysStart" class="form__field" type="date" name="instructorOfficeDaysStart" value="{{formatDate this.instructorofficedaysStart}}" >
+        <label for="instructorOfficeDaysStart" class="form__label">Start Days</label>
+        </div>
+
+        <div class="form__group"style="display:inline-block; position:relative"> 
+        <input id="instructorOfficeDaysEnd" class="form__field" type="date" name="instructorOfficeDaysEnd" value="{{formatDate this.instructorofficedaysEnd}}">
+        <label for="instructorOfficeDaysEnd" class="form__label">End Days</label>
+        </div>
+
+        <div class="form__group">
+            <textarea id="comments" class="form__field" rows="5" name="comments" placeholder="Additional Comments" >{{this.comments}}</textarea>
+            <label for="comments" class="form__label">Additional Comments </label>
+        </div>
+        <a href="#" onclick="removeDate(this);return false;" class="form__label" style="font-size: small;">Delete</a>
+        <div><br ></div>
+        {{/each}}
+
+
         <div>
         <div class="form__group" style="display:inline-block; position:relative"> 
         <input id="instructorOfficeDaysStart" class="form__field" type="date" name="instructorOfficeDaysStart" >
@@ -53,8 +76,16 @@
             <label for="comments" class="form__label">Additional Comments </label>
         </div>
         <br>
+
+      {{#if instructorID}}
+      <div class="form__group">
+        <input style="opacity:0" id="instructorID" class="form__field" type="text" name="instructorID" placeholder="instructorID" value="{{instructorID}}">
+        <label style="opacity:0" for="instructorID" class="form__label">Instructor ID</label>
+      </div>
+      {{/if}}
+
         
-        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+        <input id="login-submit" class="submit_button shadow"  {{#if edit}}formaction="/updateInstructorOfficeDays" {{/if}} type="submit" value="Submit">
       </form>
     <a href="/registrationForm"> 
       <button class='submit_button shadow'>Cancel</button>
