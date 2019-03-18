@@ -5,8 +5,8 @@ const db_functions = require('../db_functions.js');
 
 router.get('/ba_admin', (request, response) => {
     response.render('ba_admin.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp'
+        databaseError: false,
+        databaseConfirmation: false
     });
 });
 
@@ -20,12 +20,11 @@ router.get('/inputs/course_session', (request, response) => {
 
 
 router.get('/inputs/newKLR', (request, response) => {
-    
     db_functions.get_KLRs().then((result) => {
-            response.render('./inputs/newKLR.hbs', {
-                loggedIn: request.session.loggedIn,
-                klrList: result
-            });
+        response.render('./inputs/newKLR.hbs', {
+            loggedIn: request.session.loggedIn,
+            klrList: result
+        });
     }).catch((error) => {
         console.log(error);
         var klrList = [{
@@ -38,11 +37,24 @@ router.get('/inputs/newKLR', (request, response) => {
 });
 
 router.get('/inputs/newSessionName', (request, response) => {
-    response.render('./inputs/newSessionName.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp'
-    });
+
+    db_functions.getAllGeneral('coursetype').then((result) => {
+        console.log(result);
+        response.render('./inputs/newSessionName.hbs', {
+            loggedIn: request.session.loggedIn,
+            courseTypes: result
+        });
+    }).catch((error) => {
+        console.log(error);
+        var courseTypesList = [{
+            courseTypes: 'Database Connection error. '
+        }];
+        response.render('./inputs/newSessionName.hbs', {
+            courseTypes: courseTypesList
+        });
+    })
 });
+
 
 router.get('/inputs/inserts_site', (request, response) => {
     response.render('./inputs/inserts_site.hbs', {
@@ -53,13 +65,16 @@ router.get('/inputs/inserts_site', (request, response) => {
 
 router.get('/inputs/KLR_with_Instructors', (request, response) => {
 
-    db_functions.get_KLRs().then((result) => {
-        db_functions.get_instructors().then((result2) => {
-            response.render('./inputs/KLR_with_Instructors.hbs', {
-                loggedIn: request.session.loggedIn,
-                klrList: result,
-                instructor_list: result2
-            });
+    db_functions.getAllGeneral('KLR').then((KLR) => {
+        db_functions.getAllGeneral('instructor').then((instructor) => {
+            db_functions.getAllGeneral('instructorcourses').then((instructorcourses) => {
+                response.render('./inputs/KLR_with_Instructors.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    klrList: KLR,
+                    instructor_list: instructor,
+                    instructorcoursesList: instructorcourses
+                });
+            })
         })
     }).catch((error) => {
         console.log(error);
@@ -77,15 +92,16 @@ router.get('/inputs/KLR_with_Instructors', (request, response) => {
 });
 
 router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
-
-    db_functions.get_KLRs().then((result) => {
-        db_functions.get_session_categories().then((result2) => {
-            console.log(result2);
-            response.render('./inputs/KLR_with_Name_of_Sessions.hbs', {
-                loggedIn: request.session.loggedIn,
-                klrList: result,
-                courseTypeList: result2
-            });
+    db_functions.getAllGeneral('KLR').then((KLR) => {
+        db_functions.getAllGeneral('coursetype').then((coursetype) => {
+            db_functions.getAllGeneral('courseTypesAvailableKLRs').then((courseTypesAvailableKLRs) => {
+                response.render('./inputs/KLR_with_Name_of_Sessions.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    klrList: KLR,
+                    courseTypeList: coursetype,
+                    courseTypesAvailableKLRs: courseTypesAvailableKLRs
+                });
+            })
         })
     }).catch((error) => {
         console.log(error);
@@ -104,10 +120,10 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
 
 router.get('/inputs/new_learner', (request, response) => {
     db_functions.get_learners().then((result2) => {
-    response.render('./inputs/new_learner.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp',
-        learner_list: result2
+        response.render('./inputs/new_learner.hbs', {
+            loggedIn: request.session.loggedIn,
+            user: 'temp',
+            learner_list: result2
         });
     });
 });
@@ -115,14 +131,14 @@ router.get('/inputs/new_learner', (request, response) => {
 router.get('/inputs/learners_into_courses', (request, response) => {
     db_functions.get_instructors_in_session().then((result) => {
         db_functions.get_learners().then((result2) => {
-        response.render('./inputs/learners_into_courses.hbs', {
-            loggedIn: request.session.loggedIn,
-            user: 'temp',
-            session_list: result,
-            learner_list: result2
-        });
-    })
-      }).catch((error) => {
+            response.render('./inputs/learners_into_courses.hbs', {
+                loggedIn: request.session.loggedIn,
+                user: 'temp',
+                session_list: result,
+                learner_list: result2
+            });
+        })
+    }).catch((error) => {
         var sessions = [{
             courseName: 'No sessions found'
         }];
@@ -163,23 +179,23 @@ router.get('/inputs/instructor_to_session', (request, response) => {
 router.get('/inputs/instructor', (request, response) => {
     db_functions.get_instructors().then((result2) => {
         response.render('./inputs/instructor.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp',
-        instructor_list: result2,
-        instructor_last_name:null,
-        instructor_first_name:null,
-        instructor_email:null,
-        Monday:null,
-        Tuesday:null,
-        Wednesday:null,
-        Thursday:null,
-        Friday:null,
-        Saturday:null,
-        Sunday:null,
-        comment:null,
-        instructorID:null,
-        update_instructor:false  
-    });
+            loggedIn: request.session.loggedIn,
+            user: 'temp',
+            instructor_list: result2,
+            instructor_last_name: null,
+            instructor_first_name: null,
+            instructor_email: null,
+            Monday: null,
+            Tuesday: null,
+            Wednesday: null,
+            Thursday: null,
+            Friday: null,
+            Saturday: null,
+            Sunday: null,
+            comment: null,
+            instructorID: null,
+            update_instructor: false
+        });
     })
 });
 
@@ -187,13 +203,13 @@ router.get('/inputs/siteClassroom', (request, response) => {
     response.render('./inputs/siteClassroom.hbs', {
         loggedIn: request.session.loggedIn,
         user: 'temp'
-        
+
     });
 });
 
 
 router.get('/inputs/instructor_vacations', (request, response) => {
-    
+
     db_functions.get_instructors().then((result2) => {
         response.render('./inputs/instructor_vacations.hbs', {
             loggedIn: request.session.loggedIn,
@@ -203,13 +219,13 @@ router.get('/inputs/instructor_vacations', (request, response) => {
             edit:false
         });
     }).catch((error) => {
-        console.log(error);       
+        console.log(error);
     })
 });
 
 
 router.get('/inputs/instructor_office_days', (request, response) => {
-    
+
     db_functions.get_instructors().then((result2) => {
         response.render('./inputs/instructor_office_days.hbs', {
             loggedIn: request.session.loggedIn,
@@ -219,12 +235,12 @@ router.get('/inputs/instructor_office_days', (request, response) => {
             edit:false
         });
     }).catch((error) => {
-        console.log(error);       
+        console.log(error);
     })
 });
 
 router.get('/inputs/instructor_leaves', (request, response) => {
-    
+
     db_functions.get_instructors().then((result2) => {
         response.render('./inputs/instructor_leaves.hbs', {
             loggedIn: request.session.loggedIn,
@@ -234,14 +250,14 @@ router.get('/inputs/instructor_leaves', (request, response) => {
             edit:false
         });
     }).catch((error) => {
-        console.log(error);       
+        console.log(error);
     })
 });
 
 router.get('/inputs/show_instructors_on_day', (request, response) => {
-    
+
     response.render('./inputs/show_instructors_on_day.hbs', {
-        instructorlist:null,
+        instructorlist: null,
         loggedIn: request.session.loggedIn,
         user: 'temp'
     });

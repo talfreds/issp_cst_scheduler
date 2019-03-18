@@ -58,6 +58,33 @@ app.use(
     })
 );
 
+hbs.registerHelper('getProperty', function(context, key) {
+    return context[key];
+});
+
+hbs.registerHelper('getInstructorNameFromID', function(context, key) {
+    for (i = 0; i < context.length; i++) {
+        if (context[i].instructorID == key) {
+            return context[i].instructorLastName + ', ' + context[i].instructorFirstName;
+        }
+    }
+});
+
+hbs.registerHelper('getKLRNameFromID', function(context, key) {
+    for (i = 0; i < context.length; i++) {
+        if (context[i].klrID == key) {
+            return context[i].klrName;
+        }
+    }
+});
+
+hbs.registerHelper('getSessionTypeFromID', function(context, key) {
+    for (i = 0; i < context.length; i++) {
+        if (context[i].courseTypeID == key) {
+            return context[i].Type;
+        }
+    }
+});
 
 
 // route to homepage

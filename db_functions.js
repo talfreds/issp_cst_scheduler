@@ -19,11 +19,26 @@ connection.connect(function(err) {
 });
 
 
+
 var get_credentials = (input_email) => {
     console.log(input_email);
     return new Promise((resolve, reject) => {
         var query = `SELECT * FROM ba_users WHERE user = ` + connection.escape(input_email);
 
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+var getAllGeneral = (tablename) => {
+    console.log(tablename);
+    return new Promise((resolve, reject) => {
+        var query = `SELECT * FROM ${tablename}`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -64,10 +79,10 @@ var get_instructors = () => {
 }
 
 var get_this_instructor = (obj) => {
-    console.log('get_this_instructor obj: ',obj.Instructors)
-    
-    return new Promise ((resolve,reject) => {
-        var query = `SELECT * FROM instructor WHERE instructorID = `+ connection.escape(obj.Instructors);
+    console.log('get_this_instructor obj: ', obj.Instructors)
+
+    return new Promise((resolve, reject) => {
+        var query = `SELECT * FROM instructor WHERE instructorID = ` + connection.escape(obj.Instructors);
 
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
@@ -94,21 +109,6 @@ var get_learners = () => {
     });
 }
 
-
-
-var get_session_categories = () => {
-    return new Promise((resolve, reject) => {
-        var query = `SELECT courseTypeID, Type FROM coursetype`;
-
-        connection.query(query, function(err, queryResult, fields) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(queryResult)
-            }
-        });
-    });
-}
 
 var get_KLRs = () => {
     return new Promise((resolve, reject) => {
@@ -166,7 +166,6 @@ var insertGeneralData = (obj, tablename) => {
 }
 
 var insertInstructor = (obj) => {
-    
     var objKeys = []
     var objvalues = []
 
@@ -174,8 +173,8 @@ var insertInstructor = (obj) => {
         objKeys.push(Object.keys(obj)[i]);
         objvalues.push(Object.values(obj)[i]);
     }
-    objKeys.push(Object.keys(obj).slice(-2,-1)[0])
-    objvalues.push(Object.values(obj).slice(-2,-1)[0])
+    objKeys.push(Object.keys(obj).slice(-2, -1)[0])
+    objvalues.push(Object.values(obj).slice(-2, -1)[0])
 
     return new Promise((resolve, reject) => {
         var query = `REPLACE INTO instructor (${objKeys}) VALUES (?,?,?,?)`
@@ -191,20 +190,19 @@ var insertInstructor = (obj) => {
 }
 
 var updateInstructor = (obj) => {
-    
     var objKeys = []
     var objvalues = []
     for (var i = 1; i < 4; i++) {
         objKeys.push(Object.keys(obj)[i]);
-        objvalues.push(Object.values(obj)[i]);    
+        objvalues.push(Object.values(obj)[i]);
     }
 
-    objKeys.push(Object.keys(obj).slice(-3,-2)[0])
-    objvalues.push(Object.values(obj).slice(-3,-2)[0])
+    objKeys.push(Object.keys(obj).slice(-3, -2)[0])
+    objvalues.push(Object.values(obj).slice(-3, -2)[0])
 
     return new Promise((resolve, reject) => {
-        var query = `UPDATE instructor SET instructorLastName =?, instructorFirstName =?, instructorEmail = ?, comments=? where instructorID = `+connection.escape(obj.instructorID)
-        connection.query(query,objvalues, function(err, queryResult, fields) {
+        var query = `UPDATE instructor SET instructorLastName =?, instructorFirstName =?, instructorEmail = ?, comments=? where instructorID = ` + connection.escape(obj.instructorID)
+        connection.query(query, objvalues, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
             } else {
@@ -244,20 +242,20 @@ var insertInstructorAvailability = (obj) =>{
 
 }
 
-var updateInstructorAB = (obj)=>{
-    console.log('ab day:' ,obj)
+var updateInstructorAB = (obj) => {
+    console.log('ab day:', obj)
     var keys = [];
     var values = [];
-    console.log('length: ',Object.keys(obj).length-7)
-    for (i=0;i<Object.keys(obj).length-7;i++){
-        keys.push(Object.keys(obj)[i+4])
-        values.push(Object.values(obj)[i+4])
+    console.log('length: ', Object.keys(obj).length - 7)
+    for (i = 0; i < Object.keys(obj).length - 7; i++) {
+        keys.push(Object.keys(obj)[i + 4])
+        values.push(Object.values(obj)[i + 4])
     }
 
     keys.push('instructorID');
     values.push(obj.instructorID)
     var values_vars = ',?'.repeat(keys.length - 1);
-    console.log('inid:',connection.escape(obj.instructorID))
+    console.log('inid:', connection.escape(obj.instructorID))
     return new Promise((resolve, reject) => {
         var query = `REPLACE INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `)`
         connection.query(query, values, function(err, queryResult, fields) {
@@ -271,7 +269,7 @@ var updateInstructorAB = (obj)=>{
     })
 }
 
-var get_instructors_ab_day = (obj) => {    
+var get_instructors_ab_day = (obj) => {
     return new Promise((resolve, reject) => {
         var query = `select * from instructoravailabledays  where instructorID = ` + connection.escape(obj.Instructors);
         connection.query(query, function(err, queryResult, fields) {
@@ -284,13 +282,13 @@ var get_instructors_ab_day = (obj) => {
     });
 }
 
-var insertInstructorDays = (obj,tablename) =>{
-    
+var insertInstructorDays = (obj, tablename) => {
+
     var query = `INSERT INTO ${tablename} (${Object.keys(obj)}) VALUES (?,?,?,?)`
     if (typeof(Object.values(obj)[1]) == "string") {
 
         return new Promise((resolve, reject) => {
-           
+
             connection.query(query, Object.values(obj),
                 function(err, queryResult, fields) {
                     if (err) {
@@ -307,6 +305,7 @@ var insertInstructorDays = (obj,tablename) =>{
         var end = Object.keys(obj)[2]
         var comments = Object.keys(obj)[3]
         return new Promise((resolve, reject) => {
+
             
             startdays=Object.values(obj)[1]
             enddays=Object.values(obj)[2]
@@ -319,6 +318,8 @@ var insertInstructorDays = (obj,tablename) =>{
                 obj[end] = enddays[i]
                 obj[comments] = newComments[i]
                 
+              
+              // does this need a  } to close the loop?
                 connection.query(query, Object.values(obj),
                     function(err, queryResult, fields) {
                         if (err) {
@@ -333,7 +334,7 @@ var insertInstructorDays = (obj,tablename) =>{
             }
         })
     }
- }
+}
 
 
 
@@ -414,13 +415,41 @@ var assign_learner_session = (obj) => {
     })
 }
 
+// var updateGeneralData = (obj, tablename) => {
+//     console.log(obj)
+
+//     var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
+
+//     return new Promise((resolve, reject) => {
+//         var query = `REPLACE INTO ` + tablename + ` (${Object.keys(obj)}) VALUES (?` + values_vars + `)`
+//         var values = Object.values(obj)
+//         connection.query(query, values, function(err, queryResult, fields) {
+//             if (err) {
+//                 reject(err);
+//             } else {
+//                 resolve(queryResult);
+//                 console.log("Number of records inserted: " + queryResult.affectedRows);
+//             }
+//         });
+//     })
+// }
+
 var updateGeneralData = (obj, tablename) => {
     console.log(obj)
 
     var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
 
     return new Promise((resolve, reject) => {
-        var query = `REPLACE INTO ` + tablename + ` (${Object.keys(obj)}) VALUES (?` + values_vars + `)`
+        var query = `INSERT INTO ` + tablename + ` (${Object.keys(obj)}) VALUES (${connection.escape(Object.values(obj))}) ON DUPLICATE KEY UPDATE `;
+        for (i = 0; i < Object.keys(obj).length; i++) {
+            if (i == 0) {
+                query = query + Object.keys(obj)[i] + ' = ' + connection.escape(Object.values(obj)[i]);
+            } else {
+                query = query + ', ' + Object.keys(obj)[i] + ' = ' + connection.escape(Object.values(obj)[i]);
+            }
+        }
+        query = query + ';';
+        console.log(query);
         var values = Object.values(obj)
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
@@ -432,6 +461,7 @@ var updateGeneralData = (obj, tablename) => {
         });
     })
 }
+
 
 var deleteGeneralData = (obj, tablename) => {
     console.log(obj)
@@ -451,10 +481,28 @@ var deleteGeneralData = (obj, tablename) => {
     })
 }
 
+var deleteDualPK = (obj, tablename) => {
+
+    return new Promise((resolve, reject) => {
+        var values = Object.values(obj)
+        var query = `DELETE FROM ` + tablename + ` WHERE ${Object.keys(obj)[0]} = ` + values[0] + ` and ${Object.keys(obj)[1]} = ` + values[1];
+        console.log(query);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
+        });
+    })
+}
+
 
 
 
 module.exports = {
+    deleteDualPK,
     get_credentials,
     get_instructors,
     get_this_instructor,
@@ -472,9 +520,9 @@ module.exports = {
     insertGeneralData,
     deleteGeneralData,
     updateGeneralData,
-    get_session_categories,
     get_KLRs,
     assign_instructor_session,
     assign_learner_session,
-    get_all_instructors_teaching_day
+    get_all_instructors_teaching_day,
+    getAllGeneral
 };

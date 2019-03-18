@@ -5,144 +5,137 @@
     <title> CST Course Scheduler 4 </title>
     <link href="/css/home.css" rel="stylesheet" type="text/css" />
     <style>
-    table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-        height: 100%;
+        table {
+            font-family: "arial", sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            height: 100%;
         }
 
-    td, th {
-        border: 1px solid #aceba4;
-        text-align: center;
+        td,
+        th {
+            border: 1px solid #aceba4;
+            text-align: center;
         }
 
-    tr:nth-child(odd) {
-        background-color: #b69fb6;
+        tr:nth-child(odd) {
+            background-color: #b69fb6;
+
+                {
+                    {
+                     !-- vertical-align: -webkit-baseline-middle;
+                    --
+                }
+            }
         }
     </style>
 </head>
 
 <body>
-<table>
-    <tr>
-
-    {{#if databaseError}}
-    <div class="alert">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        DATABASE ERROR. Previous data input was not saved to the server. Please confirm the data was not saved and add
-        it again.
-    </div>
-
-    {{/if}}
-
-    {{#if databaseConfirmation}}
-    <div class="db_confirm_alert">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        Data input stored in the database. 
-    </div>
-
-    {{/if}}
-
-    <div id="login__wrapper">
-        <div class="form__group">
-
-            <a href="/inputs/course_session">Create a classroom Course Session</a>
-            <br />
-
-        </div>
-    </div>
-
-
-    <div id="login__wrapper">
-        <div class="form__group">
-            <a href="/inputs/instructor_to_session">Assign an Instructor to a Learning Session</a>
-
-            <br />
-
-            <a href="/inputs/learners_into_courses">Assign a Learner to a Course</a>
-            <hr />
-
-            <a href="/inputs/KLR_with_Name_of_Sessions">Assign a required KLR to a Course Type</a>
-            <br />
-            <a href="/inputs/KLR_with_Instructors">Assign a teachable KLR to an instructors qualifications</a>
-            <br />
-
-
-        </div>
-    </div>
-
-
-    <div id="login__wrapper">
-        <div class="form__group">
-            <a href="/inputs/new_learner">Add a New Learner </a>
-            <hr />
-
-            <a href="/inputs/instructor">Add a New instructor</a>
-             <br/>
-            <a href="/inputs/instructor_office_days">Add a New instructor office days</a>
-            <br/>
-            <a href="/inputs/instructor_vacations">Add a New instructor vacation</a>
-            <br/>
-            <a href="/inputs/instructor_leaves">Add a New instructor leaves</a>
-
-
-
-        </div>
-
-        <td id="login__wrapper">
-            <div class="form__group">
-                <a href="/inputs/course_session">Create a classroom Course Session</a>
-                <br />
+    <table id="ba_damin_table">
+        <tr>
+            {{#if databaseError}}
+            <div class="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                DATABASE ERROR. Previous data input was not saved to the server. Please confirm the data was not saved
+                and add
+                it again.
             </div>
-        </td>
 
-        <td id="login__wrapper">
-            <div class="form__group">
-                <a href="/inputs/instructor_to_session">Assign an Instructor to a Learning Session</a>
-                <br />
-                <a href="/inputs/add_learner_to_courses">Assign a Learner to a Course</a>
-                <hr />
-                <a href="/inputs/KLR_with_Name_of_Sessions">Assign a required KLR to a Course Type</a>
-                <hr />
-                <a href="/inputs/KLR_with_Instructors">Assign a teachable KLR to an instructors qualifications</a>
-                <br />
+            {{/if}}
+
+            {{#if databaseConfirmation}}
+            <div class="db_confirm_alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                Data input stored in the database.
             </div>
-        </td>
 
-        <td id="login__wrapper">
-            <div class="form__group">
-                <a href="/inputs/new_learner">Add a New Learner </a>
-                <hr />
-                <a href="/inputs/instructor">Add a New instructor</a>
-            </div>
-        </td>     
-        <td id="login__wrapper">
-            <div class="form__group">
-                <a href="/inputs/inserts_site">Add a New Site </a>
-                <hr />
-                <a href="/inputs/siteClassroom">Add a new classroom </a>
-                <hr />
-                <a href="/inputs/newSessionName">Add a Course Category Type</a>
-                <hr />
-                <a href="/inputs/newKLR">Add a New KLR ID (A specific learning module, which can be taken/earned
-                    during a course)</a>
-            </div>
-        </td>
-    </tr>
-    <div>
-        <img src="/image/ba_admin_page.jpg"; width="100%" />
-    </div>
+            {{/if}}
 
-</table>
+            <td>
+                <div id="td__wrapper">
+                    <div class="form__group">
+
+                        <a href="/inputs/course_session">Create, Edit or Delete a classroom Course Session</a>
+                        <hr />
+
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div id="td__wrapper">
+                    <div class="form__group">
+                        <a href="/inputs/instructor_to_session">Assign an Instructor to a Learning Session</a>
+                        <hr />
+
+                        <a href="/inputs/learners_into_courses">Assign a Learner to a Course</a>
+                        <hr />
+
+                        <a href="/inputs/KLR_with_Name_of_Sessions">Assign a required KLR to a Course Type</a>
+                        <hr />
+                        <a href="/inputs/KLR_with_Instructors">Assign a teachable KLR to an instructors
+                            qualifications</a>
+                        <hr />
 
 
-     <div id="login__wrapper">
-        <div class="form__group">
-            <a href="/inputs/show_instructors_on_day">Search Instructors by day </a>
-            <hr />
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div id="td__wrapper">
+                    <div class="form__group">
+                        <a href="/inputs/new_learner">Learners</a>
+                        <hr />
+                        <a href="/inputs/siteClassroom">Classrooms</a>
+                        <hr />
+                        <a href="/inputs/newSessionName">Session Category Names</a>
+                        <hr />
+                        <a href="/inputs/newKLR">KLRs</a>
+                        <hr />
+
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <div id="td__wrapper">
+                    <div class="form__group">
+
+                        <a href="/inputs/instructor">Instructors</a>
+                        <hr />
+
+                        <a href="/inputs/instructor_vacations">Instructor Vacations</a>
+                        <hr />
+                        <a href="/inputs/instructor_leaves">Instructor Leaves</a>
+                        <hr />
+
+                        <a href="/inputs/instructor_office_days">Instructor Office Days</a>
+                        <hr />
+
+                    </div>
+                </div>
+            </td>
+
+
+
+
+            <td>
+                <div id="td__wrapper">
+                    <div class="form__group">
+                        <a href="/inputs/show_instructors_on_day">Search Instructors by day </a>
+                        <hr />
+                    </div>
+                </div>
+            </td>
+
+        </tr>
+        <div>
+            <img src="/image/ba_admin_page.jpg" ; id="ba_damin_pic" />
         </div>
-    </div>
+
+    </table>
 
 </body>
 
