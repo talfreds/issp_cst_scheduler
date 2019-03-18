@@ -81,7 +81,9 @@ router.post('/insertClassroom', (request, response) => {
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
-        response.render('ba_admin.hbs', {});
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
     }).catch((error) => {
         console.log(error);
         response.render('ba_admin.hbs', {
@@ -94,42 +96,79 @@ router.post('/insertClassroom', (request, response) => {
 router.post('/insertInstructor', (request, response) => {
 
     console.log("Request.body :", request.body);
-    if (request.body.courses) {
-        db_functions.insertInstructor(request.body).then(() => {
 
-            db_functions.insertInstructorCourses(request.body).then((result) => {
+    db_functions.insertInstructor(request.body).then(() => {
+            console.log('get to afterinsertinstructor')
+            db_functions.insertInstructorAvailability(request.body).then((result) => {
                 console.log("verify_status", result);
                 response.render('ba_admin.hbs', {
                     databaseConfirmation: true
                 });
-            }).catch((error) => {
-                console.log(error);
-                response.render('ba_admin.hbs', {
-                    databaseError: true
-                });
             })
+
+
         })
-            .catch((error) => {
-                console.log(error);
-                response.render('ba_admin.hbs', {
-                    databaseError: true
-                });
-            })
-
-    } else {
-
-        db_functions.insertInstructor(request.body).then((result) => {
-            console.log("verify_status", result);
-            response.render('ba_admin.hbs', {
-                databaseError: true
-            });
-        }).catch((error) => {
+        .catch((error) => {
             console.log(error);
             response.render('ba_admin.hbs', {
                 databaseError: true
             });
         })
-    }
+
+});
+
+router.post('/editInstructor', (request, response) => {
+
+
+    db_functions.get_this_instructor(request.body).then((result) => {
+        var instructorID = request.body.Instructors
+        db_functions.get_instructors_ab_day(request.body).then((result3) => {
+
+            db_functions.get_instructors().then((result2) => {
+                response.render('./inputs/instructor.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    user: 'temp',
+                    instructor_list: result2,
+                    instructor_last_name: result[0].instructorLastName,
+                    instructor_first_name: result[0].instructorFirstName,
+                    instructor_email: result[0].instructorEmail,
+                    Monday: result3[0].Monday,
+                    Tuesday: result3[0].Tuesday,
+                    Wednesday: result3[0].Wednesday,
+                    Thursday: result3[0].Thursday,
+                    Friday: result3[0].Friday,
+                    Saturday: result3[0].Saturday,
+                    Sunday: result3[0].Sunday,
+                    comment: result[0].comments,
+                    instructorID: instructorID,
+                    update_instructor: true
+                });
+            });
+        })
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/updateInstructor', (request, response) => {
+
+    console.log("Request.body :", request.body);
+    db_functions.updateInstructor(request.body).then((result) => {
+        db_functions.updateInstructorAB(request.body).then(() => {
+            response.render('ba_admin.hbs', {
+                databaseConfirmation: true
+            });
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
 
 });
 
@@ -141,8 +180,15 @@ router.post('/insertInstructorVacations', (request, response) => {
 
     db_functions.insertInstructorDays(request.body, tablename).then((result) => {
         console.log("verify_status", result);
-        response.render('ba_admin.hbs', {});
-    }).catch(error => console.log('add instructor vacations error ', error))
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch(error => {
+        console.log('add instructor vacations error ', error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
 
 });
 
@@ -154,8 +200,15 @@ router.post('/insertInstructorLeaves', (request, response) => {
 
     db_functions.insertInstructorDays(request.body, tablename).then((result) => {
         console.log("verify_status", result);
-        response.render('ba_admin.hbs', {});
-    }).catch(error => console.log('add instructor vacations error ', error))
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch(error => {
+        console.log('add instructor leaves error ', error)
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
 
 });
 
@@ -167,8 +220,15 @@ router.post('/insertInstructorOfficeDays', (request, response) => {
 
     db_functions.insertInstructorDays(request.body, tablename).then((result) => {
         console.log("verify_status", result);
-        response.render('ba_admin.hbs', {});
-    }).catch(error => console.log('add instructor vacations error ', error))
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch(error => {
+        console.log('add instructor officeDay error ', error)
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
 
 });
 
@@ -184,7 +244,12 @@ router.post('/showInstructorsOnDay', (request, response) => {
             loggedIn: request.session.loggedIn,
             user: 'temp'
         });
-    }).catch(error => console.log('add instructor vacations error ', error))
+    }).catch(error => {
+        console.log('show instructor on days error ', error)
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
 
 });
 
@@ -204,6 +269,41 @@ router.post('/addCourseType', (request, response) => {
     })
 
 });
+
+router.post('/editCourseType', (request, response) => {
+    var tablename = 'coursetype';
+
+    db_functions.onDuplicateUpdate(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/deleteCourseType', (request, response) => {
+    var tablename = 'coursetype';
+
+    db_functions.deleteGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
 
 router.post('/addKLR', (request, response) => {
     var tablename = 'KLR';
@@ -273,11 +373,48 @@ router.post('/addKLR_with_CategoryName', (request, response) => {
 
 });
 
+router.post('/deleteKLR_with_CategoryName', (request, response) => {
+    var tablename = 'courseTypesAvailableKLRs';
+    console.log(request.body);
+    let dual_pk = JSON.parse(request.body.combo);
+    db_functions.deleteDualPK(dual_pk, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+
 
 router.post('/addKLR_with_instructors', (request, response) => {
     var tablename = 'instructorcourses';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/deleteKLR_with_instructors', (request, response) => {
+    var tablename = 'instructorcourses';
+    console.log(request.body);
+    let dual_pk = JSON.parse(request.body.combo);
+    db_functions.deleteDualPK(dual_pk, tablename).then((result) => {
         console.log("verify_status", result);
         response.render('ba_admin.hbs', {
             databaseConfirmation: true

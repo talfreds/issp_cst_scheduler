@@ -7,30 +7,50 @@
 <body>
   <div id='addDataBox'>
     {{!-- <div id='loginFormDiv'> --}}
-      <div id="login__wrapper">
-        <h2>Assign a teachable KLR to an instructors qualifications</h2>
-        <div class="form__group">
-          <form action="/addKLR_with_Instructors" method="post">
-            <select name="instructorID">
-              {{#each instructor_list}}
-              <option value={{this.instructorID}}>{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
-              {{/each}}
 
-            </select>
+    <div id="login__wrapper">
 
-            <select name="klrID">
-              {{#each klrList}}
-              <option value={{this.klrID}}>{{this.klrName}}</option>
-              {{/each}}
 
-            </select>
-            <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
-          </form>
-          <a href="/ba_admin">
-            <button class='submit_button shadow'>Cancel</button>
-          </a>
-        </div>
+
+      <h2>Modify Instructor KLRs</h2>
+      <div class="form__group">
+        <form action="/deleteKLR_with_instructors" method="post">
+          <select name="combo">
+
+            {{#each instructorcoursesList}}
+            <option value='{ "instructorID": "{{this.instructorID}}", "klrID": "{{this.klrID}}" }'>
+              {{getInstructorNameFromID ../instructor_list this.instructorID}} teaches
+              {{getKLRNameFromID ../klrList this.klrID}}</option>
+            {{/each}}
+
+          </select>
+          <input id="login-submit" class="submit_button shadow" type="submit" value="Delete">
+        </form>
       </div>
-    {{!-- </div> --}}
+
+
+      <h2>Assign a teachable KLR to an instructors qualifications</h2>
+      <div class="form__group">
+        <form action="/addKLR_with_Instructors" method="post">
+          <select name="instructorID">
+            {{#each instructor_list}}
+            <option value={{this.instructorID}}>{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
+            {{/each}}
+
+          </select>
+
+          <select name="klrID">
+            {{#each klrList}}
+            <option value={{this.klrID}}>{{this.klrName}}</option>
+            {{/each}}
+
+          </select>
+          <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+        </form>
+        <a href="/ba_admin">
+          <button class='submit_button shadow'>Cancel</button>
+        </a>
+      </div>
+    </div>
   </div>
 </body>
