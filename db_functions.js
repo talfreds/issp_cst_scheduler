@@ -499,7 +499,6 @@ module.exports = {
     insertGeneralData,
     deleteGeneralData,
     updateGeneralData,
-    get_session_categories,
     get_KLRs,
     assign_instructor_session,
     assign_learner_session,
