@@ -5,7 +5,6 @@ body {
     background-size:contain;
     margin-left: 9.5%;
     margin-right: 9.5%;
-    margin-top: 1.2%;
 }
 
 html {
@@ -17,8 +16,7 @@ html {
 .form__group {
     position: relative;
     padding: 15px 0 0;
-    margin-top: 10px;
-}
+    margin-top: 10px;}
 
 .form__field {
     font-family: inherit;
@@ -81,7 +79,7 @@ label,
     text-align: center;
     margin: auto;
     width: 25%;
-    height: 100%;
+    height: auto;
     border: 1px solid lightgray;
     padding: 10px;
 }
@@ -90,6 +88,7 @@ label,
     box-shadow: 5px 10px 18px #888888;
     padding: 5%;
     transition:0.3s;
+    margin-bottom: 10px;
 }
 
 #login-submit {
