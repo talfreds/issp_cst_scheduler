@@ -620,5 +620,28 @@ router.post('/assignLearner', (request, response) => {
 
 });
 
+router.post('/edit_learner', (request, response) => {
+    db_functions.getEditLearner(request.body).then((result) => {
+    response.render('./inputs/edit_learner.hbs', {
+        loggedIn: request.session.loggedIn,
+        user: 'temp',
+        learner_list: result
+        });
+    });
+});
+
+router.post("/editLearnerInfo", (request, response) => {
+    db_functions.updateGeneralData(request.body, 'learner').then((result) => {
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+});
 
 module.exports = router;
