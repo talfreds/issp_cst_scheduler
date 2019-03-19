@@ -498,6 +498,19 @@ var deleteDualPK = (obj, tablename) => {
     })
 }
 
+var getEditLearner = (obj) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT learnerLastName, learnerFirstName, learnPrimaryEmail, otherEmail, specialty, role, comments FROM learner WHERE learnerID = ${obj.Learners}`;
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
 
 
 
@@ -524,5 +537,6 @@ module.exports = {
     assign_instructor_session,
     assign_learner_session,
     get_all_instructors_teaching_day,
-    getAllGeneral
+    getAllGeneral,
+    getEditLearner
 };
