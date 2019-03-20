@@ -356,6 +356,57 @@ router.post('/deleteKLR', (request, response) => {
 
 });
 
+router.post('/addClassroomSession', (request, response) => {
+    var tablename = 'classroomcourserecord';
+
+    db_functions.insertGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/editClassroomSession', (request, response) => {
+    var tablename = 'classroomcourserecord';
+
+    db_functions.onDuplicateUpdate(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/deleteClassroomSession', (request, response) => {
+    var tablename = 'classroomcourserecord';
+
+    db_functions.deleteGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
 router.post('/addKLR_with_CategoryName', (request, response) => {
     var tablename = 'courseTypesAvailableKLRs';
 
