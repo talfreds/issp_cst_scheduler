@@ -132,9 +132,8 @@ label,
 .closebtn:hover {
     color: black;
 }
-
-table td {
-    vertical-align: top;
+#ba_damin_td {
+    vertical-align: middle;
 }
 
 table {
@@ -143,9 +142,11 @@ table {
     }
 
     th, td {
-        text-align: left;
-        padding: 8px;
-        height: 42vh;
+        vertical-align: top;
+        text-align:center;
+        padding: 4px;
+        width: 46vw;
+        height: 46vh;
         }
 
     tr:nth-child(even){background-color: #f2f2f2;}
