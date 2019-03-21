@@ -133,6 +133,10 @@ label,
     color: black;
 }
 
+table td {
+    vertical-align: top;
+}
+
 table {
     border-collapse: collapse;
     width: 50%;
@@ -171,7 +175,7 @@ a:hover {
 a:active {
     color: yellow;
     } 
-.container {
+.container_ba_admin {
     position: relative;
     text-align: left;
     height: auto;
