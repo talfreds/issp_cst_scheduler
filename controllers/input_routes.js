@@ -172,6 +172,27 @@ router.post('/updateInstructor', (request, response) => {
 
 });
 
+router.post('/deleteInstructor', (request, response) => {
+    var tablename = 'instructor';
+    var obj ={};
+    obj.instructorID = request.body.Instructors;
+    console.log(obj)
+
+    db_functions.deleteGeneralData(obj, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+
 router.post('/insertInstructorVacations', (request, response) => {
 
     console.log("Request.body :", request.body);

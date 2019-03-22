@@ -136,26 +136,26 @@ label,
     vertical-align: middle;
 }
 
+/* table styling */
 table {
     border-collapse: collapse;
     width: 50%;
-    }
+    margin: auto;
+  }
+  
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  tr:nth-child(odd){background-color: #ffffff}
 
-    th, td {
-        vertical-align: top;
-        text-align:center;
-        padding: 4px;
-        width: 46vw;
-        height: 46vh;
-        }
-
-    tr:nth-child(even){background-color: #f2f2f2;}
-
-    th {
+  
+  th {
     background-color: #4CAF50;
     color: white;
-    }
-
+  }
 a:link {
     color: rgb(38, 38, 233);
     text-decoration: unset;
