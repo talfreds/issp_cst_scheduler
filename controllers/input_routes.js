@@ -194,8 +194,28 @@ router.post('/updateInstructor', (request, response) => {
 
 router.post('/deleteInstructor', (request, response) => {
     var tablename = 'instructor';
-    var obj ={};
+    var obj = {};
     obj.instructorID = request.body.Instructors;
+    console.log(obj)
+
+    db_functions.deleteGeneralData(obj, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/deleteLearner', (request, response) => {
+    var tablename = 'learner';
+    var obj ={};
+    obj.learnerID = request.body.Learners;
     console.log(obj)
 
     db_functions.deleteGeneralData(obj, tablename).then((result) => {
@@ -238,7 +258,7 @@ router.post('/editInstructorVacations', (request, response) => {
     console.log("instructor.vacation.body :", request.body.Instructors);
 
     var query = 'SELECT * FROM InstructorVacations WHERE instructors =';
-    var param =  request.body.Instructors
+    var param = request.body.Instructors
 
     db_functions.get_data_from_database(query, param).then((result) => {
         console.log("verify_status_from_edit_vacations", result[0].instructorvacationsStart);
@@ -257,6 +277,7 @@ router.post('/editInstructorVacations', (request, response) => {
                 });
         })   
     }) 
+
     }).catch(error => {
         console.log('add instructor vacations error ', error);
         response.render('ba_admin.hbs', {
@@ -273,23 +294,23 @@ router.post('/updateInstructorVacations', (request, response) => {
     var tablename = 'InstructorVacations';
     var query = 'DELETE FROM instructorVacations WHERE instructors ='
     var param = request.body.instructorID
-db_functions.get_data_from_database(query,param).then((dresult)=>{
-    console.log("verify_d_status", dresult);
-    request.body.Instructors = request.body.instructorID;
-    delete request.body.instructorID;
-    console.log('fixed body: ',request.body)
-    db_functions.insertInstructorDays(request.body, tablename).then((result) => {
-        console.log("verify_status", result);
+    db_functions.get_data_from_database(query, param).then((dresult) => {
+        console.log("verify_d_status", dresult);
+        request.body.Instructors = request.body.instructorID;
+        delete request.body.instructorID;
+        console.log('fixed body: ', request.body)
+        db_functions.insertInstructorDays(request.body, tablename).then((result) => {
+            console.log("verify_status", result);
+            response.render('ba_admin.hbs', {
+                databaseConfirmation: true
+            });
+        })
+    }).catch(error => {
+        console.log('add instructor leaves error ', error)
         response.render('ba_admin.hbs', {
-            databaseConfirmation: true
+            databaseError: true
         });
     })
-}).catch(error => {
-    console.log('add instructor leaves error ', error)
-    response.render('ba_admin.hbs', {
-        databaseError: true
-    });
-})  
 });
 
 router.post('/insertInstructorLeaves', (request, response) => {
@@ -317,11 +338,12 @@ router.post('/editInstructorLeaves', (request, response) => {
     console.log("instructor.leaves.body :", request.body.Instructors);
 
     var query = 'SELECT * FROM InstructorLeaves WHERE instructors =';
-    var param =  request.body.Instructors
+    var param = request.body.Instructors
 
     db_functions.get_data_from_database(query, param).then((result) => {
         console.log("verify_status_from_edit_leaves", result);
         db_functions.get_instructors().then((result2) => {
+
             db_functions.get_this_instructor(request.body).then((result3) => {
                 response.render('./inputs/instructor_leaves.hbs', {
                     loggedIn: request.session.loggedIn,
@@ -335,6 +357,7 @@ router.post('/editInstructorLeaves', (request, response) => {
                 });
         })   
     }) 
+
     }).catch(error => {
         console.log('add instructor vacations error ', error);
         response.render('ba_admin.hbs', {
@@ -351,23 +374,23 @@ router.post('/updateInstructorLeaves', (request, response) => {
     var tablename = 'instructorLeaves';
     var query = 'DELETE FROM instructorLeaves WHERE instructors ='
     var param = request.body.instructorID
-db_functions.get_data_from_database(query,param).then((dresult)=>{
-    console.log("verify_d_status", dresult);
-    request.body.Instructors = request.body.instructorID;
-    delete request.body.instructorID;
-    console.log('fixed body: ',request.body)
-    db_functions.insertInstructorDays(request.body, tablename).then((result) => {
-        console.log("verify_status", result);
+    db_functions.get_data_from_database(query, param).then((dresult) => {
+        console.log("verify_d_status", dresult);
+        request.body.Instructors = request.body.instructorID;
+        delete request.body.instructorID;
+        console.log('fixed body: ', request.body)
+        db_functions.insertInstructorDays(request.body, tablename).then((result) => {
+            console.log("verify_status", result);
+            response.render('ba_admin.hbs', {
+                databaseConfirmation: true
+            });
+        })
+    }).catch(error => {
+        console.log('add instructor leaves error ', error)
         response.render('ba_admin.hbs', {
-            databaseConfirmation: true
+            databaseError: true
         });
     })
-}).catch(error => {
-    console.log('add instructor leaves error ', error)
-    response.render('ba_admin.hbs', {
-        databaseError: true
-    });
-})  
 });
 
 router.post('/insertInstructorOfficeDays', (request, response) => {
@@ -395,7 +418,7 @@ router.post('/editInstructorOfficeDays', (request, response) => {
     console.log("instructor.office.body :", request.body.Instructors);
 
     var query = 'SELECT * FROM instructorofficedays WHERE instructors =';
-    var param =  request.body.Instructors
+    var param = request.body.Instructors
 
     db_functions.get_data_from_database(query, param).then((result) => {
         console.log("verify_status_from_edit_office", result);
@@ -413,6 +436,7 @@ router.post('/editInstructorOfficeDays', (request, response) => {
                 });
             })
         })   
+
     }).catch(error => {
         console.log('add instructor vacations error ', error);
         response.render('ba_admin.hbs', {
@@ -429,23 +453,23 @@ router.post('/updateInstructorOfficeDays', (request, response) => {
     var tablename = 'instructorofficedays';
     var query = 'DELETE FROM instructorofficedays WHERE instructors ='
     var param = request.body.instructorID
-db_functions.get_data_from_database(query,param).then((dresult)=>{
-    console.log("verify_d_status", dresult);
-    request.body.Instructors = request.body.instructorID;
-    delete request.body.instructorID;
-    console.log('fixed body: ',request.body)
-    db_functions.insertInstructorDays(request.body, tablename).then((result) => {
-        console.log("verify_status", result);
+    db_functions.get_data_from_database(query, param).then((dresult) => {
+        console.log("verify_d_status", dresult);
+        request.body.Instructors = request.body.instructorID;
+        delete request.body.instructorID;
+        console.log('fixed body: ', request.body)
+        db_functions.insertInstructorDays(request.body, tablename).then((result) => {
+            console.log("verify_status", result);
+            response.render('ba_admin.hbs', {
+                databaseConfirmation: true
+            });
+        })
+    }).catch(error => {
+        console.log('add instructor leaves error ', error)
         response.render('ba_admin.hbs', {
-            databaseConfirmation: true
+            databaseError: true
         });
     })
-}).catch(error => {
-    console.log('add instructor leaves error ', error)
-    response.render('ba_admin.hbs', {
-        databaseError: true
-    });
-})  
 });
 
 router.post('/showInstructorsOnDay', (request, response) => {
@@ -489,7 +513,7 @@ router.post('/addCourseType', (request, response) => {
 router.post('/editCourseType', (request, response) => {
     var tablename = 'coursetype';
 
-    db_functions.onDuplicateUpdate(request.body, tablename).then((result) => {
+    db_functions.updateGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
         response.render('ba_admin.hbs', {
             databaseConfirmation: true
@@ -557,6 +581,76 @@ router.post('/editKLR', (request, response) => {
 
 router.post('/deleteKLR', (request, response) => {
     var tablename = 'KLR';
+
+    db_functions.deleteGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/addClassroomSession', (request, response) => {
+    var tablename = 'classroomcourserecord';
+
+    db_functions.insertGeneralData(request.body, tablename).then((result) => {
+        console.log(request.body);
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/editClassroomSession', (request, response) => {
+    db_functions.getClassroomSession(request.body).then((result) => {
+        db_functions.getAllGeneral('classroomcourserecord').then((courserecord) => {
+            db_functions.getAllGeneral('coursetype').then((coursetypes) => {
+                db_functions.getAllGeneral('classroom').then((sites) => {
+                    response.render('./inputs/edit_course_session.hbs', {
+                        loggedIn: request.session.loggedIn,
+                        session_list: result,
+                        courserecordlist: courserecord,
+                        coursetypeslist: coursetypes,
+                        sitesList: sites
+                    });
+                })
+            })
+        })
+    });
+});
+
+router.post('/submitEditClassroomSession', (request, response) => {
+    var tablename = 'classroomcourserecord';
+
+    db_functions.updateGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+router.post('/deleteClassroomSession', (request, response) => {
+    var tablename = 'classroomcourserecord';
 
     db_functions.deleteGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -676,10 +770,10 @@ router.post('/assignLearner', (request, response) => {
 
 router.post('/edit_learner', (request, response) => {
     db_functions.getEditLearner(request.body).then((result) => {
-    response.render('./inputs/edit_learner.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp',
-        learner_list: result
+        response.render('./inputs/edit_learner.hbs', {
+            loggedIn: request.session.loggedIn,
+            user: 'temp',
+            learner_list: result
         });
     });
 });

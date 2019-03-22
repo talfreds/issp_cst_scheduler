@@ -12,10 +12,39 @@ router.get('/ba_admin', (request, response) => {
 
 
 router.get('/inputs/course_session', (request, response) => {
-    response.render('./inputs/course_session.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp'
-    });
+    db_functions.getAllGeneral('classroomcourserecord').then((courserecord) => {
+        db_functions.getAllGeneral('coursetype').then((coursetypes) => {
+            db_functions.getAllGeneral('classroom').then((sites) => {
+                db_functions.getSessionList().then((THEsessionlist) => {
+                    response.render('./inputs/course_session.hbs', {
+                        loggedIn: request.session.loggedIn,
+                        courserecordlist: courserecord,
+                        coursetypeslist: coursetypes,
+                        sitesList: sites,
+                        sessionsList: THEsessionlist
+                    });
+                })
+            })
+        })
+    }).catch((error) => {
+        console.log(error);
+        var courserecorderror = [{
+            courseName: 'Database Connection error. ',
+            courseDate: ' '
+        }];
+        var coursetypeerror = [{
+            Type: 'Database Connection error'
+        }];
+        var siteserror = [{
+            site: 'Database Connection error',
+            classroomName: ' '
+        }];
+        response.render('./inputs/KLR_with_Instructors.hbs', {
+            courserecordlist: courserecorderror,
+            coursetypeslist: coursetypeerror,
+            sitesList: siteserror
+        });
+    })
 });
 
 
@@ -131,13 +160,16 @@ router.get('/inputs/new_learner', (request, response) => {
 router.get('/inputs/learners_into_courses', (request, response) => {
     db_functions.get_instructors_in_session().then((result) => {
         db_functions.get_learners().then((result2) => {
+            db_functions.get_KLRs().then((result3) => {
             response.render('./inputs/learners_into_courses.hbs', {
                 loggedIn: request.session.loggedIn,
                 user: 'temp',
                 session_list: result,
-                learner_list: result2
+                learner_list: result2,
+                klr_list: result3
             });
         })
+    })
     }).catch((error) => {
         var sessions = [{
             courseName: 'No sessions found'
