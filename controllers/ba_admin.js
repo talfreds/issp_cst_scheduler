@@ -15,12 +15,15 @@ router.get('/inputs/course_session', (request, response) => {
     db_functions.getAllGeneral('classroomcourserecord').then((courserecord) => {
         db_functions.getAllGeneral('coursetype').then((coursetypes) => {
             db_functions.getAllGeneral('classroom').then((sites) => {
-                response.render('./inputs/course_session.hbs', {
-                    loggedIn: request.session.loggedIn,
-                    courserecordlist: courserecord,
-                    coursetypeslist: coursetypes,
-                    sitesList: sites
-                });
+                db_functions.getSessionList().then((THEsessionlist) => {
+                    response.render('./inputs/course_session.hbs', {
+                        loggedIn: request.session.loggedIn,
+                        courserecordlist: courserecord,
+                        coursetypeslist: coursetypes,
+                        sitesList: sites,
+                        sessionsList: THEsessionlist
+                    });
+                })
             })
         })
     }).catch((error) => {

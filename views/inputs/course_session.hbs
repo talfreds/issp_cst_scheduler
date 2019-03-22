@@ -13,8 +13,8 @@
           <div id="ClassroomSessions">
             <div class="form__group">
               <select style="width:100%; height:34px" name="courseRecordID">
-                {{#each courserecordlist}}
-                <option value={{this.courseRecordID}}>{{this.courseName}} - {{this.courseDate}}</option>
+                {{#each sessionsList}}
+                <option value={{this.courseRecordID}}>{{this.Type}} -- {{this.site}}, {{this.classroomName}} -- {{this.startTime}}</option>
                 {{/each}}
               </select>
               <input id="login-submit" class="submit_button shadow" type="submit" value="Edit Session"

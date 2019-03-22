@@ -31,7 +31,7 @@
             <h2>Edit Classroom Session</h2>
 
             <div class="form__group">
-              <select name="courseTypeID" style="width:100%; height:34px">
+              <select name="courseTypeID" style="width:100%; height:34px" value={{session_list.courseTypeID}}>
 
                 {{#each coursetypeslist}}
                 <option value={{this.courseTypeID}}>{{this.Type}}</option>
@@ -55,7 +55,7 @@
             </div>
 
             <div class="form__group">
-              <select name="classroomID" style="width:100%; height:34px">
+              <select name="classroomID" style="width:100%; height:34px" value={{session_list.classroomID}}>
                 {{#each sitesList}}
                 <option value={{this.classroomID}}>{{this.site}}--{{this.classroomName}}</option>
                 {{/each}}
@@ -70,7 +70,7 @@
               <label for="comments" class="form__label">Additional Comments </label>
             </div>
             <input id="login-submit" class="submit_button shadow" type="submit" value="Submit"
-              formaction="/addClassroomSession">
+              formaction="/submitEditClassroomSession">
             <a href="/registrationForm">
               <button class='submit_button shadow'>Cancel</button>
             </a>
