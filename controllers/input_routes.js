@@ -615,14 +615,15 @@ router.post('/addClassroomSession', (request, response) => {
 });
 
 router.post('/editClassroomSession', (request, response) => {
-    db_functions.getClassroomSession(request.body).then((result) => {
-        db_functions.getAllGeneral('classroomcourserecord').then((courserecord) => {
+    db_functions.getClassroomSession(request.body).then((sessionResult) => {
+        db_functions.getSessionList().then((courserecord) => {
             db_functions.getAllGeneral('coursetype').then((coursetypes) => {
                 db_functions.getAllGeneral('classroom').then((sites) => {
+                    console.log(sessionResult);
                     response.render('./inputs/edit_course_session.hbs', {
                         loggedIn: request.session.loggedIn,
-                        session_list: result,
-                        courserecordlist: courserecord,
+                        session_list: sessionResult,
+                        sessionslist: courserecord,
                         coursetypeslist: coursetypes,
                         sitesList: sites
                     });
