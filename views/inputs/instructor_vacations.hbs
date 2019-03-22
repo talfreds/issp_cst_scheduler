@@ -26,8 +26,13 @@
           <label for="instructorSession" class="form__label">Select Instructor</label>
         </div>
         </div>
-
         <br style = "line-height:2;"></br>
+        {{#if instructorLastName}}
+        <div class="form__group">  
+        <label style="font-size:15px;font-weight:bold;" class="form__label">Instructor: {{instructorFirstName}} {{instructorLastName}}</label>
+        </div>
+        {{/if}}
+        
         <div class="form__group">  
         <label for="Capacity" class="form__label">Vacation Days</label>
         </div>
@@ -82,7 +87,6 @@
         {{#if instructorID}}
       <div class="form__group">
         <input style="opacity:0" id="instructorID" class="form__field" type="text" name="instructorID" placeholder="instructorID" value="{{instructorID}}">
-        <label style="opacity:0" for="instructorID" class="form__label">Instructor ID</label>
       </div>
       {{/if}}
 
