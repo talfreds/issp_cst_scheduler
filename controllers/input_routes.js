@@ -563,6 +563,7 @@ router.post('/addClassroomSession', (request, response) => {
     var tablename = 'classroomcourserecord';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
+        console.log(request.body);
         console.log("verify_status", result);
         response.render('ba_admin.hbs', {
             databaseConfirmation: true
@@ -577,9 +578,27 @@ router.post('/addClassroomSession', (request, response) => {
 });
 
 router.post('/editClassroomSession', (request, response) => {
+    db_functions.getClassroomSession(request.body).then((result) => {
+        db_functions.getAllGeneral('classroomcourserecord').then((courserecord) => {
+            db_functions.getAllGeneral('coursetype').then((coursetypes) => {
+                db_functions.getAllGeneral('classroom').then((sites) => {
+                    response.render('./inputs/edit_course_session.hbs', {
+                        loggedIn: request.session.loggedIn,
+                        session_list: result,
+                        courserecordlist: courserecord,
+                        coursetypeslist: coursetypes,
+                        sitesList: sites
+                    });
+                })
+            })
+        })
+    });
+});
+
+router.post('/submitEditClassroomSession', (request, response) => {
     var tablename = 'classroomcourserecord';
 
-    db_functions.onDuplicateUpdate(request.body, tablename).then((result) => {
+    db_functions.updateGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
         response.render('ba_admin.hbs', {
             databaseConfirmation: true

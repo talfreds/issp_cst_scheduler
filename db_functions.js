@@ -213,17 +213,17 @@ var updateInstructor = (obj) => {
 }
 
 
-var insertInstructorAvailability = (obj) =>{
-    if (Object.keys(obj).length<=6){
+var insertInstructorAvailability = (obj) => {
+    if (Object.keys(obj).length <= 6) {
         return Promise.resolve();
     }
 
     var keys = [];
     var values = [];
-    
-    for (i=0;i<Object.keys(obj).length-6;i++){
-        keys.push(Object.keys(obj)[i+4])
-        values.push(Object.values(obj)[i+4])
+
+    for (i = 0; i < Object.keys(obj).length - 6; i++) {
+        keys.push(Object.keys(obj)[i + 4])
+        values.push(Object.values(obj)[i + 4])
     }
 
     keys.push('instructorID');
@@ -302,55 +302,56 @@ var insertInstructorDays = (obj, tablename) => {
                 });
         })
     } else {
-        console.log('updeate iday: ',obj)
+        console.log('updeate iday: ', obj)
         var start = Object.keys(obj)[1]
         var end = Object.keys(obj)[2]
         var comments = Object.keys(obj)[3]
         return new Promise((resolve, reject) => {
 
-            
-            startdays=Object.values(obj)[1]
-            enddays=Object.values(obj)[2]
+
+            startdays = Object.values(obj)[1]
+            enddays = Object.values(obj)[2]
             newComments = Object.values(obj)[3]
-            
-            if (typeof(newComments) == "string"){
-                for (var i = 0; i<startdays.length ; i++) {
-                
+
+            if (typeof(newComments) == "string") {
+                for (var i = 0; i < startdays.length; i++) {
+
                     obj[start] = startdays[i]
                     obj[end] = enddays[i]
                     connection.query(query, Object.values(obj),
-                    function(err, queryResult, fields) {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(queryResult);
-                            console.log("Number of records inserted: " + queryResult.affectedRows);
+                        function(err, queryResult, fields) {
+                            if (err) {
+                                reject(err);
+                            } else {
+                                resolve(queryResult);
+                                console.log("Number of records inserted: " + queryResult.affectedRows);
+                            }
                         }
-                    }
 
-                )
+                    )
+                }
+            } else {
+                for (var i = 0; i < startdays.length; i++) {
+
+                    obj[start] = startdays[i]
+                    obj[end] = enddays[i]
+                    obj[comments] = newComments[i]
+
+
+
+                    connection.query(query, Object.values(obj),
+                        function(err, queryResult, fields) {
+                            if (err) {
+                                reject(err);
+                            } else {
+                                resolve(queryResult);
+                                console.log("Number of records inserted: " + queryResult.affectedRows);
+                            }
+                        }
+
+                    )
+                }
             }
-        }else{
-            for (var i = 0; i<startdays.length ; i++) {
-                
-                obj[start] = startdays[i]
-                obj[end] = enddays[i]
-                obj[comments] = newComments[i]
-                
-              
-              
-                connection.query(query, Object.values(obj),
-                    function(err, queryResult, fields) {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(queryResult);
-                            console.log("Number of records inserted: " + queryResult.affectedRows);
-                        }
-                    }
-
-                )
-            }}
         })
     }
 }
@@ -370,7 +371,7 @@ var get_all_instructors_teaching_day = (date) => {
     });
 }
 
-var get_data_from_database =(sqlquery,param) =>{
+var get_data_from_database = (sqlquery, param) => {
     return new Promise((resolve, reject) => {
         var query = sqlquery + connection.escape(param)
         connection.query(query, function(err, queryResult, fields) {
@@ -517,6 +518,19 @@ var deleteDualPK = (obj, tablename) => {
     })
 }
 
+var getClassroomSession = (obj) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT courserecordID, startTime, endTime, classroomID, comments FROM classroomcourserecord WHERE courseRecordID = ${obj.courseRecordID}`;
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
 var getEditLearner = (obj) => {
     return new Promise((resolve, reject) => {
         var query = `SELECT learnerLastName, learnerFirstName, learnPrimaryEmail, otherEmail, specialty, role, comments FROM learner WHERE learnerID = ${obj.Learners}`;
@@ -557,5 +571,6 @@ module.exports = {
     assign_learner_session,
     get_all_instructors_teaching_day,
     getAllGeneral,
-    getEditLearner
+    getEditLearner,
+    getClassroomSession
 };

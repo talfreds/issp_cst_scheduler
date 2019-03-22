@@ -28,7 +28,7 @@
         </form>
           <form action="/addClassroomSession" method="post">
 
-            <h2>Add Classroom Session</h2>
+            <h2>Edit Classroom Session</h2>
 
             <div class="form__group">
               <select name="courseTypeID" style="width:100%; height:34px">
@@ -44,12 +44,13 @@
 
             <div class="form__group">
               <input id="startTime" class="form__field" type="datetime-local" name="startTime"
-                placeholder="Enter Start Time">
+                placeholder="Enter Start Time" value={{session_list.startTime}}>
               <label for="startTime" class="form__label">Start Time: </label>
             </div>
 
             <div class="form__group">
-              <input id="endTime" class="form__field" type="datetime-local" name="endTime" placeholder="Enter End Time">
+              <input id="endTime" class="form__field" type="datetime-local" name="endTime"
+               placeholder="Enter End Time" value={{session_list.endTime}}>
               <label for="endTime" class="form__label">End Time: </label>
             </div>
 
@@ -65,7 +66,7 @@
 
             <div class="form__group">
               <textarea id="comments" class="form__field" rows="5" name="comments"
-                placeholder="Additional Comments"></textarea>
+                placeholder="Additional Comments" value={{session_list.comments}}></textarea>
               <label for="comments" class="form__label">Additional Comments </label>
             </div>
             <input id="login-submit" class="submit_button shadow" type="submit" value="Submit"
