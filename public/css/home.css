@@ -136,28 +136,31 @@ label,
 }
 #ba_damin_td {
     vertical-align: middle;
+    border-collapse: collapse;
+    height: 42.5vh;
 }
 
 /* table styling */
 table {
     border-collapse: collapse;
     width: 50%;
-    margin: auto;
-  }
-  
-  th, td {
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even){background-color: #f2f2f2}
-  tr:nth-child(odd){background-color: #ffffff}
+    }
 
-  
-  th {
+    th, td {
+        vertical-align: top;
+        text-align:center;
+        border-collapse: collapse;
+        width: 46vw;
+        height: 46vh;
+        }
+
+    tr:nth-child(even){background-color: #f2f2f2;}
+
+    th {
     background-color: #4CAF50;
     color: white;
-  }
+    }
+
 a:link {
     color: rgb(38, 38, 233);
     text-decoration: unset;
@@ -185,9 +188,10 @@ a:active {
 }
 .text_on_pic {
     position: absolute;
-    top: 1vw;
-    left: 5vw;
-    font-size:40px;
+    top: 3vw;
+    left: 1vw;
+    font-size:35px;
+    text-align: center;
     font-stretch: extra-condensed;
     text-shadow: 0 1px 0 #ccc,
         0 2px 0 #c9c9c9,
