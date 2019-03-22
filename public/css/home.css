@@ -134,24 +134,27 @@ label,
     color: black;
 }
 
+/* table styling */
 table {
     border-collapse: collapse;
     width: 50%;
-    }
-
-    th, td {
+    margin: auto;
+  }
+  
+  th, td {
     text-align: left;
     padding: 8px;
-    height: 42vh;
-    }
+  }
+  
+  tr:nth-child(even){background-color: #f2f2f2}
+  tr:nth-child(odd){background-color: #ffffff}
 
-    tr:nth-child(even){background-color: #f2f2f2;}
 
-    th {
+  
+  th {
     background-color: #4CAF50;
     color: white;
-    }
-
+  }
 a:link {
     color: rgb(38, 38, 233);
     text-decoration: unset;
