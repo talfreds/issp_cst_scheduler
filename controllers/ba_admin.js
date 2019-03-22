@@ -12,10 +12,36 @@ router.get('/ba_admin', (request, response) => {
 
 
 router.get('/inputs/course_session', (request, response) => {
-    response.render('./inputs/course_session.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp'
-    });
+    db_functions.getAllGeneral('classroomcourserecord').then((courserecord) => {
+        db_functions.getAllGeneral('coursetype').then((coursetypes) => {
+            db_functions.getAllGeneral('classroom').then((sites) => {
+                response.render('./inputs/course_session.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    courserecordlist: courserecord,
+                    coursetypeslist: coursetypes,
+                    sitesList: sites
+                });
+            })
+        })
+    }).catch((error) => {
+        console.log(error);
+        var courserecorderror = [{
+            courseName: 'Database Connection error. ',
+            courseDate: ' '
+        }];
+        var coursetypeerror = [{
+            Type: 'Database Connection error'
+        }];
+        var siteserror = [{
+            site: 'Database Connection error',
+            classroomName: ' '
+        }];
+        response.render('./inputs/KLR_with_Instructors.hbs', {
+            courserecordlist: courserecorderror,
+            coursetypeslist: coursetypeerror,
+            sitesList: siteserror
+        });
+    })
 });
 
 

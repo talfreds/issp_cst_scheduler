@@ -7,30 +7,33 @@
 <body>
   <div id='addDataBox'>
     <div id='loginFormDiv'>
+      <form method="post">
         <div id="login__wrapper">
-            <h2>Edit or Delete Classroom Session</h2>
-        <div id="ClassroomSessions">
+          <h2>Edit or Delete Classroom Session</h2>
+          <div id="ClassroomSessions">
             <div class="form__group">
-                <select style="width:100%; height:34px" name="Sessions">
-                  {{#each classlist}}
-                    <option value={{this.courseRecordID}}>{{this.courseName}} - {{this.courseDate}}</option>
-                  {{/each}}
-                </select>   
-                  <input id="login-submit" class="submit_button shadow" type="submit" value="Edit Session" formaction="/editClassroomSession">
-                  <input id="login-submit" class="submit_button shadow" type="submit" value="Delete Session" formaction="/deleteClassroomSession">
-                    
+              <select style="width:100%; height:34px" name="Sessions">
+                {{#each courserecordlist}}
+                <option value={{this.courseRecordID}}>{{this.courseName}} - {{this.courseDate}}</option>
+                {{/each}}
+              </select>
+              <input id="login-submit" class="submit_button shadow" type="submit" value="Edit Session"
+                formaction="/editClassroomSession">
+              <input id="login-submit" class="submit_button shadow" type="submit" value="Delete Session"
+                formaction="/deleteClassroomSession">
+
               <label for="Session" class="form__label">Select Classroom Session</label>
             </div>
-        </div>
+          </div>
+        </form>
+          <form action="/addClassroomSession" method="post">
 
-      <form action="/addClassroomSession" method="post">
-
-        <h2>Add Classroom Session</h2>
+            <h2>Add Classroom Session</h2>
 
             <div class="form__group">
               <select name="courseType" style="width:100%; height:34px">
-                
-                {{#each courseTypes}}
+
+                {{#each coursetypeslist}}
                 <option value={{this.courseTypeID}}>{{this.Type}}</option>
                 {{/each}}
 
@@ -39,37 +42,40 @@
               <label for="courseType" class="form__label">Select Course Type</label>
             </div>
 
-           <div class="form__group">
-            <input id="startTime" class="form__field" type="datetime-local" name="startTime"
-              placeholder="Enter Start Time">
-            <label for="startTime" class="form__label">Start Time: </label>
-          </div>
+            <div class="form__group">
+              <input id="startTime" class="form__field" type="datetime-local" name="startTime"
+                placeholder="Enter Start Time">
+              <label for="startTime" class="form__label">Start Time: </label>
+            </div>
 
-          <div class="form__group">
-            <input id="endTime" class="form__field" type="datetime-local" name="endTime" placeholder="Enter End Time">
-            <label for="endTime" class="form__label">End Time: </label>
-          </div>
+            <div class="form__group">
+              <input id="endTime" class="form__field" type="datetime-local" name="endTime" placeholder="Enter End Time">
+              <label for="endTime" class="form__label">End Time: </label>
+            </div>
 
-          <div class="form__group">
-              <select name="classroom" style="width:100%; height:34px">               
-                {{#each courseTypes}}
-                <option value={{this.classroomID}}>{{this.site}} - {{this.location}} - {{this.classroomName}}</option>
+            <div class="form__group">
+              <select name="classroomID" style="width:100%; height:34px">
+                {{#each sitesList}}
+                <option value={{this.classroomID}}>{{this.site}}--{{this.classroomName}}</option>
                 {{/each}}
+
               </select>
               <label for="classroom" class="form__label">Select Classroom</label>
             </div>
 
-          <div class="form__group">
-            <textarea id="comments" class="form__field" rows="5" name="comments" placeholder="Additional Comments"></textarea>
-            <label for="comments" class="form__label">Additional Comments </label>
-          </div>
-        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
-        <a href="/registrationForm"> 
-          <button class='submit_button shadow'>Cancel</button>
-        </a>
-      </form>
+            <div class="form__group">
+              <textarea id="comments" class="form__field" rows="5" name="comments"
+                placeholder="Additional Comments"></textarea>
+              <label for="comments" class="form__label">Additional Comments </label>
+            </div>
+            <input id="login-submit" class="submit_button shadow" type="submit" value="Submit"
+              formaction="/addClassroomSession">
+            <a href="/registrationForm">
+              <button class='submit_button shadow'>Cancel</button>
+            </a>
+          </form>
+        </div>
     </div>
-  </div>
 
-  <script src="/javascript/input_forms.js"></script>
+    <script src="/javascript/input_forms.js"></script>
 </body>
