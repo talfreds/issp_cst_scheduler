@@ -239,7 +239,10 @@ router.get('/inputs/instructor_vacations', (request, response) => {
             user: 'temp',
             instructor_list: result2,
             vacations: null,
-            edit: false
+            instructorID:null,
+            edit: false,
+            instructorLastName:null,
+            instructorFirstName:null
         });
     }).catch((error) => {
         console.log(error);
@@ -255,7 +258,9 @@ router.get('/inputs/instructor_office_days', (request, response) => {
             user: 'temp',
             instructor_list: result2,
             officeDays: null,
-            edit: false
+            edit: false,
+            instructorLastName:null,
+            instructorFirstName:null
         });
     }).catch((error) => {
         console.log(error);
@@ -270,7 +275,9 @@ router.get('/inputs/instructor_leaves', (request, response) => {
             user: 'temp',
             instructor_list: result2,
             leaves: null,
-            edit: false
+            edit: false,
+            instructorLastName:null,
+            instructorFirstName:null
         });
     }).catch((error) => {
         console.log(error);
