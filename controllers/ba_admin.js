@@ -200,11 +200,34 @@ router.get('/inputs/instructor', (request, response) => {
 });
 
 router.get('/inputs/siteClassroom', (request, response) => {
-    response.render('./inputs/siteClassroom.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp'
+    db_functions.getAllGeneral('classroom').then((result) => {
+        response.render('./inputs/siteClassroom.hbs', {
+            loggedIn: request.session.loggedIn,
+            classroom_list: result
+        });
+    })
+});
 
-    });
+router.post('/inputs/edit_site_classroom', (request, response) => {
+    db_functions.getAllGeneral('classroom').then((result) => {
+        classroom_details_object = null;
+        for (let i = 0; i < result.length; i++) {
+            if (result[i].classroomID == request.body.classroomID) {
+                classroom_details_object = result[i];
+                break;
+            }
+        }
+        response.render('./inputs/edit_site_classroom.hbs', {
+            loggedIn: request.session.loggedIn,
+            classroom_details: classroom_details_object
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('./inputs/edit_site_classroom.hbs', {
+            loggedIn: request.session.loggedIn,
+            classroom_details: null
+        });
+    })
 });
 
 
@@ -214,12 +237,15 @@ router.get('/inputs/instructor_vacations', (request, response) => {
         response.render('./inputs/instructor_vacations.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            instructor_list: result2
+            instructor_list: result2,
+            vacations: null,
+            edit: false
         });
     }).catch((error) => {
         console.log(error);
     })
 });
+
 
 router.get('/inputs/instructor_office_days', (request, response) => {
 
@@ -227,7 +253,9 @@ router.get('/inputs/instructor_office_days', (request, response) => {
         response.render('./inputs/instructor_office_days.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            instructor_list: result2
+            instructor_list: result2,
+            officeDays: null,
+            edit: false
         });
     }).catch((error) => {
         console.log(error);
@@ -240,7 +268,9 @@ router.get('/inputs/instructor_leaves', (request, response) => {
         response.render('./inputs/instructor_leaves.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            instructor_list: result2
+            instructor_list: result2,
+            leaves: null,
+            edit: false
         });
     }).catch((error) => {
         console.log(error);
@@ -255,5 +285,9 @@ router.get('/inputs/show_instructors_on_day', (request, response) => {
         user: 'temp'
     });
 });
+
+
+
+
 
 module.exports = router;

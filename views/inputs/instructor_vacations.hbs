@@ -10,7 +10,7 @@
       <form action="/insertInstructorVacations" method="post">
 
         <div id="login__wrapper">
-            <h2>Insert Instructor Vacations</h2>
+            <h2>Instructor Vacations</h2>
           
         <div id="instructorVacations">
         <div class="form__group">
@@ -20,6 +20,8 @@
             {{/each}}
 
         </select>   
+        <div><br/></div>
+          <input id="edit-instructor-vacation-submit" name= "edit-instructor-vacation-submit" formaction="/editInstructorVacations" class="submit_button shadow" type="submit" value="Edit Vacations">
           <label for="instructorSession" class="form__label">Select Instructor</label>
         </div>
         </div>
@@ -29,6 +31,28 @@
         <label for="Capacity" class="form__label">Vacation Days</label>
         </div>
         <div id="Vacations">
+
+          {{#each vacations}}
+        <div class="form__group" style="display:inline-block; position:relative"> 
+        <input id="instructorvacationsStart" class="form__field" type="date" name="instructorvacationsStart" value="{{formatDate this.instructorvacationsStart}}" >
+        <label for="instructorvacationsStart" class="form__label">Start Days</label>
+        </div>
+
+        <div class="form__group"style="display:inline-block; position:relative"> 
+        <input id="instructorvacationsEnd" class="form__field" type="date" name="instructorvacationsEnd" value="{{formatDate this.instructorvacationsEnd}}">
+        <label for="instructorvacationsEnd" class="form__label">End Days</label>
+        </div>
+
+          <div class="form__group">
+            <textarea id="comments" class="form__field" rows="5" name="comments" placeholder="Additional Comments" >{{this.comments}}</textarea>
+            <label for="comments" class="form__label">Additional Comments </label>
+        </div>
+        
+        <a href="#" onclick="removeDate(this);return false;" class="form__label" style="font-size: small;">Delete</a>
+        <div><br ></div>
+            {{/each}}
+
+        <div><br ></div>
         <div>
         <div class="form__group" style="display:inline-block; position:relative"> 
         <input id="instructorvacationsStart" class="form__field" type="date" name="instructorvacationsStart" >
@@ -45,13 +69,23 @@
         <a href="#" onclick="removetag(Vacations);return false;" class="form__label" style="font-size: small;">Delete</a>
         <div><br style = "line-height:2;"></div>
 
-        <div class="form__group">
+        
+        <br>
+
+          <div class="form__group">
             <textarea id="comments" class="form__field" rows="5" name="comments" placeholder="Additional Comments"></textarea>
             <label for="comments" class="form__label">Additional Comments </label>
         </div>
         <br>
-        
-        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+
+        {{#if instructorID}}
+      <div class="form__group">
+        <input style="opacity:0" id="instructorID" class="form__field" type="text" name="instructorID" placeholder="instructorID" value="{{instructorID}}">
+        <label style="opacity:0" for="instructorID" class="form__label">Instructor ID</label>
+      </div>
+      {{/if}}
+
+        <input id="login-submit" class="submit_button shadow" {{#if edit}}formaction="/updateInstructorVacations" {{/if}}type="submit"  value="Submit">
       </form>
     <a href="/registrationForm"> 
       <button class='submit_button shadow'>Cancel</button>

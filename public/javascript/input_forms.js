@@ -33,10 +33,13 @@ function addTeachCourse(){
     idiv.removeChild(idiv.lastElementChild);
   };
 
-  function removeCourse(idiv){
-    idiv.removeChild(idiv.lastElementChild);
-  
+  function removeDate(idiv){
+    idiv.parentNode.removeChild(idiv.previousElementSibling);
+    idiv.parentNode.removeChild(idiv.previousElementSibling);
+    idiv.parentNode.removeChild(idiv.previousElementSibling);
   };
+
+
 
   function addDate(ilabel,idiv,iname){
     var warpper = document.createElement("div");
