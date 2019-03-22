@@ -95,7 +95,6 @@ var get_this_instructor = (obj) => {
 }
 
 
-
 var get_learners = () => {
     return new Promise((resolve, reject) => {
         var query = `SELECT learnerID, learnerFirstName, learnerLastName FROM learner`;
@@ -215,7 +214,10 @@ var updateInstructor = (obj) => {
 
 
 var insertInstructorAvailability = (obj) =>{
-   
+    if (Object.keys(obj).length<=6){
+        return Promise.resolve();
+    }
+
     var keys = [];
     var values = [];
     
@@ -311,16 +313,12 @@ var insertInstructorDays = (obj, tablename) => {
             enddays=Object.values(obj)[2]
             newComments = Object.values(obj)[3]
             
-            
-            for (var i = 0; i<startdays.length ; i++) {
+            if (typeof(newComments) == "string"){
+                for (var i = 0; i<startdays.length ; i++) {
                 
-                obj[start] = startdays[i]
-                obj[end] = enddays[i]
-                obj[comments] = newComments[i]
-                
-              
-              // does this need a  } to close the loop?
-                connection.query(query, Object.values(obj),
+                    obj[start] = startdays[i]
+                    obj[end] = enddays[i]
+                    connection.query(query, Object.values(obj),
                     function(err, queryResult, fields) {
                         if (err) {
                             reject(err);
@@ -332,6 +330,27 @@ var insertInstructorDays = (obj, tablename) => {
 
                 )
             }
+        }else{
+            for (var i = 0; i<startdays.length ; i++) {
+                
+                obj[start] = startdays[i]
+                obj[end] = enddays[i]
+                obj[comments] = newComments[i]
+                
+              
+              
+                connection.query(query, Object.values(obj),
+                    function(err, queryResult, fields) {
+                        if (err) {
+                            reject(err);
+                        } else {
+                            resolve(queryResult);
+                            console.log("Number of records inserted: " + queryResult.affectedRows);
+                        }
+                    }
+
+                )
+            }}
         })
     }
 }

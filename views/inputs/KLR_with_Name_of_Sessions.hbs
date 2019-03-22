@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <header>
-  <title> Assign a required KLR to a Course Type </title>
+  <title> Assign a KLR to a Course Type </title>
   <link href='/css/home.css' rel="stylesheet" type="text/css" />
 </header>
 
@@ -16,7 +16,7 @@
             <select name="combo">
 
               {{#each courseTypesAvailableKLRs}}
-              <option value='{ "courseTypeID": "{{this.courseTypeID}}", "klrID": "{{this.klrID}}" }'>{{getSessionTypeFromID ../courseTypeList this.courseTypeID}} requires
+              <option value='{ "courseTypeID": "{{this.courseTypeID}}", "klrID": "{{this.klrID}}" }'>{{getSessionTypeFromID ../courseTypeList this.courseTypeID}} includes
               {{getKLRNameFromID ../klrList this.klrID}}
               </option>
               {{/each}}
@@ -27,7 +27,7 @@
         </div>
 
 
-        <h2>Assign a required KLR to a Course Type</h2>
+        <h2>Assign a KLR to a Course Type</h2>
         <br>
         <br>
         <br>

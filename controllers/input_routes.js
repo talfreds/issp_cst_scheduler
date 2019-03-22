@@ -72,14 +72,13 @@ router.post('/insertClassroom', (request, response) => {
 
 });
 
-
-router.post('/insertClassroom', (request, response) => {
+router.post('/editClassroom', (request, response) => {
 
     console.log("Request.body :", request.body);
 
     var tablename = 'classroom';
 
-    db_functions.insertGeneralData(request.body, tablename).then((result) => {
+    db_functions.updateGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
         response.render('ba_admin.hbs', {
             databaseConfirmation: true
@@ -91,6 +90,27 @@ router.post('/insertClassroom', (request, response) => {
         });
     })
 });
+
+
+router.post('/deleteClassrooom', (request, response) => {
+    var tablename = 'classroom';
+
+    db_functions.deleteGeneralData(request.body, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
+
+
 
 
 router.post('/insertInstructor', (request, response) => {
@@ -171,6 +191,27 @@ router.post('/updateInstructor', (request, response) => {
     })
 
 });
+
+router.post('/deleteInstructor', (request, response) => {
+    var tablename = 'instructor';
+    var obj ={};
+    obj.instructorID = request.body.Instructors;
+    console.log(obj)
+
+    db_functions.deleteGeneralData(obj, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
 
 router.post('/insertInstructorVacations', (request, response) => {
 
