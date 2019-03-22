@@ -27,6 +27,12 @@
         </div>
 
         <br style = "line-height:2;"></br>
+
+        {{#if instructorLastName}}
+        <div class="form__group">  
+        <label style="font-size:15px;font-weight:bold;" class="form__label">Instructor: {{instructorFirstName}} {{instructorLastName}}</label>
+        </div>
+        {{/if}}
         <div class="form__group">  
         <label for="Capacity" class="form__label">Office Days</label>
         </div>
