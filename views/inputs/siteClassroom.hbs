@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <header>
-    <title> Insert Classroom</title>
-    <link href="/css/home.css" rel="stylesheet" type="text/css" />
+  <title> Insert Classroom</title>
+  <link href="/css/home.css" rel="stylesheet" type="text/css" />
 </header>
 
 <body>
   <div id='addDataBox'>
     <div id='loginFormDiv'>
-      <form action="/insertClassroom" method="post">
+       <form method="post">
+      <div id="login__wrapper">
+      <h2>Edit or Delete a Classroom</h2>
 
-        <div id="login__wrapper">
-            <h2>Insert Classroom</h2>
-          <div class="form__group">
-            <input id="classroomName" class="form__field" type="text" name="classroomName" placeholder="Name">
-            <label for="classroomName" class="form__label">Classroom Name</label>
-          </div>
+      <div class="form__group">
+        <select name="classroomID">
+          {{#each classroom_list}}
+          <option value={{this.classroomID}}>{{this.site}}--{{this.classroomName}}</option>
+          {{/each}}
+
+        </select>
+      </div>
+      <input id="login-submit" class="submit_button shadow" type="submit" value="Edit"
+        formaction="/inputs/edit_site_classroom">
+      </form>
+    </div>
+
+
+    <form action="/insertClassroom" method="post">
+
+      <div id="login__wrapper">
+        <h2>Insert Classroom</h2>
+        <div class="form__group">
+          <input id="classroomName" class="form__field" type="text" name="classroomName" placeholder="Name">
+          <label for="classroomName" class="form__label">Classroom Name</label>
+        </div>
 
 
         <div class="form__group">
@@ -22,41 +40,42 @@
           <label for="Site" class="form__label">Site: </label>
         </div>
 
-        <div class="form__group"> 
-        <input id="Location" class="form__field" type="text" name="Location" placeholder="Location">
-        <label for="Location" class="form__label">Location </label>
-        </div> 
-        
-        <div class="form__group">  
-        <input id="Capacity" class="form__field" type="number" name="capacity" placeholder="Capacity">
-        <label for="Capacity" class="form__label">Capacity</label>
-        </div>
-
-        <div class="form__group">  
-            <label for="Projector" class="form__label" >Projector
-              <input id="Projector" name="Projector" type="checkbox" >
-              <span ></span>
-            </label>
-        </div>
-        
-        <div class="form__group">       
-            <label for="ProjectorScreen" class="form__label" >ProjectorScreen
-              <input id="ProjectorScreen" name="ProjectorScreen" type="checkbox" >
-              <span ></span>
-            </label>      
+        <div class="form__group">
+          <input id="Location" class="form__field" type="text" name="Location" placeholder="Location">
+          <label for="Location" class="form__label">Location </label>
         </div>
 
         <div class="form__group">
-            <textarea id="comments" class="form__field" rows="5" name="comments" placeholder="Additional Comments"></textarea>
-            <label for="comments" class="form__label">Additional Comments </label>
+          <input id="Capacity" class="form__field" type="number" name="capacity" placeholder="Capacity">
+          <label for="Capacity" class="form__label">Capacity</label>
+        </div>
+
+        <div class="form__group">
+          <label for="Projector" class="form__label">Projector
+            <input id="Projector" name="Projector" type="checkbox">
+            <span></span>
+          </label>
+        </div>
+
+        <div class="form__group">
+          <label for="ProjectorScreen" class="form__label">ProjectorScreen
+            <input id="ProjectorScreen" name="ProjectorScreen" type="checkbox">
+            <span></span>
+          </label>
+        </div>
+
+        <div class="form__group">
+          <textarea id="comments" class="form__field" rows="5" name="comments"
+            placeholder="Additional Comments"></textarea>
+          <label for="comments" class="form__label">Additional Comments </label>
         </div>
         <br>
-        
+
         <input id="siteClassromm-submit" class="submit_button shadow" type="submit" value="Submit">
-      </form>
-    <a href="/ba_admin"> 
-      <button class='submit_button shadow'>Cancel</button>
+    </form>
+    <a href="/ba_admin">
+      <button type="button" class='submit_button shadow'>Cancel</button>
     </a>
-    </div>
+  </div>
   </div>
 </body>
