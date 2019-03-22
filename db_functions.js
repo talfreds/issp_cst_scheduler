@@ -52,7 +52,7 @@ var getAllGeneral = (tablename) => {
 var get_instructors_in_session = () => {
     return new Promise((resolve, reject) => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
-        var query = `SELECT courseName, courseRecordID FROM classroomcourserecord`;
+        var query = `select courseID, Type, site, courseDate from coursetype right join classroomcourse on coursetype.courseTypeID = classroomcourse.courseTypeID right join classroom on classroomcourse.classroomID = classroom.classroomID;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);

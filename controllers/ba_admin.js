@@ -131,13 +131,16 @@ router.get('/inputs/new_learner', (request, response) => {
 router.get('/inputs/learners_into_courses', (request, response) => {
     db_functions.get_instructors_in_session().then((result) => {
         db_functions.get_learners().then((result2) => {
+            db_functions.get_KLRs().then((result3) => {
             response.render('./inputs/learners_into_courses.hbs', {
                 loggedIn: request.session.loggedIn,
                 user: 'temp',
                 session_list: result,
-                learner_list: result2
+                learner_list: result2,
+                klr_list: result3
             });
         })
+    })
     }).catch((error) => {
         var sessions = [{
             courseName: 'No sessions found'

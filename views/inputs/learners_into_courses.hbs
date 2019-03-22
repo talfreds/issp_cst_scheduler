@@ -12,7 +12,19 @@
         <div id="login__wrapper">
             <h2>Assign Learners to Session</h2>
 
-                    <br>
+        <div id="Sessions">
+          <div class="form__group">  
+        <select style="width:100%; height:34px" name="Sessions">
+                {{#each session_list}}
+                    <option value={{this.courseID}}>{{this.Type}} - {{this.site}} - {{this.courseDate}}</option>
+                {{/each}}
+
+        </select>   
+        <br>
+        <br>
+
+        <label for="instructor" class="form__label">Select Session Name</label>
+        </div>
         <div id="learnerSessions">
         <div class="form__group">
         <select style="width:100%; height:34px" name="Learners">
@@ -24,20 +36,18 @@
           <label for="Session" class="form__label">Select Learner</label>
         </div>
         </div>
-        <div id="Sessions">
-          <div class="form__group">  
-        <select style="width:100%; height:34px" name="Sessions">
-                {{#each session_list}}
-                    <option value={{this.courseRecordID}}>{{this.courseName}}</option>
-                {{/each}}
+          <br>
+        <div id="klrSessions">
+        <div class="form__group">
+        <select style="width:100%; height:34px" name="klrs">
+            {{#each klr_list}}
+                <option value={{this.klrID}}>{{this.klrName}}, {{this.KLRcol}}</option>
+            {{/each}}
 
         </select>   
-        <label for="instructor" class="form__label">Select Session Name</label>
+          <label for="Session" class="form__label">Select KLR</label>
         </div>
-
-
-        <a href="#" onclick="addSession();return false;" class="form__label" style="font-size: small;">add another Session</a>
-        <div><br style = "line-height:2;"></div> 
+        </div>
 
         <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
       </form>
@@ -49,20 +59,4 @@
 </body>
 
 <script>
-  function addSession(){
-    {{!-- <div class="form__group">
-          <input id="learnerSession" class="form__field" type="text" name="learnerSession" placeholder="learnerSession">
-          <label for="learnerSession" class="form__label">Teach Course: </label>
-        </div> --}}
-
-    var formGroup = document.createElement("select");    
-    var einput = document.createElement("option");    
-       
-
-    einput.className="select__field";
-    einput.style="width:100%; height:34px;";
-    formGroup.appendChild(einput);                                                              
-    document.getElementById("Sessions").appendChild(formGroup); 
-
-  };
 </script>

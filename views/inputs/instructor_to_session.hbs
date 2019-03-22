@@ -14,7 +14,7 @@
           <div class="form__group">  
         <select style="width:100%; height:34px" name="Sessions">
                 {{#each session_list}}
-                    <option value={{this.courseRecordID}}>{{this.courseName}}</option>
+                    <option value={{this.courseID}}>{{this.Type}} - {{this.site}} - {{this.courseDate}}</option>
                 {{/each}}
 
         </select>   
@@ -33,9 +33,7 @@
           <label for="instructorSession" class="form__label">Select Instructor</label>
         </div>
         </div>
-        <a href="#" onclick="addInstructor();return false;" class="form__label" style="font-size: small;">add another instructor</a>
-        <div><br style = "line-height:2;"></div> 
-
+    
         <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
       </form>
     <a href="/ba_admin"> 
@@ -46,20 +44,5 @@
 </body>
 
 <script>
-  function addInstructor(){
-    {{!-- <div class="form__group">
-          <input id="instructorSession" class="form__field" type="text" name="instructorSession" placeholder="instructorSession">
-          <label for="instructorSession" class="form__label">Teach Course: </label>
-        </div> --}}
-
-    var formGroup = document.createElement("select");    
-    var einput = document.createElement("option");    
-       
-
-    einput.className="select__field";
-    einput.style="width:100%; height:34px;";
-    formGroup.appendChild(einput);                                                              
-    document.getElementById("instructorSessions").appendChild(formGroup); 
-
-  };
+ 
 </script>
