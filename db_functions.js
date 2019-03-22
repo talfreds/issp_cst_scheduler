@@ -95,7 +95,6 @@ var get_this_instructor = (obj) => {
 }
 
 
-
 var get_learners = () => {
     return new Promise((resolve, reject) => {
         var query = `SELECT learnerID, learnerFirstName, learnerLastName FROM learner`;

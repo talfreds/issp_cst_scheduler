@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<header>
+  <title> Edit Classroom</title>
+  <link href="/css/home.css" rel="stylesheet" type="text/css" />
+</header>
+
+<body>
+  <div id='addDataBox'>
+    <div id='loginFormDiv'>
+      <form method="post">
+
+        <div id="login__wrapper">
+          <h2>Edit Classroom</h2>
+
+          <div class="form__group">
+            <input value="{{classroom_details.classroomID}}" id="classroomID" class="form__field" type="text"
+              name="classroomID" placeholder="ID" readonly>
+            <label for="classroomName" class="form__label">Classroom ID</label>
+          </div>
+
+          <div class="form__group">
+            <input value="{{classroom_details.classroomName}}" id="classroomName" class="form__field" type="text"
+              name="classroomName" placeholder="Name">
+            <label for="classroomName" class="form__label">Classroom Name</label>
+          </div>
+
+
+          <div class="form__group">
+            <input value="{{classroom_details.site}}" id="site" class="form__field" type="text" name="site"
+              placeholder="Site">
+            <label for="Site" class="form__label">Site: </label>
+          </div>
+
+          <div class="form__group">
+            <input value="{{classroom_details.location}}" id="location" class="form__field" type="text" name="location"
+              placeholder="Location">
+            <label for="Location" class="form__label">Location </label>
+          </div>
+
+          <div class="form__group">
+            <input value="{{classroom_details.capacity}}" id="capacity" class="form__field" type="number"
+              name="capacity" placeholder="Capacity">
+            <label for="Capacity" class="form__label">Capacity</label>
+          </div>
+
+          <div class="form__group">
+
+            <label for="Projector" class="form__label">Projector
+              <input id="Projector" name="projector" type="checkbox" {{#if classroom_details.projector}}checked{{/if}}>
+              <span></span>
+            </label>
+          </div>
+
+          <div class="form__group">
+            <label for="ProjectorScreen" class="form__label">ProjectorScreen
+              <input id="ProjectorScreen" name="projectorScreen" type="checkbox"
+                {{#if classroom_details.projectorScreen}}checked{{/if}}>
+              <span></span>
+            </label>
+          </div>
+
+          <div class="form__group">
+            <textarea id="comments" class="form__field" rows="5" name="comments"
+              placeholder="Additional Comments">{{classroom_details.comments}}</textarea>
+            <label for="comments" class="
+                        <hr />form__label">Additional Comments </label>
+          </div>
+          <br>
+
+          <input formaction="/editClassroom" id="siteClassroom-submit" class="submit_button shadow" type="submit"
+            value="Edit">
+
+          <a href="/ba_admin">
+            <button type="button" class='submit_button shadow'>Cancel</button>
+          </a>
+
+          <input formaction="/deleteClassrooom" id="siteClassroom-submit" class="submit_button shadow" type="submit"
+            value="Delete">
+
+      </form>
+
+    </div>
+  </div>
+</body>
