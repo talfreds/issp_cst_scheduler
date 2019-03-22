@@ -12,9 +12,9 @@
           <h2>Edit or Delete Classroom Session</h2>
           <div id="ClassroomSessions">
             <div class="form__group">
-              <select style="width:100%; height:34px" name="courseRecordID">
-                {{#each courserecordlist}}
-                <option value={{this.courseRecordID}}>{{this.courseName}} - {{this.courseDate}}</option>
+              <select style="width:100%; height:34px" name="courseRecordID" value="{{session_list.courseRecordID}}">
+                {{#each sessionslist}}
+                <option value={{this.courseRecordID}}>{{this.Type}} -- {{this.site}}, {{this.classroomName}} -- {{this.startTime}}</option>
                 {{/each}}
               </select>
               <input id="login-submit" class="submit_button shadow" type="submit" value="Edit Session"
@@ -31,7 +31,7 @@
             <h2>Edit Classroom Session</h2>
 
             <div class="form__group">
-              <select name="courseTypeID" style="width:100%; height:34px" value={{session_list.courseTypeID}}>
+              <select name="courseTypeID" style="width:100%; height:34px" value={{this.courseTypeID}}>
 
                 {{#each coursetypeslist}}
                 <option value={{this.courseTypeID}}>{{this.Type}}</option>
@@ -44,18 +44,18 @@
 
             <div class="form__group">
               <input id="startTime" class="form__field" type="datetime-local" name="startTime"
-                placeholder="Enter Start Time" value={{session_list.startTime}}>
+                placeholder="Enter Start Time" value={{this.startTime}}>
               <label for="startTime" class="form__label">Start Time: </label>
             </div>
 
             <div class="form__group">
               <input id="endTime" class="form__field" type="datetime-local" name="endTime"
-               placeholder="Enter End Time" value={{session_list.endTime}}>
+               placeholder="Enter End Time" value={{this.endTime}}>
               <label for="endTime" class="form__label">End Time: </label>
             </div>
 
             <div class="form__group">
-              <select name="classroomID" style="width:100%; height:34px" value={{session_list.classroomID}}>
+              <select name="classroomID" style="width:100%; height:34px" value={{this.classroomID}}>
                 {{#each sitesList}}
                 <option value={{this.classroomID}}>{{this.site}}--{{this.classroomName}}</option>
                 {{/each}}
@@ -66,7 +66,7 @@
 
             <div class="form__group">
               <textarea id="comments" class="form__field" rows="5" name="comments"
-                placeholder="Additional Comments" value={{session_list.comments}}></textarea>
+                placeholder="Additional Comments" value={{this.comments}}></textarea>
               <label for="comments" class="form__label">Additional Comments </label>
             </div>
             <input id="login-submit" class="submit_button shadow" type="submit" value="Submit"
