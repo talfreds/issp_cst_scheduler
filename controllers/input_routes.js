@@ -212,6 +212,26 @@ router.post('/deleteInstructor', (request, response) => {
 
 });
 
+router.post('/deleteLearner', (request, response) => {
+    var tablename = 'learner';
+    var obj ={};
+    obj.learnerID = request.body.Learners;
+    console.log(obj)
+
+    db_functions.deleteGeneralData(obj, tablename).then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+
+});
+
 
 router.post('/insertInstructorVacations', (request, response) => {
 
@@ -243,15 +263,21 @@ router.post('/editInstructorVacations', (request, response) => {
     db_functions.get_data_from_database(query, param).then((result) => {
         console.log("verify_status_from_edit_vacations", result[0].instructorvacationsStart);
         db_functions.get_instructors().then((result2) => {
-            response.render('./inputs/instructor_vacations.hbs', {
-                loggedIn: request.session.loggedIn,
-                user: 'temp',
-                instructor_list: result2,
-                vacations: result,
-                instructorID: request.body.Instructors,
-                edit: true
-            });
-        })
+            db_functions.get_this_instructor(request.body).then((result3) => {
+                console.log("this instructor: ",result3)
+                response.render('./inputs/instructor_vacations.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    user: 'temp',
+                    instructor_list: result2,
+                    vacations:result,
+                    instructorID:request.body.Instructors,
+                    edit:true,
+                    instructorLastName:result3[0].instructorLastName,
+                    instructorFirstName:result3[0].instructorFirstName
+                });
+        })   
+    }) 
+
     }).catch(error => {
         console.log('add instructor vacations error ', error);
         response.render('ba_admin.hbs', {
@@ -317,15 +343,21 @@ router.post('/editInstructorLeaves', (request, response) => {
     db_functions.get_data_from_database(query, param).then((result) => {
         console.log("verify_status_from_edit_leaves", result);
         db_functions.get_instructors().then((result2) => {
-            response.render('./inputs/instructor_leaves.hbs', {
-                loggedIn: request.session.loggedIn,
-                user: 'temp',
-                instructor_list: result2,
-                leaves: result,
-                instructorID: request.body.Instructors,
-                edit: true
-            });
-        })
+
+            db_functions.get_this_instructor(request.body).then((result3) => {
+                response.render('./inputs/instructor_leaves.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    user: 'temp',
+                    instructor_list: result2,
+                    leaves:result,
+                    instructorID:request.body.Instructors,
+                    edit:true,
+                    instructorLastName:result3[0].instructorLastName,
+                    instructorFirstName:result3[0].instructorFirstName
+                });
+        })   
+    }) 
+
     }).catch(error => {
         console.log('add instructor vacations error ', error);
         response.render('ba_admin.hbs', {
@@ -391,15 +423,20 @@ router.post('/editInstructorOfficeDays', (request, response) => {
     db_functions.get_data_from_database(query, param).then((result) => {
         console.log("verify_status_from_edit_office", result);
         db_functions.get_instructors().then((result2) => {
-            response.render('./inputs/instructor_office_days.hbs', {
-                loggedIn: request.session.loggedIn,
-                user: 'temp',
-                instructor_list: result2,
-                officeDays: result,
-                instructorID: request.body.Instructors,
-                edit: true
-            });
-        })
+            db_functions.get_this_instructor(request.body).then((result3) => {
+                response.render('./inputs/instructor_office_days.hbs', {
+                    loggedIn: request.session.loggedIn,
+                    user: 'temp',
+                    instructor_list: result2,
+                    officeDays:result,
+                    instructorID:request.body.Instructors,
+                    edit:true,
+                    instructorLastName:result3[0].instructorLastName,
+                    instructorFirstName:result3[0].instructorFirstName
+                });
+            })
+        })   
+
     }).catch(error => {
         console.log('add instructor vacations error ', error);
         response.render('ba_admin.hbs', {
