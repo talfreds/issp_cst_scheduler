@@ -48,7 +48,7 @@ router.get('/inputs/course_session', (request, response) => {
 
 
 router.get('/inputs/newKLR', (request, response) => {
-    db_functions.get_KLRs().then((result) => {
+    db_functions.getAllGeneral('klr').then((result) => {
         response.render('./inputs/newKLR.hbs', {
             klrList: result
         });
@@ -83,7 +83,7 @@ router.get('/inputs/newSessionName', (request, response) => {
 
 router.get('/inputs/KLR_with_Instructors', (request, response) => {
 
-    db_functions.getAllGeneral('KLR').then((KLR) => {
+    db_functions.getAllGeneral('klr').then((KLR) => {
         db_functions.getAllGeneral('instructor').then((instructor) => {
             db_functions.getAllGeneral('instructorcourses').then((instructorcourses) => {
                 response.render('./inputs/KLR_with_Instructors.hbs', {
@@ -109,9 +109,9 @@ router.get('/inputs/KLR_with_Instructors', (request, response) => {
 });
 
 router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
-    db_functions.getAllGeneral('KLR').then((KLR) => {
+    db_functions.getAllGeneral('klr').then((KLR) => {
         db_functions.getAllGeneral('coursetype').then((coursetype) => {
-            db_functions.getAllGeneral('courseTypesAvailableKLRs').then((courseTypesAvailableKLRs) => {
+            db_functions.getAllGeneral('coursetypesavailableklrs').then((courseTypesAvailableKLRs) => {
                 response.render('./inputs/KLR_with_Name_of_Sessions.hbs', {
                     klrList: KLR,
                     courseTypeList: coursetype,
@@ -145,7 +145,7 @@ router.get('/inputs/new_learner', (request, response) => {
 router.get('/inputs/learners_into_courses', (request, response) => {
     db_functions.get_instructors_in_session().then((result) => {
         db_functions.get_learners().then((result2) => {
-            db_functions.get_KLRs().then((result3) => {
+            db_functions.getAllGeneral('klr').then((result3) => {
                 response.render('./inputs/learners_into_courses.hbs', {
                     session_list: result,
                     learner_list: result2,

@@ -384,7 +384,7 @@ var get_data_from_database = (sqlquery, param) => {
 
 var get_instructor_work_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT startTime AS start_date, endTime AS end_date FROM classroomcourse JOIN instructor ON classroomcourse.instructorID = instructor.instructorID WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id);
+        var query = `SELECT classroomcourse.courseID, classroomcourse.startTime AS start_date, classroomcourse.endTime AS end_date, instructor.instructorLastName, instructor.instructorFirstName, classroom.classroomName, classroom.site, classroom.comments, coursetype.Type FROM classroomcourse JOIN instructor ON classroomcourse.instructorID = instructor.instructorID JOIN classroom ON classroomcourse.classroomID = classroom.classroomID JOIN coursetype ON classroomcourse.courseTypeID = coursetype.courseTypeID WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id);
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);

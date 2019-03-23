@@ -542,7 +542,7 @@ router.post('/deleteCourseType', (request, response) => {
 
 
 router.post('/addKLR', (request, response) => {
-    var tablename = 'KLR';
+    var tablename = 'klr';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -559,7 +559,7 @@ router.post('/addKLR', (request, response) => {
 });
 
 router.post('/editKLR', (request, response) => {
-    var tablename = 'KLR';
+    var tablename = 'klr';
 
     db_functions.updateGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -576,7 +576,7 @@ router.post('/editKLR', (request, response) => {
 });
 
 router.post('/deleteKLR', (request, response) => {
-    var tablename = 'KLR';
+    var tablename = 'klr';
 
     db_functions.deleteGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -664,7 +664,7 @@ router.post('/deleteClassroomSession', (request, response) => {
 });
 
 router.post('/addKLR_with_CategoryName', (request, response) => {
-    var tablename = 'courseTypesAvailableKLRs';
+    var tablename = 'coursetypesavailableklrs';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -681,7 +681,7 @@ router.post('/addKLR_with_CategoryName', (request, response) => {
 });
 
 router.post('/deleteKLR_with_CategoryName', (request, response) => {
-    var tablename = 'courseTypesAvailableKLRs';
+    var tablename = 'coursetypesavailableklrs';
     console.log(request.body);
     let dual_pk = JSON.parse(request.body.combo);
     db_functions.deleteDualPK(dual_pk, tablename).then((result) => {
