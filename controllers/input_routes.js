@@ -152,13 +152,13 @@ router.post('/editInstructor', (request, response) => {
                     instructor_last_name: result[0].instructorLastName,
                     instructor_first_name: result[0].instructorFirstName,
                     instructor_email: result[0].instructorEmail,
-                    Monday: result3[0].Monday,
-                    Tuesday: result3[0].Tuesday,
-                    Wednesday: result3[0].Wednesday,
-                    Thursday: result3[0].Thursday,
-                    Friday: result3[0].Friday,
-                    Saturday: result3[0].Saturday,
-                    Sunday: result3[0].Sunday,
+                    Monday: (result3[0]) ? result3[0].Monday : null,
+                    Tuesday: (result3[0]) ? result3[0].Tuesday : null,
+                    Wednesday: (result3[0]) ? result3[0].Wednesday: null ,
+                    Thursday: (result3[0]) ? result3[0].Thursday: null,
+                    Friday: (result3[0]) ? result3[0].Friday: null,
+                    Saturday: (result3[0]) ? result3[0].Saturday: null,
+                    Sunday: (result3[0]) ? result3[0].Sunday: null,
                     comment: result[0].comments,
                     instructorID: instructorID,
                     update_instructor: true
@@ -261,7 +261,7 @@ router.post('/editInstructorVacations', (request, response) => {
     var param = request.body.Instructors
 
     db_functions.get_data_from_database(query, param).then((result) => {
-        console.log("verify_status_from_edit_vacations", result[0].instructorvacationsStart);
+        console.log("verify_status_from_edit_vacations", (result[0]? result[0].instructorvacationsStart:'no resutl'));
         db_functions.get_instructors().then((result2) => {
             db_functions.get_this_instructor(request.body).then((result3) => {
                 console.log("this instructor: ",result3)
