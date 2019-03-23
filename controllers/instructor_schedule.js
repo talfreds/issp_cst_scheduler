@@ -7,7 +7,7 @@ const db_functions = require('../db_functions.js');
 require("date-format-lite");
 
 router.post('/instructor_schedule', (request, response) => {
-    db_functions.get_instructor_schedules(request.body.Instructors).then((result) => {
+    db_functions.get_instructor_work_schedules(request.body.Instructors).then((result) => {
         result.forEach((courseDate) => {
             courseDate.start_date = courseDate.start_date.format("YYYY-MM-DD hh:mm");
             courseDate.end_date = courseDate.end_date.format("YYYY-MM-DD hh:mm");
@@ -15,6 +15,11 @@ router.post('/instructor_schedule', (request, response) => {
         var parsed_result = JSON.stringify(result);
         console.log(request.body.Instructors);
         console.log(parsed_result);
+
+        // add queries for days off and color here
+        // and another query for student list
+
+
         response.render('instructor_schedule.hbs', {
             loggedIn: request.session.loggedIn,
             instructor_schedule: parsed_result

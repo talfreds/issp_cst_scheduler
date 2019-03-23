@@ -33,10 +33,6 @@ router.post("/addNewLearner", (request, response) => {
 router.post("/add_learner_to_courses", (request, response) => {
     console.log(request.body);
 
-    response.render("ba_admin.hbs", {
-        loggedIn: request.session.loggedIn
-    });
-
     var tablename = 'classroomcourserecord';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
@@ -214,7 +210,7 @@ router.post('/deleteInstructor', (request, response) => {
 
 router.post('/deleteLearner', (request, response) => {
     var tablename = 'learner';
-    var obj ={};
+    var obj = {};
     obj.learnerID = request.body.Learners;
     console.log(obj)
 
@@ -237,7 +233,7 @@ router.post('/insertInstructorVacations', (request, response) => {
 
     console.log("Request.body :", request.body);
 
-    var tablename = 'InstructorVacations';
+    var tablename = 'instructorvacations';
 
     db_functions.insertInstructorDays(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -257,26 +253,26 @@ router.post('/editInstructorVacations', (request, response) => {
 
     console.log("instructor.vacation.body :", request.body.Instructors);
 
-    var query = 'SELECT * FROM InstructorVacations WHERE instructors =';
+    var query = 'SELECT * FROM instructorvacations WHERE instructors =';
     var param = request.body.Instructors
 
     db_functions.get_data_from_database(query, param).then((result) => {
         console.log("verify_status_from_edit_vacations", result[0].instructorvacationsStart);
         db_functions.get_instructors().then((result2) => {
             db_functions.get_this_instructor(request.body).then((result3) => {
-                console.log("this instructor: ",result3)
+                console.log("this instructor: ", result3)
                 response.render('./inputs/instructor_vacations.hbs', {
                     loggedIn: request.session.loggedIn,
                     user: 'temp',
                     instructor_list: result2,
-                    vacations:result,
-                    instructorID:request.body.Instructors,
-                    edit:true,
-                    instructorLastName:result3[0].instructorLastName,
-                    instructorFirstName:result3[0].instructorFirstName
+                    vacations: result,
+                    instructorID: request.body.Instructors,
+                    edit: true,
+                    instructorLastName: result3[0].instructorLastName,
+                    instructorFirstName: result3[0].instructorFirstName
                 });
-        })   
-    }) 
+            })
+        })
 
     }).catch(error => {
         console.log('add instructor vacations error ', error);
@@ -291,8 +287,8 @@ router.post('/updateInstructorVacations', (request, response) => {
 
     console.log("Request.body update vacations:", request.body.instructorID);
 
-    var tablename = 'InstructorVacations';
-    var query = 'DELETE FROM instructorVacations WHERE instructors ='
+    var tablename = 'instructorvacations';
+    var query = 'DELETE FROM instructorvacations WHERE instructors ='
     var param = request.body.instructorID
     db_functions.get_data_from_database(query, param).then((dresult) => {
         console.log("verify_d_status", dresult);
@@ -317,7 +313,7 @@ router.post('/insertInstructorLeaves', (request, response) => {
 
     console.log("Request.body :", request.body);
 
-    var tablename = 'Instructorleaves';
+    var tablename = 'instructorleaves';
 
     db_functions.insertInstructorDays(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -337,7 +333,7 @@ router.post('/editInstructorLeaves', (request, response) => {
 
     console.log("instructor.leaves.body :", request.body.Instructors);
 
-    var query = 'SELECT * FROM InstructorLeaves WHERE instructors =';
+    var query = 'SELECT * FROM instructorleaves WHERE instructors =';
     var param = request.body.Instructors
 
     db_functions.get_data_from_database(query, param).then((result) => {
@@ -349,14 +345,14 @@ router.post('/editInstructorLeaves', (request, response) => {
                     loggedIn: request.session.loggedIn,
                     user: 'temp',
                     instructor_list: result2,
-                    leaves:result,
-                    instructorID:request.body.Instructors,
-                    edit:true,
-                    instructorLastName:result3[0].instructorLastName,
-                    instructorFirstName:result3[0].instructorFirstName
+                    leaves: result,
+                    instructorID: request.body.Instructors,
+                    edit: true,
+                    instructorLastName: result3[0].instructorLastName,
+                    instructorFirstName: result3[0].instructorFirstName
                 });
-        })   
-    }) 
+            })
+        })
 
     }).catch(error => {
         console.log('add instructor vacations error ', error);
@@ -371,8 +367,8 @@ router.post('/updateInstructorLeaves', (request, response) => {
 
     console.log("Request.body update vacations:", request.body.instructorID);
 
-    var tablename = 'instructorLeaves';
-    var query = 'DELETE FROM instructorLeaves WHERE instructors ='
+    var tablename = 'instructorleaves';
+    var query = 'DELETE FROM instructorleaves WHERE instructors ='
     var param = request.body.instructorID
     db_functions.get_data_from_database(query, param).then((dresult) => {
         console.log("verify_d_status", dresult);
@@ -397,7 +393,7 @@ router.post('/insertInstructorOfficeDays', (request, response) => {
 
     console.log("Request.body :", request.body);
 
-    var tablename = 'Instructorofficedays';
+    var tablename = 'instructorofficedays';
 
     db_functions.insertInstructorDays(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -428,14 +424,14 @@ router.post('/editInstructorOfficeDays', (request, response) => {
                     loggedIn: request.session.loggedIn,
                     user: 'temp',
                     instructor_list: result2,
-                    officeDays:result,
-                    instructorID:request.body.Instructors,
-                    edit:true,
-                    instructorLastName:result3[0].instructorLastName,
-                    instructorFirstName:result3[0].instructorFirstName
+                    officeDays: result,
+                    instructorID: request.body.Instructors,
+                    edit: true,
+                    instructorLastName: result3[0].instructorLastName,
+                    instructorFirstName: result3[0].instructorFirstName
                 });
             })
-        })   
+        })
 
     }).catch(error => {
         console.log('add instructor vacations error ', error);
