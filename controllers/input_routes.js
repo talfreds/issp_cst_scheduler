@@ -214,7 +214,7 @@ router.post('/deleteInstructor', (request, response) => {
 
 router.post('/deleteLearner', (request, response) => {
     var tablename = 'learner';
-    var obj ={};
+    var obj = {};
     obj.learnerID = request.body.Learners;
     console.log(obj)
 
@@ -264,19 +264,19 @@ router.post('/editInstructorVacations', (request, response) => {
         console.log("verify_status_from_edit_vacations", result[0].instructorvacationsStart);
         db_functions.get_instructors().then((result2) => {
             db_functions.get_this_instructor(request.body).then((result3) => {
-                console.log("this instructor: ",result3)
+                console.log("this instructor: ", result3)
                 response.render('./inputs/instructor_vacations.hbs', {
                     loggedIn: request.session.loggedIn,
                     user: 'temp',
                     instructor_list: result2,
-                    vacations:result,
-                    instructorID:request.body.Instructors,
-                    edit:true,
-                    instructorLastName:result3[0].instructorLastName,
-                    instructorFirstName:result3[0].instructorFirstName
+                    vacations: result,
+                    instructorID: request.body.Instructors,
+                    edit: true,
+                    instructorLastName: result3[0].instructorLastName,
+                    instructorFirstName: result3[0].instructorFirstName
                 });
-        })   
-    }) 
+            })
+        })
 
     }).catch(error => {
         console.log('add instructor vacations error ', error);
@@ -349,14 +349,14 @@ router.post('/editInstructorLeaves', (request, response) => {
                     loggedIn: request.session.loggedIn,
                     user: 'temp',
                     instructor_list: result2,
-                    leaves:result,
-                    instructorID:request.body.Instructors,
-                    edit:true,
-                    instructorLastName:result3[0].instructorLastName,
-                    instructorFirstName:result3[0].instructorFirstName
+                    leaves: result,
+                    instructorID: request.body.Instructors,
+                    edit: true,
+                    instructorLastName: result3[0].instructorLastName,
+                    instructorFirstName: result3[0].instructorFirstName
                 });
-        })   
-    }) 
+            })
+        })
 
     }).catch(error => {
         console.log('add instructor vacations error ', error);
@@ -428,14 +428,14 @@ router.post('/editInstructorOfficeDays', (request, response) => {
                     loggedIn: request.session.loggedIn,
                     user: 'temp',
                     instructor_list: result2,
-                    officeDays:result,
-                    instructorID:request.body.Instructors,
-                    edit:true,
-                    instructorLastName:result3[0].instructorLastName,
-                    instructorFirstName:result3[0].instructorFirstName
+                    officeDays: result,
+                    instructorID: request.body.Instructors,
+                    edit: true,
+                    instructorLastName: result3[0].instructorLastName,
+                    instructorFirstName: result3[0].instructorFirstName
                 });
             })
-        })   
+        })
 
     }).catch(error => {
         console.log('add instructor vacations error ', error);
@@ -597,7 +597,7 @@ router.post('/deleteKLR', (request, response) => {
 });
 
 router.post('/addClassroomSession', (request, response) => {
-    var tablename = 'classroomcourserecord';
+    var tablename = 'classroomcourse';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log(request.body);
@@ -634,7 +634,7 @@ router.post('/editClassroomSession', (request, response) => {
 });
 
 router.post('/submitEditClassroomSession', (request, response) => {
-    var tablename = 'classroomcourserecord';
+    var tablename = 'classroomcourse';
 
     db_functions.updateGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -651,7 +651,7 @@ router.post('/submitEditClassroomSession', (request, response) => {
 });
 
 router.post('/deleteClassroomSession', (request, response) => {
-    var tablename = 'classroomcourserecord';
+    var tablename = 'classroomcourse';
 
     db_functions.deleteGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);

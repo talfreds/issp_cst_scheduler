@@ -52,7 +52,7 @@ var getAllGeneral = (tablename) => {
 var get_instructors_in_session = () => {
     return new Promise((resolve, reject) => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
-        var query = `select courseID, Type, site, courseDate from coursetype right join classroomcourse on coursetype.courseTypeID = classroomcourse.courseTypeID right join classroom on classroomcourse.classroomID = classroom.classroomID;`;
+        var query = `select courseID, Type, site, startTime from classroomcourse join coursetype on coursetype.courseTypeID = classroomcourse.courseTypeID join classroom on classroomcourse.classroomID = classroom.classroomID;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -520,7 +520,7 @@ var deleteDualPK = (obj, tablename) => {
 
 var getClassroomSession = (obj) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT courserecordID, startTime, endTime, classroomID, comments FROM classroomcourserecord WHERE courseRecordID = ${obj.courseRecordID}`;
+        var query = `SELECT courseID, startTime, endTime, classroomID FROM classroomcourse WHERE courseID = ${obj.courseID}`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -533,7 +533,7 @@ var getClassroomSession = (obj) => {
 
 var getSessionList = () => {
     return new Promise((resolve, reject) => {
-        var query = `select courseRecordID,Type,site,classroomName,courseDate, startTime from classroomcourserecord join coursetype on classroomcourserecord.courseTypeID = coursetype.courseTypeID join classroom on classroom.classroomID = classroomcourserecord.classroomID;`;
+        var query = `select courseID,Type,site,classroomName, startTime from classroomcourse join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID join classroom on classroom.classroomID = classroomcourse.classroomID;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);

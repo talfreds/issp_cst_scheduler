@@ -23,7 +23,7 @@
               <input id="login-submit" class="submit_button shadow" type="submit" value="Delete Session"
                 formaction="/deleteClassroomSession">
 
-              <label for="courseRecordID" class="form__label">Select Classroom Session</label>
+              <label for="courseID" class="form__label">Select Classroom Session</label>
             </div>
           </div>
         </form>
@@ -63,15 +63,9 @@
               </select>
               <label for="classroom" class="form__label">Select Classroom</label>
             </div>
-
-            <div class="form__group">
-              <textarea id="comments" class="form__field" rows="5" name="comments"
-                placeholder="Additional Comments"></textarea>
-              <label for="comments" class="form__label">Additional Comments </label>
-            </div>
             <input id="login-submit" class="submit_button shadow" type="submit" value="Submit"
               formaction="/addClassroomSession">
-            <a href="/registrationForm">
+            <a href="/ba_admin">
               <button class='submit_button shadow'>Cancel</button>
             </a>
           </form>
