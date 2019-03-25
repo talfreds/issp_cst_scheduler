@@ -21,7 +21,8 @@ router.get('/inputs/course_session', (request, response) => {
                         courserecordlist: courserecord,
                         coursetypeslist: coursetypes,
                         sitesList: sites,
-                        sessionsList: THEsessionlist
+                        sessionsList: THEsessionlist,
+                        active1: 'font-weight:bold; color:#0c5aa8;'
                     });
                 })
             })
@@ -42,7 +43,7 @@ router.get('/inputs/course_session', (request, response) => {
         response.render('./inputs/KLR_with_Instructors.hbs', {
             courserecordlist: courserecorderror,
             coursetypeslist: coursetypeerror,
-            sitesList: siteserror
+            sitesList: siteserror,
         });
     })
 });
@@ -52,7 +53,8 @@ router.get('/inputs/newKLR', (request, response) => {
     db_functions.get_KLRs().then((result) => {
         response.render('./inputs/newKLR.hbs', {
             loggedIn: request.session.loggedIn,
-            klrList: result
+            klrList: result,
+            active9: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
         console.log(error);
@@ -71,7 +73,8 @@ router.get('/inputs/newSessionName', (request, response) => {
         console.log(result);
         response.render('./inputs/newSessionName.hbs', {
             loggedIn: request.session.loggedIn,
-            courseTypes: result
+            courseTypes: result,
+            active8: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
         console.log(error);
@@ -88,7 +91,8 @@ router.get('/inputs/newSessionName', (request, response) => {
 router.get('/inputs/inserts_site', (request, response) => {
     response.render('./inputs/inserts_site.hbs', {
         loggedIn: request.session.loggedIn,
-        user: 'temp'
+        user: 'temp',
+        active7: 'font-weight:bold; color:#0c5aa8;'
     });
 });
 
@@ -101,7 +105,8 @@ router.get('/inputs/KLR_with_Instructors', (request, response) => {
                     loggedIn: request.session.loggedIn,
                     klrList: KLR,
                     instructor_list: instructor,
-                    instructorcoursesList: instructorcourses
+                    instructorcoursesList: instructorcourses,
+                    active5: 'font-weight:bold; color:#0c5aa8;'
                 });
             })
         })
@@ -128,7 +133,8 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
                     loggedIn: request.session.loggedIn,
                     klrList: KLR,
                     courseTypeList: coursetype,
-                    courseTypesAvailableKLRs: courseTypesAvailableKLRs
+                    courseTypesAvailableKLRs: courseTypesAvailableKLRs,
+                    active4: 'font-weight:bold; color:#0c5aa8;'
                 });
             })
         })
@@ -152,7 +158,8 @@ router.get('/inputs/new_learner', (request, response) => {
         response.render('./inputs/new_learner.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            learner_list: result2
+            learner_list: result2,
+            active6: 'font-weight:bold; color:#0c5aa8;'
         });
     });
 });
@@ -166,7 +173,8 @@ router.get('/inputs/learners_into_courses', (request, response) => {
                 user: 'temp',
                 session_list: result,
                 learner_list: result2,
-                klr_list: result3
+                klr_list: result3,
+                active3: 'font-weight:bold; color:#0c5aa8;'
             });
         })
     })
@@ -191,7 +199,9 @@ router.get('/inputs/instructor_to_session', (request, response) => {
                 loggedIn: request.session.loggedIn,
                 user: 'temp',
                 session_list: result,
-                instructor_list: result2
+                instructor_list: result2,
+                active2: 'font-weight:bold; color:#0c5aa8;'
+
             });
         })
     }).catch((error) => {
@@ -201,7 +211,8 @@ router.get('/inputs/instructor_to_session', (request, response) => {
         response.render('./inputs/instructor_to_session.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            session_list: sessions
+            session_list: sessions,
+            active2: 'font-weight:bold; color:#0c5aa8;'
         });
     })
 });
@@ -226,7 +237,8 @@ router.get('/inputs/instructor', (request, response) => {
             Sunday: null,
             comment: null,
             instructorID: null,
-            update_instructor: false
+            update_instructor: false,
+            active10: 'font-weight:bold; color:#0c5aa8;'
         });
     })
 });
@@ -235,7 +247,8 @@ router.get('/inputs/siteClassroom', (request, response) => {
     db_functions.getAllGeneral('classroom').then((result) => {
         response.render('./inputs/siteClassroom.hbs', {
             loggedIn: request.session.loggedIn,
-            classroom_list: result
+            classroom_list: result,
+            active7: 'font-weight:bold; color:#0c5aa8;'
         });
     })
 });
@@ -257,7 +270,8 @@ router.post('/inputs/edit_site_classroom', (request, response) => {
         console.log(error);
         response.render('./inputs/edit_site_classroom.hbs', {
             loggedIn: request.session.loggedIn,
-            classroom_details: null
+            classroom_details: null,
+            active7: 'font-weight:bold; color:#0c5aa8;'
         });
     })
 });
@@ -274,7 +288,8 @@ router.get('/inputs/instructor_vacations', (request, response) => {
             instructorID:null,
             edit: false,
             instructorLastName:null,
-            instructorFirstName:null
+            instructorFirstName:null,
+            active12: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
         console.log(error);
@@ -292,7 +307,8 @@ router.get('/inputs/instructor_office_days', (request, response) => {
             officeDays: null,
             edit: false,
             instructorLastName:null,
-            instructorFirstName:null
+            instructorFirstName:null,
+            active14: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
         console.log(error);
@@ -309,7 +325,8 @@ router.get('/inputs/instructor_leaves', (request, response) => {
             leaves: null,
             edit: false,
             instructorLastName:null,
-            instructorFirstName:null
+            instructorFirstName:null,
+            active13: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
         console.log(error);
@@ -321,7 +338,8 @@ router.get('/inputs/show_instructors_on_day', (request, response) => {
     response.render('./inputs/show_instructors_on_day.hbs', {
         instructorlist: null,
         loggedIn: request.session.loggedIn,
-        user: 'temp'
+        user: 'temp',
+        active15: 'font-weight:bold; color:#0c5aa8;'
     });
 });
 
