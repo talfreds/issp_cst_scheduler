@@ -50,7 +50,7 @@ var getAllGeneral = (tablename) => {
 var get_instructors_in_session = () => {
     return new Promise((resolve, reject) => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
-        var query = `select courseID, Type, site, courseDate from coursetype right join classroomcourse on coursetype.courseTypeID = classroomcourse.courseTypeID right join classroom on classroomcourse.classroomID = classroom.classroomID;`;
+        var query = `select courseRecordID, Type, site, startTime, classroomName from classroomcourserecord inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -174,7 +174,7 @@ var insertInstructor = (obj) => {
     objvalues.push(Object.values(obj).slice(-2, -1)[0])
 
     return new Promise((resolve, reject) => {
-        var query = `REPLACE INTO instructor (${objKeys}) VALUES (?,?,?,?)`
+        var query = `INSERT INTO instructor (${objKeys}) VALUES (?,?,?,?)`
         connection.query(query, objvalues, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -215,7 +215,6 @@ var insertInstructorAvailability = (obj) => {
     if (Object.keys(obj).length <= 6) {
         return Promise.resolve();
     }
-
     var keys = [];
     var values = [];
 
@@ -239,7 +238,6 @@ var insertInstructorAvailability = (obj) => {
             }
         });
     })
-
 }
 
 var updateInstructorAB = (obj) => {
@@ -358,7 +356,7 @@ var insertInstructorDays = (obj, tablename) => {
 
 var get_all_instructors_teaching_day = (date) => {
     return new Promise((resolve, reject) => {
-        var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourserecord ccr on i.instructorID = ccr.instructorID where courseDate = ` + connection.escape(date);
+        var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourse ccr on i.instructorID = ccr.instructorID where startTime = ` + connection.escape(date);
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
