@@ -395,6 +395,24 @@ var get_instructor_work_schedules = (instructor_id) => {
     });
 }
 
+var get_instructor_class_list = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT classroomcourse.instructorID, classroomcourserecord.learnerID, learner.learnerLastname, learner.learnerFirstName, klr.klrID, klr.klrName
+        FROM classroomcourse
+        JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.classroomcourseID
+        JOIN learner ON learner.learnerID = classroomcourserecord.learnerID
+        JOIN klr ON classroomcourserecord.klrID = klr.klrID
+        WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id) + ';';
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
 
 var get_instructorvacation_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
@@ -610,5 +628,7 @@ module.exports = {
     getAllGeneral,
     getEditLearner,
     getClassroomSession,
-    getSessionList
+    getSessionList,
+    get_instructor_class_list,
+
 };
