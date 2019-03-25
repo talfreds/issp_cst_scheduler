@@ -44,6 +44,11 @@
         scheduler.init('scheduler_here', new Date(), "week");
         scheduler.parse({{{instructor_schedule}}}, "json")
 
+        {{!-- for read only, may be redundant --}}
+        scheduler.attachEvent("onBeforeDrag", function(){return false;});
+        scheduler.attachEvent("onClick", function(){return false;});
+        scheduler.config.dblclick_create = false;
+
     </script>
 </body>
 

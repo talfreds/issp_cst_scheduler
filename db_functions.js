@@ -384,7 +384,12 @@ var get_data_from_database = (sqlquery, param) => {
 
 var get_instructor_work_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT classroomcourse.courseID, classroomcourse.startTime AS start_date, classroomcourse.endTime AS end_date, instructor.instructorLastName, instructor.instructorFirstName, classroom.classroomName, classroom.site, classroom.comments, coursetype.Type FROM classroomcourse JOIN instructor ON classroomcourse.instructorID = instructor.instructorID JOIN classroom ON classroomcourse.classroomID = classroom.classroomID JOIN coursetype ON classroomcourse.courseTypeID = coursetype.courseTypeID WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id);
+        var query = `SELECT classroomcourse.courseID, classroomcourse.startTime AS start_date, classroomcourse.endTime AS end_date, instructor.instructorLastName, instructor.instructorFirstName, classroom.classroomName, classroom.site, classroom.comments, coursetype.Type 
+        FROM classroomcourse 
+        JOIN instructor ON classroomcourse.instructorID = instructor.instructorID 
+        JOIN classroom ON classroomcourse.classroomID = classroom.classroomID 
+        JOIN coursetype ON classroomcourse.courseTypeID = coursetype.courseTypeID 
+        WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id) + ';';
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -416,7 +421,7 @@ var get_instructor_class_list = (instructor_id) => {
 
 var get_instructorvacation_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT startTime AS start_date, endTime AS end_date, comments AS text FROM classroomcourserecord WHERE instructorID = ` + connection.escape(instructor_id) + `; select * from instructorleaves;`;
+        var query = `SELECT instructorvacationsStart AS start_date, instructorvacationsEnd AS end_date, comments AS text FROM instructorvacations WHERE instructors = ` + connection.escape(instructor_id);
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -430,7 +435,7 @@ var get_instructorvacation_schedules = (instructor_id) => {
 
 var get_instructor_officedays_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT startTime AS start_date, endTime AS end_date, comments AS text FROM classroomcourserecord WHERE instructorID = ` + connection.escape(instructor_id) + `; select * from instructorleaves;`;
+        var query = `SELECT instructorofficedaysStart AS start_date, instructorofficedaysEnd AS end_date, comments AS text FROM instructorofficedays WHERE instructors = ` + connection.escape(instructor_id);
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -443,7 +448,7 @@ var get_instructor_officedays_schedules = (instructor_id) => {
 
 var get_instructorleaves_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT instructorLeavesStart AS start_date, instructorLeavesEnd AS end_date, comments AS text FROM classroomcourserecord JOIN WHERE instructorID = ` + connection.escape(instructor_id) + `; select * from instructorleaves;`;
+        var query = `SELECT instructorLeavesStart AS start_date, instructorLeavesEnd AS end_date, comments AS text FROM instructorleaves WHERE instructors = ` + connection.escape(instructor_id);
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -630,5 +635,7 @@ module.exports = {
     getClassroomSession,
     getSessionList,
     get_instructor_class_list,
-
+    get_instructorvacation_schedules,
+    get_instructor_officedays_schedules,
+    get_instructorleaves_schedules
 };

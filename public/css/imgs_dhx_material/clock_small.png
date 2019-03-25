@@ -28,7 +28,7 @@
 
   <meta name="viewport" content="width=device-width">
   
-  <title>scheduler/controls.png at master · DHTMLX/scheduler · GitHub</title>
+  <title>scheduler/clock_small.png at master · DHTMLX/scheduler · GitHub</title>
     <meta name="description" content="Contribute to DHTMLX/scheduler development by creating an account on GitHub.">
     <link rel="search" type="application/opensearchdescription+xml" href="/opensearch.xml" title="GitHub">
   <link rel="fluid-icon" href="https://github.com/fluidicon.png" title="GitHub">
@@ -41,7 +41,7 @@
   
   <meta name="pjax-timeout" content="1000">
   
-  <meta name="request-id" content="C240:1DB9:62108:9380E:5C993DBF" data-pjax-transient>
+  <meta name="request-id" content="C240:1DB9:62023:936D6:5C993DB3" data-pjax-transient>
 
 
   
@@ -52,7 +52,7 @@
     <meta name="google-site-verification" content="ZzhVyEFwb7w3e0-uOTltm8Jsck2F5StVihD0exw2fsA">
     <meta name="google-site-verification" content="GXs5KoUUkNCoaAZn7wPN-t01Pywp9M3sEjnt_3_ZWPc">
 
-  <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C240:1DB9:62108:9380E:5C993DBF" /><meta name="octolytics-dimension-region_edge" content="sea" /><meta name="octolytics-dimension-region_render" content="iad" />
+  <meta name="octolytics-host" content="collector.githubapp.com" /><meta name="octolytics-app-id" content="github" /><meta name="octolytics-event-url" content="https://collector.githubapp.com/github-external/browser_event" /><meta name="octolytics-dimension-request_id" content="C240:1DB9:62023:936D6:5C993DB3" /><meta name="octolytics-dimension-region_edge" content="sea" /><meta name="octolytics-dimension-region_render" content="iad" />
 <meta name="analytics-location" content="/&lt;user-name&gt;/&lt;repo-name&gt;/blob/show" data-pjax-transient="true" />
 
 
@@ -70,7 +70,7 @@
     <meta name="user-login" content="">
 
       <meta name="expected-hostname" content="github.com">
-    <meta name="js-proxy-site-detection-payload" content="NjVjOTM5ODEyNDllNTA5OGFkZjhmZmM3YjdhNmRkOThiMGFmZDhmYmZhZmY3MGI3Yjk1YWM3MjVlOWVhMTRiY3x7InJlbW90ZV9hZGRyZXNzIjoiMTcyLjIxOC4zMi4yMDEiLCJyZXF1ZXN0X2lkIjoiQzI0MDoxREI5OjYyMTA4OjkzODBFOjVDOTkzREJGIiwidGltZXN0YW1wIjoxNTUzNTQ2NjkyLCJob3N0IjoiZ2l0aHViLmNvbSJ9">
+    <meta name="js-proxy-site-detection-payload" content="NTM3OWVmNmNiZDRmMWVjOGI0ODQwZTY3MzY5MTA1NTZiNGUzY2JlNmE2ZDM2YTgwOTg5ZDZkMTFkZWQ1NzRmM3x7InJlbW90ZV9hZGRyZXNzIjoiMTcyLjIxOC4zMi4yMDEiLCJyZXF1ZXN0X2lkIjoiQzI0MDoxREI5OjYyMDIzOjkzNkQ2OjVDOTkzREIzIiwidGltZXN0YW1wIjoxNTUzNTQ2Njc5LCJob3N0IjoiZ2l0aHViLmNvbSJ9">
 
     <meta name="enabled-features" content="UNIVERSE_BANNER,MARKETPLACE_SOCIAL_PROOF,MARKETPLACE_SOCIAL_PROOF_CUSTOMERS,MARKETPLACE_TRENDING_SOCIAL_PROOF,MARKETPLACE_UNVERIFIED_LISTINGS,MARKETPLACE_PLAN_RESTRICTION_EDITOR">
 
@@ -86,7 +86,7 @@
   <meta name="octolytics-dimension-user_id" content="923193" /><meta name="octolytics-dimension-user_login" content="DHTMLX" /><meta name="octolytics-dimension-repository_id" content="13675822" /><meta name="octolytics-dimension-repository_nwo" content="DHTMLX/scheduler" /><meta name="octolytics-dimension-repository_public" content="true" /><meta name="octolytics-dimension-repository_is_fork" content="false" /><meta name="octolytics-dimension-repository_network_root_id" content="13675822" /><meta name="octolytics-dimension-repository_network_root_nwo" content="DHTMLX/scheduler" /><meta name="octolytics-dimension-repository_explore_github_marketplace_ci_cta_shown" content="false" />
 
 
-    <link rel="canonical" href="https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/controls.png" data-pjax-transient>
+    <link rel="canonical" href="https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/clock_small.png" data-pjax-transient>
 
 
   <meta name="browser-stats-url" content="https://api.github.com/_private/browser/stats">
@@ -256,7 +256,7 @@
           aria-autocomplete="list"
           aria-controls="jump-to-results"
           aria-label="Search"
-          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=LIWqjD5hpcu93BX0b9XFRh123JwEq46ouPHFzZKvUXeCRJCFWmfsvawAWUPXJv1X6U9sOuDHVqrPg2hTR8dlNA=="
+          data-jump-to-suggestions-path="/_graphql/GetSuggestedNavigationDestinations#csrf-token=X4TgLr+93lR5yRWjTFVQAtmRvJST2GIS6tTzXGj2rn/xRdon27uXImgVWRT0pmgTLagMMne0uhCdpl7CvZ6aPA=="
           spellcheck="false"
           autocomplete="off"
           >
@@ -381,9 +381,9 @@
 
           </div>
 
-        <a class="HeaderMenu-link no-underline mr-3" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62108:9380E:5C993DBF&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/controls.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="6d10ff309ed9eb66627c79127a3522aff82bae164ffb7b1d9ebc2c7f75b044a2" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in" href="/login?return_to=%2FDHTMLX%2Fscheduler%2Fblob%2Fmaster%2Fcodebase%2Fimgs_dhx_material%2Fcontrols.png">
+        <a class="HeaderMenu-link no-underline mr-3" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62023:936D6:5C993DB3&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/clock_small.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="d0d9edc34b681a3f60aca73bbd7bae7e5b8cae2de0402a1797c4f6cc2bb0d1ca" data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in" href="/login?return_to=%2FDHTMLX%2Fscheduler%2Fblob%2Fmaster%2Fcodebase%2Fimgs_dhx_material%2Fclock_small.png">
           Sign&nbsp;in
-</a>          <a class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62108:9380E:5C993DBF&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/controls.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="8fad856b03feb7e99c713a55eeb6ac19bd9f06fc9524e0a79150f5c082767983" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up" href="/join">
+</a>          <a class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62023:936D6:5C993DB3&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/clock_small.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a347c6aa8c3ba478e9af5c5836e9dbb31a72bbd3409813e23cf8938cc0cd7c87" data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up" href="/join">
             Sign&nbsp;up
 </a>      </div>
     </div>
@@ -423,7 +423,7 @@
 
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62108:9380E:5C993DBF&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/controls.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a7e8d4aa8cad5e7ffa3995515b58c6a582b3e20b98491c850368376a62cdd070" href="/login?return_to=%2FDHTMLX%2Fscheduler">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to watch a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;notification subscription menu watch&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62023:936D6:5C993DB3&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/clock_small.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="562ba3b029b91f3a1bcb51bb58a35fc1d4cea37cec2f4e517c80a71ef9d6dfc8" href="/login?return_to=%2FDHTMLX%2Fscheduler">
     <svg class="octicon octicon-eye v-align-text-bottom" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8.06 2C3 2 0 8 0 8s3 6 8.06 6C13 14 16 8 16 8s-3-6-7.94-6zM8 12c-2.2 0-4-1.78-4-4 0-2.2 1.8-4 4-4 2.22 0 4 1.8 4 4 0 2.22-1.78 4-4 4zm2-4c0 1.11-.89 2-2 2-1.11 0-2-.89-2-2 0-1.11.89-2 2-2 1.11 0 2 .89 2 2z"/></svg>
     Watch
 </a>  <a class="social-count" href="/DHTMLX/scheduler/watchers"
@@ -434,7 +434,7 @@
   </li>
 
   <li>
-        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:13675822,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62108:9380E:5C993DBF&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/controls.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a74b028302471085917ce28e48933e8c7770b912dca61628265f9adb36308b97" href="/login?return_to=%2FDHTMLX%2Fscheduler">
+        <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to star a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;star button&quot;,&quot;repository_id&quot;:13675822,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62023:936D6:5C993DB3&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/clock_small.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="a30c9035b52010006c71f0340902d2e6a10302491129339009c01247a7d4af40" href="/login?return_to=%2FDHTMLX%2Fscheduler">
       <svg class="octicon octicon-star v-align-text-bottom" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M14 6l-4.9-.64L7 1 4.9 5.36 0 6l3.6 3.26L2.67 14 7 11.67 11.33 14l-.93-4.74L14 6z"/></svg>
       Star
 </a>
@@ -446,7 +446,7 @@
   </li>
 
   <li>
-      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:13675822,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62108:9380E:5C993DBF&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/controls.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="01bc7bbdb827d673c83819013bd136a640bd0a65649730bbc4e12ba2adf39566" href="/login?return_to=%2FDHTMLX%2Fscheduler">
+      <a class="btn btn-sm btn-with-count tooltipped tooltipped-s" aria-label="You must be signed in to fork a repository" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;repo details fork button&quot;,&quot;repository_id&quot;:13675822,&quot;auth_type&quot;:&quot;LOG_IN&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62023:936D6:5C993DB3&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/clock_small.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="66f9109a4d11b7b136af257a0107b98fa10f7376de6cb73203dcf2ac03bafa17" href="/login?return_to=%2FDHTMLX%2Fscheduler">
         <svg class="octicon octicon-repo-forked v-align-text-bottom" viewBox="0 0 10 16" version="1.1" width="10" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M8 1a1.993 1.993 0 0 0-1 3.72V6L5 8 3 6V4.72A1.993 1.993 0 0 0 2 1a1.993 1.993 0 0 0-1 3.72V6.5l3 3v1.78A1.993 1.993 0 0 0 5 15a1.993 1.993 0 0 0 1-3.72V9.5l3-3V4.72A1.993 1.993 0 0 0 8 1zM2 4.2C1.34 4.2.8 3.65.8 3c0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3 10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2zm3-10c-.66 0-1.2-.55-1.2-1.2 0-.65.55-1.2 1.2-1.2.65 0 1.2.55 1.2 1.2 0 .65-.55 1.2-1.2 1.2z"/></svg>
         Fork
 </a>
@@ -522,20 +522,20 @@
 
 
   
-    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/DHTMLX/scheduler/blob/f1629dd8647b08978d3f8ba4d56eacc9b741f543/codebase/imgs_dhx_material/controls.png">Permalink</a>
+    <a class="d-none js-permalink-shortcut" data-hotkey="y" href="/DHTMLX/scheduler/blob/f1629dd8647b08978d3f8ba4d56eacc9b741f543/codebase/imgs_dhx_material/clock_small.png">Permalink</a>
 
-    <!-- blob contrib key: blob_contributors:v21:e0975d423befe69a31e10de4f895331f -->
+    <!-- blob contrib key: blob_contributors:v21:e23461740bf538871c603cfb256e994f -->
 
         <div class="signup-prompt-bg rounded-1">
       <div class="signup-prompt p-4 text-center mb-4 rounded-1">
         <div class="position-relative">
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/site/dismiss_signup_prompt" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="VP4UkOLKd7cEw6W/UqBAgPtl+K5VRDRZSaceZS0Hs4NtYPkLqWxUTHwCq1nmAUJOqW6x/4BK8Jdmyx7EvUEXQA==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form action="/site/dismiss_signup_prompt" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="sMQmVrCxztWs0RfkBGLGtAoWPtoQewVMI7uKebTqV1SJWsvN+xftLtQQGQKww8R6WB13i8V1wYIM14rYJKzzlw==" />
             <button type="submit" class="position-absolute top-0 right-0 btn-link link-gray" data-ga-click="(Logged out) Sign up prompt, clicked Dismiss, text:dismiss">
               Dismiss
             </button>
 </form>          <h3 class="pt-2">Join GitHub today</h3>
           <p class="col-6 mx-auto">GitHub is home to over 31 million developers working together to host and review code, manage projects, and build software together.</p>
-          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62108:9380E:5C993DBF&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/controls.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="88a1751500509046b42e4c080aa9ff0fd0902c21ee5521b081cf8795625cfc08" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show">Sign up</a>
+          <a class="btn btn-primary" data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;files signup prompt&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;client_id&quot;:&quot;1034141412.1551050155&quot;,&quot;originating_request_id&quot;:&quot;C240:1DB9:62023:936D6:5C993DB3&quot;,&quot;originating_url&quot;:&quot;https://github.com/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/clock_small.png&quot;,&quot;referrer&quot;:&quot;https://github.com/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="5e5c173a31f83149737bc60b410b5ff03f31a4dd616f68caefc00f7c70264ffe" data-ga-click="(Logged out) Sign up prompt, clicked Sign up, text:sign-up" href="/join?source=prompt-blob-show">Sign up</a>
         </div>
       </div>
     </div>
@@ -552,7 +552,7 @@
     <span class="css-truncate-target">master</span>
   </summary>
 
-  <details-menu class="select-menu-modal position-absolute" style="z-index: 99;" src="/DHTMLX/scheduler/ref-list/master/codebase/imgs_dhx_material/controls.png?source_action=show&amp;source_controller=blob" preload>
+  <details-menu class="select-menu-modal position-absolute" style="z-index: 99;" src="/DHTMLX/scheduler/ref-list/master/codebase/imgs_dhx_material/clock_small.png?source_action=show&amp;source_controller=blob" preload>
     <include-fragment class="select-menu-loading-overlay anim-pulse">
       <svg height="32" class="octicon octicon-octoface" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M14.7 5.34c.13-.32.55-1.59-.13-3.31 0 0-1.05-.33-3.44 1.3-1-.28-2.07-.32-3.13-.32s-2.13.04-3.13.32c-2.39-1.64-3.44-1.3-3.44-1.3-.68 1.72-.26 2.99-.13 3.31C.49 6.21 0 7.33 0 8.69 0 13.84 3.33 15 7.98 15S16 13.84 16 8.69c0-1.36-.49-2.48-1.3-3.35zM8 14.02c-3.3 0-5.98-.15-5.98-3.35 0-.76.38-1.48 1.02-2.07 1.07-.98 2.9-.46 4.96-.46 2.07 0 3.88-.52 4.96.46.65.59 1.02 1.3 1.02 2.07 0 3.19-2.68 3.35-5.98 3.35zM5.49 9.01c-.66 0-1.2.8-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.54-1.78-1.2-1.78zm5.02 0c-.66 0-1.2.79-1.2 1.78s.54 1.79 1.2 1.79c.66 0 1.2-.8 1.2-1.79s-.53-1.78-1.2-1.78z"/></svg>
     </include-fragment>
@@ -560,7 +560,7 @@
 </details>
 
       <div id="blob-path" class="breadcrumb flex-auto ml-2">
-        <span class="js-repo-root text-bold"><span class="js-path-segment"><a data-pjax="true" href="/DHTMLX/scheduler"><span>scheduler</span></a></span></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/DHTMLX/scheduler/tree/master/codebase"><span>codebase</span></a></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material"><span>imgs_dhx_material</span></a></span><span class="separator">/</span><strong class="final-path">controls.png</strong>
+        <span class="js-repo-root text-bold"><span class="js-path-segment"><a data-pjax="true" href="/DHTMLX/scheduler"><span>scheduler</span></a></span></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/DHTMLX/scheduler/tree/master/codebase"><span>codebase</span></a></span><span class="separator">/</span><span class="js-path-segment"><a data-pjax="true" href="/DHTMLX/scheduler/tree/master/codebase/imgs_dhx_material"><span>imgs_dhx_material</span></a></span><span class="separator">/</span><strong class="final-path">clock_small.png</strong>
       </div>
       <div class="BtnGroup">
         <a href="/DHTMLX/scheduler/find/master"
@@ -577,7 +577,7 @@
 
 
 
-    <include-fragment src="/DHTMLX/scheduler/contributors/master/codebase/imgs_dhx_material/controls.png" class="Box Box--condensed commit-loader">
+    <include-fragment src="/DHTMLX/scheduler/contributors/master/codebase/imgs_dhx_material/clock_small.png" class="Box Box--condensed commit-loader">
       <div class="Box-body bg-blue-light f6">
         Fetching contributors&hellip;
       </div>
@@ -596,20 +596,20 @@
 <div class="Box-header py-2 d-flex flex-justify-between flex-items-center">
 
   <div class="text-mono f6">
-    761 Bytes
+    635 Bytes
   </div>
 
   <div class="d-flex">
 
     <div class="BtnGroup">
-      <a id="raw-url" class="btn btn-sm BtnGroup-item" href="/DHTMLX/scheduler/raw/master/codebase/imgs_dhx_material/controls.png">Download</a>
-      <a rel="nofollow" class="btn btn-sm BtnGroup-item" href="/DHTMLX/scheduler/commits/master/codebase/imgs_dhx_material/controls.png">History</a>
+      <a id="raw-url" class="btn btn-sm BtnGroup-item" href="/DHTMLX/scheduler/raw/master/codebase/imgs_dhx_material/clock_small.png">Download</a>
+      <a rel="nofollow" class="btn btn-sm BtnGroup-item" href="/DHTMLX/scheduler/commits/master/codebase/imgs_dhx_material/clock_small.png">History</a>
     </div>
 
 
     <div>
 
-          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/DHTMLX/scheduler/delete/master/codebase/imgs_dhx_material/controls.png" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="7nTM/DttJOZ7AayMH8EvOXx3QVc+GTUxTGL13BUajRxyawnz9zK9yd5/LlMdFoJvVwBc2sgGGkkkrvvu6arTDw==" />
+          <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="inline-form" action="/DHTMLX/scheduler/delete/master/codebase/imgs_dhx_material/clock_small.png" accept-charset="UTF-8" method="post"><input name="utf8" type="hidden" value="&#x2713;" /><input type="hidden" name="authenticity_token" value="I4zJgCLULreMeMCPTq4PvrFVv09jEAt2InA1C07yHZxjXDtPQay72fUdq/RiRN9SwYqn0XknGc2tYJgEiqIQIA==" />
             <button class="btn-octicon btn-octicon-danger tooltipped tooltipped-nw" type="submit"
               aria-label="You must be signed in to make or propose changes" data-disable-with>
               <svg class="octicon octicon-trashcan" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M11 2H9c0-.55-.45-1-1-1H5c-.55 0-1 .45-1 1H2c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1v9c0 .55.45 1 1 1h7c.55 0 1-.45 1-1V5c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm-1 12H3V5h1v8h1V5h1v8h1V5h1v8h1V5h1v9zm1-10H2V3h9v1z"/></svg>
@@ -622,7 +622,7 @@
 
   <div itemprop="text" class="Box-body px-0 blob-wrapper data type-text ">
       <div class="text-center">
-          <span class="border-wrap"><img src="/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/controls.png?raw=true" alt="controls.png"></span>
+          <span class="border-wrap"><img src="/DHTMLX/scheduler/blob/master/codebase/imgs_dhx_material/clock_small.png?raw=true" alt="clock_small.png"></span>
       </div>
   </div>
 
@@ -655,7 +655,7 @@
 <div class="footer container-lg width-full px-3" role="contentinfo">
   <div class="position-relative d-flex flex-justify-between pt-6 pb-2 mt-6 f6 text-gray border-top border-gray-light ">
     <ul class="list-style-none d-flex flex-wrap ">
-      <li class="mr-3">&copy; 2019 <span title="0.31932s from unicorn-6f77479dc-mfsk9">GitHub</span>, Inc.</li>
+      <li class="mr-3">&copy; 2019 <span title="0.18595s from unicorn-58fb675d58-wx9sz">GitHub</span>, Inc.</li>
         <li class="mr-3"><a data-ga-click="Footer, go to terms, text:terms" href="https://github.com/site/terms">Terms</a></li>
         <li class="mr-3"><a data-ga-click="Footer, go to privacy, text:privacy" href="https://github.com/site/privacy">Privacy</a></li>
         <li class="mr-3"><a data-ga-click="Footer, go to security, text:security" href="https://github.com/security">Security</a></li>
