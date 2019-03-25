@@ -176,7 +176,7 @@ var insertInstructor = (obj) => {
     objvalues.push(Object.values(obj).slice(-2, -1)[0])
 
     return new Promise((resolve, reject) => {
-        var query = `REPLACE INTO instructor (${objKeys}) VALUES (?,?,?,?)`
+        var query = `INSERT INTO instructor (${objKeys}) VALUES (?,?,?,?)`
         connection.query(query, objvalues, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -217,7 +217,6 @@ var insertInstructorAvailability = (obj) => {
     if (Object.keys(obj).length <= 6) {
         return Promise.resolve();
     }
-
     var keys = [];
     var values = [];
 
@@ -241,7 +240,6 @@ var insertInstructorAvailability = (obj) => {
             }
         });
     })
-
 }
 
 var updateInstructorAB = (obj) => {
