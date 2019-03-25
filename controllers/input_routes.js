@@ -210,6 +210,22 @@ router.post('/deleteInstructor', (request, response) => {
         });
     })
 
+    // //set activation when delete instructor
+    // query='update instructor set activation = 0 where instructorID ='
+    // param=obj.instructorID
+
+    // db_functions.get_data_from_database(query,param).then((result) => {
+    //     console.log("verify_status", result);
+    //     response.render('ba_admin.hbs', {
+    //         databaseConfirmation: true
+    //     });
+    // }).catch((error) => {
+    //     console.log(error);
+    //     response.render('ba_admin.hbs', {
+    //         databaseError: true
+    //     });
+    // })
+
 });
 
 router.post('/deleteLearner', (request, response) => {

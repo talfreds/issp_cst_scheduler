@@ -66,8 +66,8 @@ var get_instructors_in_session = () => {
 
 var get_instructors = () => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor`;
-
+        //var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor where activation = 1 ORDER BY instructorLastName`;
+        var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor ORDER BY instructorLastName`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -214,14 +214,17 @@ var updateInstructor = (obj) => {
 
 
 var insertInstructorAvailability = (obj) => {
-    if (Object.keys(obj).length <= 6) {
+    /*
+     The new data will be insert into the instructor row which has the largeest instructorID 
+    */
+    if (Object.keys(obj).length <= 6) {    //if keys is smaller or equal to 6, then it means no instructor availability is entered.
         return Promise.resolve();
     }
     var keys = [];
     var values = [];
 
-    for (i = 0; i < Object.keys(obj).length - 6; i++) {
-        keys.push(Object.keys(obj)[i + 4])
+    for (i = 0; i < Object.keys(obj).length - 6; i++) {   //minus all attributes other than instructor availability
+        keys.push(Object.keys(obj)[i + 4])                // avaiability start at index [4] 
         values.push(Object.values(obj)[i + 4])
     }
 
@@ -230,7 +233,7 @@ var insertInstructorAvailability = (obj) => {
     var values_vars = ',?'.repeat(keys.length - 2);
 
     return new Promise((resolve, reject) => {
-        var query = `INSERT INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
+        var query = `INSERT INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `,(select max(instructorID) from instructor))`
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -359,6 +362,7 @@ var insertInstructorDays = (obj, tablename) => {
 var get_all_instructors_teaching_day = (date) => {
     return new Promise((resolve, reject) => {
         var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourserecord ccr on i.instructorID = ccr.instructorID where courseDate = ` + connection.escape(date);
+        //var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourse ccr on i.instructorID = ccr.instructorID where DATE(startTime) = ` + connection.escape(date);
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
