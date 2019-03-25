@@ -8,8 +8,6 @@ var connection = config.connection;
 
 var app = express();
 
-// why isnt this an arrow function?
-// dont ask me
 connection.connect(function(err) {
     if (err) {
         console.error('Database connection failed: ' + err.stack);
@@ -382,9 +380,14 @@ var get_data_from_database = (sqlquery, param) => {
     });
 }
 
-var get_instructor_schedules = (instructor_id) => {
+var get_instructor_work_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT startTime AS start_date, endTime AS end_date, comments AS text FROM classroomcourserecord WHERE instructorID = ` + connection.escape(instructor_id);
+        var query = `SELECT classroomcourse.courseID, classroomcourse.startTime AS start_date, classroomcourse.endTime AS end_date, instructor.instructorLastName, instructor.instructorFirstName, classroom.classroomName, classroom.site, classroom.comments, coursetype.Type 
+        FROM classroomcourse 
+        JOIN instructor ON classroomcourse.instructorID = instructor.instructorID 
+        JOIN classroom ON classroomcourse.classroomID = classroom.classroomID 
+        JOIN coursetype ON classroomcourse.courseTypeID = coursetype.courseTypeID 
+        WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id) + ';';
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -394,6 +397,69 @@ var get_instructor_schedules = (instructor_id) => {
         });
     });
 }
+
+var get_instructor_class_list = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT classroomcourse.instructorID, classroomcourserecord.learnerID, learner.learnerLastname, learner.learnerFirstName, klr.klrID, klr.klrName
+        FROM classroomcourse
+        JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.classroomcourseID
+        JOIN learner ON learner.learnerID = classroomcourserecord.learnerID
+        JOIN klr ON classroomcourserecord.klrID = klr.klrID
+        WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id) + ';';
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+
+var get_instructorvacation_schedules = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT instructorvacationsStart AS start_date, instructorvacationsEnd AS end_date, comments AS text FROM instructorvacations WHERE instructors = ` + connection.escape(instructor_id);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+
+var get_instructor_officedays_schedules = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT instructorofficedaysStart AS start_date, instructorofficedaysEnd AS end_date, comments AS text FROM instructorofficedays WHERE instructors = ` + connection.escape(instructor_id);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+var get_instructorleaves_schedules = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT instructorLeavesStart AS start_date, instructorLeavesEnd AS end_date, comments AS text FROM instructorleaves WHERE instructors = ` + connection.escape(instructor_id);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+
+
+
 
 var assign_instructor_session = (obj) => {
     console.log(obj);
@@ -432,25 +498,6 @@ var assign_learner_session = (obj) => {
         });
     })
 }
-
-// var updateGeneralData = (obj, tablename) => {
-//     console.log(obj)
-
-//     var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
-
-//     return new Promise((resolve, reject) => {
-//         var query = `REPLACE INTO ` + tablename + ` (${Object.keys(obj)}) VALUES (?` + values_vars + `)`
-//         var values = Object.values(obj)
-//         connection.query(query, values, function(err, queryResult, fields) {
-//             if (err) {
-//                 reject(err);
-//             } else {
-//                 resolve(queryResult);
-//                 console.log("Number of records inserted: " + queryResult.affectedRows);
-//             }
-//         });
-//     })
-// }
 
 var updateGeneralData = (obj, tablename) => {
     console.log(obj)
@@ -572,7 +619,7 @@ module.exports = {
     insertInstructorAvailability,
     updateInstructorAB,
     insertInstructorDays,
-    get_instructor_schedules,
+    get_instructor_work_schedules,
     get_instructors_in_session,
     insertGeneralData,
     deleteGeneralData,
@@ -584,5 +631,9 @@ module.exports = {
     getAllGeneral,
     getEditLearner,
     getClassroomSession,
-    getSessionList
+    getSessionList,
+    get_instructor_class_list,
+    get_instructorvacation_schedules,
+    get_instructor_officedays_schedules,
+    get_instructorleaves_schedules
 };

@@ -17,7 +17,6 @@ router.get('/inputs/course_session', (request, response) => {
             db_functions.getAllGeneral('classroom').then((sites) => {
                 db_functions.getSessionList().then((THEsessionlist) => {
                     response.render('./inputs/course_session.hbs', {
-                        loggedIn: request.session.loggedIn,
                         courserecordlist: courserecord,
                         coursetypeslist: coursetypes,
                         sitesList: sites,
@@ -50,9 +49,8 @@ router.get('/inputs/course_session', (request, response) => {
 
 
 router.get('/inputs/newKLR', (request, response) => {
-    db_functions.get_KLRs().then((result) => {
+    db_functions.getAllGeneral('klr').then((result) => {
         response.render('./inputs/newKLR.hbs', {
-            loggedIn: request.session.loggedIn,
             klrList: result,
             active9: 'font-weight:bold; color:#0c5aa8;'
         });
@@ -87,22 +85,12 @@ router.get('/inputs/newSessionName', (request, response) => {
     })
 });
 
-
-router.get('/inputs/inserts_site', (request, response) => {
-    response.render('./inputs/inserts_site.hbs', {
-        loggedIn: request.session.loggedIn,
-        user: 'temp',
-        active7: 'font-weight:bold; color:#0c5aa8;'
-    });
-});
-
 router.get('/inputs/KLR_with_Instructors', (request, response) => {
 
-    db_functions.getAllGeneral('KLR').then((KLR) => {
+    db_functions.getAllGeneral('klr').then((KLR) => {
         db_functions.getAllGeneral('instructor').then((instructor) => {
             db_functions.getAllGeneral('instructorcourses').then((instructorcourses) => {
                 response.render('./inputs/KLR_with_Instructors.hbs', {
-                    loggedIn: request.session.loggedIn,
                     klrList: KLR,
                     instructor_list: instructor,
                     instructorcoursesList: instructorcourses,
@@ -126,11 +114,10 @@ router.get('/inputs/KLR_with_Instructors', (request, response) => {
 });
 
 router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
-    db_functions.getAllGeneral('KLR').then((KLR) => {
+    db_functions.getAllGeneral('klr').then((KLR) => {
         db_functions.getAllGeneral('coursetype').then((coursetype) => {
-            db_functions.getAllGeneral('courseTypesAvailableKLRs').then((courseTypesAvailableKLRs) => {
+            db_functions.getAllGeneral('coursetypesavailableklrs').then((courseTypesAvailableKLRs) => {
                 response.render('./inputs/KLR_with_Name_of_Sessions.hbs', {
-                    loggedIn: request.session.loggedIn,
                     klrList: KLR,
                     courseTypeList: coursetype,
                     courseTypesAvailableKLRs: courseTypesAvailableKLRs,
@@ -156,8 +143,6 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
 router.get('/inputs/new_learner', (request, response) => {
     db_functions.get_learners().then((result2) => {
         response.render('./inputs/new_learner.hbs', {
-            loggedIn: request.session.loggedIn,
-            user: 'temp',
             learner_list: result2,
             active6: 'font-weight:bold; color:#0c5aa8;'
         });
@@ -167,24 +152,26 @@ router.get('/inputs/new_learner', (request, response) => {
 router.get('/inputs/learners_into_courses', (request, response) => {
     db_functions.get_instructors_in_session().then((result) => {
         db_functions.get_learners().then((result2) => {
+            db_functions.getAllGeneral('klr').then((result3) => {
+                response.render('./inputs/learners_into_courses.hbs', {
+                    session_list: result,
+                    learner_list: result2,
+                    klr_list: result3
+                });
+            })
             db_functions.get_KLRs().then((result3) => {
             response.render('./inputs/learners_into_courses.hbs', {
-                loggedIn: request.session.loggedIn,
-                user: 'temp',
                 session_list: result,
                 learner_list: result2,
                 klr_list: result3,
                 active3: 'font-weight:bold; color:#0c5aa8;'
             });
         })
-    })
     }).catch((error) => {
         var sessions = [{
             courseName: 'No sessions found'
         }];
         response.render('./inputs/learners_into_courses.hbs', {
-            loggedIn: request.session.loggedIn,
-            user: 'temp',
             session_list: sessions
         });
     })
@@ -196,7 +183,6 @@ router.get('/inputs/instructor_to_session', (request, response) => {
     db_functions.get_instructors_in_session().then((result) => {
         db_functions.get_instructors().then((result2) => {
             response.render('./inputs/instructor_to_session.hbs', {
-                loggedIn: request.session.loggedIn,
                 user: 'temp',
                 session_list: result,
                 instructor_list: result2,
@@ -209,7 +195,6 @@ router.get('/inputs/instructor_to_session', (request, response) => {
             courseName: 'Database Connection error'
         }];
         response.render('./inputs/instructor_to_session.hbs', {
-            loggedIn: request.session.loggedIn,
             user: 'temp',
             session_list: sessions,
             active2: 'font-weight:bold; color:#0c5aa8;'
@@ -222,8 +207,6 @@ router.get('/inputs/instructor_to_session', (request, response) => {
 router.get('/inputs/instructor', (request, response) => {
     db_functions.get_instructors().then((result2) => {
         response.render('./inputs/instructor.hbs', {
-            loggedIn: request.session.loggedIn,
-            user: 'temp',
             instructor_list: result2,
             instructor_last_name: null,
             instructor_first_name: null,
@@ -246,7 +229,6 @@ router.get('/inputs/instructor', (request, response) => {
 router.get('/inputs/siteClassroom', (request, response) => {
     db_functions.getAllGeneral('classroom').then((result) => {
         response.render('./inputs/siteClassroom.hbs', {
-            loggedIn: request.session.loggedIn,
             classroom_list: result,
             active7: 'font-weight:bold; color:#0c5aa8;'
         });
@@ -263,13 +245,11 @@ router.post('/inputs/edit_site_classroom', (request, response) => {
             }
         }
         response.render('./inputs/edit_site_classroom.hbs', {
-            loggedIn: request.session.loggedIn,
             classroom_details: classroom_details_object
         });
     }).catch((error) => {
         console.log(error);
         response.render('./inputs/edit_site_classroom.hbs', {
-            loggedIn: request.session.loggedIn,
             classroom_details: null,
             active7: 'font-weight:bold; color:#0c5aa8;'
         });
@@ -281,11 +261,9 @@ router.get('/inputs/instructor_vacations', (request, response) => {
 
     db_functions.get_instructors().then((result2) => {
         response.render('./inputs/instructor_vacations.hbs', {
-            loggedIn: request.session.loggedIn,
-            user: 'temp',
             instructor_list: result2,
             vacations: null,
-            instructorID:null,
+            instructorID: null,
             edit: false,
             instructorLastName:null,
             instructorFirstName:null,
@@ -301,7 +279,6 @@ router.get('/inputs/instructor_office_days', (request, response) => {
 
     db_functions.get_instructors().then((result2) => {
         response.render('./inputs/instructor_office_days.hbs', {
-            loggedIn: request.session.loggedIn,
             user: 'temp',
             instructor_list: result2,
             officeDays: null,
@@ -319,7 +296,6 @@ router.get('/inputs/instructor_leaves', (request, response) => {
 
     db_functions.get_instructors().then((result2) => {
         response.render('./inputs/instructor_leaves.hbs', {
-            loggedIn: request.session.loggedIn,
             user: 'temp',
             instructor_list: result2,
             leaves: null,
@@ -337,8 +313,6 @@ router.get('/inputs/show_instructors_on_day', (request, response) => {
 
     response.render('./inputs/show_instructors_on_day.hbs', {
         instructorlist: null,
-        loggedIn: request.session.loggedIn,
-        user: 'temp',
         active15: 'font-weight:bold; color:#0c5aa8;'
     });
 });
