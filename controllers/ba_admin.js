@@ -154,26 +154,20 @@ router.get('/inputs/learners_into_courses', (request, response) => {
         db_functions.get_learners().then((result2) => {
             db_functions.getAllGeneral('klr').then((result3) => {
                 response.render('./inputs/learners_into_courses.hbs', {
+                    active3: 'font-weight:bold; color:#0c5aa8;',
                     session_list: result,
                     learner_list: result2,
                     klr_list: result3
                 });
             })
-            db_functions.get_KLRs().then((result3) => {
+        }).catch((error) => {
+            var sessions = [{
+                courseName: 'No sessions found'
+            }];
             response.render('./inputs/learners_into_courses.hbs', {
-                session_list: result,
-                learner_list: result2,
-                klr_list: result3,
-                active3: 'font-weight:bold; color:#0c5aa8;'
+                session_list: sessions
             });
         })
-    }).catch((error) => {
-        var sessions = [{
-            courseName: 'No sessions found'
-        }];
-        response.render('./inputs/learners_into_courses.hbs', {
-            session_list: sessions
-        });
     })
 });
 
@@ -265,8 +259,8 @@ router.get('/inputs/instructor_vacations', (request, response) => {
             vacations: null,
             instructorID: null,
             edit: false,
-            instructorLastName:null,
-            instructorFirstName:null,
+            instructorLastName: null,
+            instructorFirstName: null,
             active12: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
@@ -283,8 +277,8 @@ router.get('/inputs/instructor_office_days', (request, response) => {
             instructor_list: result2,
             officeDays: null,
             edit: false,
-            instructorLastName:null,
-            instructorFirstName:null,
+            instructorLastName: null,
+            instructorFirstName: null,
             active14: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
@@ -300,8 +294,8 @@ router.get('/inputs/instructor_leaves', (request, response) => {
             instructor_list: result2,
             leaves: null,
             edit: false,
-            instructorLastName:null,
-            instructorFirstName:null,
+            instructorLastName: null,
+            instructorFirstName: null,
             active13: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
