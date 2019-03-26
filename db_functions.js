@@ -187,7 +187,7 @@ var insertInstructor = (obj) => {
     objvalues.push(Object.values(obj).slice(-2, -1)[0])
 
     return new Promise((resolve, reject) => {
-        var query = `REPLACE INTO instructor (${objKeys}) VALUES (?,?,?,?)`
+        var query = `INSERT INTO instructor (${objKeys}) VALUES (?,?,?,?)`
         connection.query(query, objvalues, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -273,7 +273,7 @@ var updateInstructorAB = (obj) => {
     var values_vars = ',?'.repeat(keys.length - 1);
     console.log('inid:', connection.escape(obj.instructorID))
     return new Promise((resolve, reject) => {
-        var query = `REPLACE INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `)`
+        var query = `INSERT INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `)`
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -520,6 +520,25 @@ var assign_learner_session = (obj) => {
     })
 }
 
+var remove_learner_from_session = (obj) => {
+    console.log(obj);
+
+    var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
+
+    return new Promise((resolve, reject) => {
+        var query = `UPDATE classroomcourserecord SET learnerID = NULL WHERE courseRecordID = ${obj.Sessions}`;
+        var values = Object.values(obj)
+        connection.query(query, values, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
+        });
+    })
+}
+
 var updateGeneralData = (obj, tablename) => {
     console.log(obj)
 
@@ -649,6 +668,7 @@ module.exports = {
     get_KLRs,
     assign_instructor_session,
     assign_learner_session,
+    remove_learner_from_session,
     get_all_instructors_teaching_day,
     getAllGeneral,
     getEditLearner,
