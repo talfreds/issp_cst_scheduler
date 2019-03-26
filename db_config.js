@@ -11,7 +11,7 @@ const mysql = require('mysql');
 // in production we can create another user and run on the same network..
 //  ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Password';
 var connection = mysql.createConnection({
-    host : process.env.host || 'localhost',
+    host: process.env.host || 'localhost',
     user: process.env.user || 'root',
     password: process.env.password || 'Password',
     database: process.env.database || 'CSTScheduling',
@@ -22,5 +22,6 @@ var connection = mysql.createConnection({
 // otherwise import it to use the database
 
 module.exports = {
-    mysql, connection
+    mysql,
+    connection
 };

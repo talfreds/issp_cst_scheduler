@@ -33,10 +33,6 @@ router.post("/addNewLearner", (request, response) => {
 router.post("/add_learner_to_courses", (request, response) => {
     console.log(request.body);
 
-    response.render("ba_admin.hbs", {
-        loggedIn: request.session.loggedIn
-    });
-
     var tablename = 'classroomcourserecord';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
@@ -210,11 +206,27 @@ router.post('/deleteInstructor', (request, response) => {
         });
     })
 
+    // //set activation when delete instructor
+    // query='update instructor set activation = 0 where instructorID ='
+    // param=obj.instructorID
+
+    // db_functions.get_data_from_database(query,param).then((result) => {
+    //     console.log("verify_status", result);
+    //     response.render('ba_admin.hbs', {
+    //         databaseConfirmation: true
+    //     });
+    // }).catch((error) => {
+    //     console.log(error);
+    //     response.render('ba_admin.hbs', {
+    //         databaseError: true
+    //     });
+    // })
+
 });
 
 router.post('/deleteLearner', (request, response) => {
     var tablename = 'learner';
-    var obj ={};
+    var obj = {};
     obj.learnerID = request.body.Learners;
     console.log(obj)
 
@@ -237,7 +249,7 @@ router.post('/insertInstructorVacations', (request, response) => {
 
     console.log("Request.body :", request.body);
 
-    var tablename = 'InstructorVacations';
+    var tablename = 'instructorvacations';
 
     db_functions.insertInstructorDays(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -257,26 +269,26 @@ router.post('/editInstructorVacations', (request, response) => {
 
     console.log("instructor.vacation.body :", request.body.Instructors);
 
-    var query = 'SELECT * FROM InstructorVacations WHERE instructors =';
+    var query = 'SELECT * FROM instructorvacations WHERE instructors =';
     var param = request.body.Instructors
 
     db_functions.get_data_from_database(query, param).then((result) => {
         console.log("verify_status_from_edit_vacations", (result[0]? result[0].instructorvacationsStart:'no resutl'));
         db_functions.get_instructors().then((result2) => {
             db_functions.get_this_instructor(request.body).then((result3) => {
-                console.log("this instructor: ",result3)
+                console.log("this instructor: ", result3)
                 response.render('./inputs/instructor_vacations.hbs', {
                     loggedIn: request.session.loggedIn,
                     user: 'temp',
                     instructor_list: result2,
-                    vacations:result,
-                    instructorID:request.body.Instructors,
-                    edit:true,
-                    instructorLastName:result3[0].instructorLastName,
-                    instructorFirstName:result3[0].instructorFirstName
+                    vacations: result,
+                    instructorID: request.body.Instructors,
+                    edit: true,
+                    instructorLastName: result3[0].instructorLastName,
+                    instructorFirstName: result3[0].instructorFirstName
                 });
-        })   
-    }) 
+            })
+        })
 
     }).catch(error => {
         console.log('add instructor vacations error ', error);
@@ -291,8 +303,8 @@ router.post('/updateInstructorVacations', (request, response) => {
 
     console.log("Request.body update vacations:", request.body.instructorID);
 
-    var tablename = 'InstructorVacations';
-    var query = 'DELETE FROM instructorVacations WHERE instructors ='
+    var tablename = 'instructorvacations';
+    var query = 'DELETE FROM instructorvacations WHERE instructors ='
     var param = request.body.instructorID
     db_functions.get_data_from_database(query, param).then((dresult) => {
         console.log("verify_d_status", dresult);
@@ -317,7 +329,7 @@ router.post('/insertInstructorLeaves', (request, response) => {
 
     console.log("Request.body :", request.body);
 
-    var tablename = 'Instructorleaves';
+    var tablename = 'instructorleaves';
 
     db_functions.insertInstructorDays(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -337,7 +349,7 @@ router.post('/editInstructorLeaves', (request, response) => {
 
     console.log("instructor.leaves.body :", request.body.Instructors);
 
-    var query = 'SELECT * FROM InstructorLeaves WHERE instructors =';
+    var query = 'SELECT * FROM instructorleaves WHERE instructors =';
     var param = request.body.Instructors
 
     db_functions.get_data_from_database(query, param).then((result) => {
@@ -349,14 +361,14 @@ router.post('/editInstructorLeaves', (request, response) => {
                     loggedIn: request.session.loggedIn,
                     user: 'temp',
                     instructor_list: result2,
-                    leaves:result,
-                    instructorID:request.body.Instructors,
-                    edit:true,
-                    instructorLastName:result3[0].instructorLastName,
-                    instructorFirstName:result3[0].instructorFirstName
+                    leaves: result,
+                    instructorID: request.body.Instructors,
+                    edit: true,
+                    instructorLastName: result3[0].instructorLastName,
+                    instructorFirstName: result3[0].instructorFirstName
                 });
-        })   
-    }) 
+            })
+        })
 
     }).catch(error => {
         console.log('add instructor vacations error ', error);
@@ -371,8 +383,8 @@ router.post('/updateInstructorLeaves', (request, response) => {
 
     console.log("Request.body update vacations:", request.body.instructorID);
 
-    var tablename = 'instructorLeaves';
-    var query = 'DELETE FROM instructorLeaves WHERE instructors ='
+    var tablename = 'instructorleaves';
+    var query = 'DELETE FROM instructorleaves WHERE instructors ='
     var param = request.body.instructorID
     db_functions.get_data_from_database(query, param).then((dresult) => {
         console.log("verify_d_status", dresult);
@@ -397,7 +409,7 @@ router.post('/insertInstructorOfficeDays', (request, response) => {
 
     console.log("Request.body :", request.body);
 
-    var tablename = 'Instructorofficedays';
+    var tablename = 'instructorofficedays';
 
     db_functions.insertInstructorDays(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -428,14 +440,14 @@ router.post('/editInstructorOfficeDays', (request, response) => {
                     loggedIn: request.session.loggedIn,
                     user: 'temp',
                     instructor_list: result2,
-                    officeDays:result,
-                    instructorID:request.body.Instructors,
-                    edit:true,
-                    instructorLastName:result3[0].instructorLastName,
-                    instructorFirstName:result3[0].instructorFirstName
+                    officeDays: result,
+                    instructorID: request.body.Instructors,
+                    edit: true,
+                    instructorLastName: result3[0].instructorLastName,
+                    instructorFirstName: result3[0].instructorFirstName
                 });
             })
-        })   
+        })
 
     }).catch(error => {
         console.log('add instructor vacations error ', error);
@@ -546,7 +558,7 @@ router.post('/deleteCourseType', (request, response) => {
 
 
 router.post('/addKLR', (request, response) => {
-    var tablename = 'KLR';
+    var tablename = 'klr';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -563,7 +575,7 @@ router.post('/addKLR', (request, response) => {
 });
 
 router.post('/editKLR', (request, response) => {
-    var tablename = 'KLR';
+    var tablename = 'klr';
 
     db_functions.updateGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -580,7 +592,7 @@ router.post('/editKLR', (request, response) => {
 });
 
 router.post('/deleteKLR', (request, response) => {
-    var tablename = 'KLR';
+    var tablename = 'klr';
 
     db_functions.deleteGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -597,7 +609,7 @@ router.post('/deleteKLR', (request, response) => {
 });
 
 router.post('/addClassroomSession', (request, response) => {
-    var tablename = 'classroomcourserecord';
+    var tablename = 'classroomcourse';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log(request.body);
@@ -634,7 +646,7 @@ router.post('/editClassroomSession', (request, response) => {
 });
 
 router.post('/submitEditClassroomSession', (request, response) => {
-    var tablename = 'classroomcourserecord';
+    var tablename = 'classroomcourse';
 
     db_functions.updateGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -651,7 +663,7 @@ router.post('/submitEditClassroomSession', (request, response) => {
 });
 
 router.post('/deleteClassroomSession', (request, response) => {
-    var tablename = 'classroomcourserecord';
+    var tablename = 'classroomcourse';
 
     db_functions.deleteGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -668,7 +680,7 @@ router.post('/deleteClassroomSession', (request, response) => {
 });
 
 router.post('/addKLR_with_CategoryName', (request, response) => {
-    var tablename = 'courseTypesAvailableKLRs';
+    var tablename = 'coursetypesavailableklrs';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -685,7 +697,7 @@ router.post('/addKLR_with_CategoryName', (request, response) => {
 });
 
 router.post('/deleteKLR_with_CategoryName', (request, response) => {
-    var tablename = 'courseTypesAvailableKLRs';
+    var tablename = 'coursetypesavailableklrs';
     console.log(request.body);
     let dual_pk = JSON.parse(request.body.combo);
     db_functions.deleteDualPK(dual_pk, tablename).then((result) => {

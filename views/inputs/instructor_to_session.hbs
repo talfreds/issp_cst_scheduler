@@ -13,7 +13,7 @@
         <div id="login__wrapper">
             <h2>Assign Instructors to Session</h2>
           <div class="form__group">  
-        <select style="width:100%; height:34px" name="Sessions">
+        <select style="width:100%; height:34px" name="courseTypeID">
                 {{#each session_list}}
                     <option value={{this.courseRecordID}}>{{this.Type}} - {{this.site}} - {{this.classroomName}} - {{this.startTime}}</option>
                 {{/each}}
@@ -25,7 +25,7 @@
         <br>
         <div id="instructorSessions">
         <div class="form__group">
-        <select style="width:100%; height:34px" name="Instructors">
+        <select style="width:100%; height:34px" name="instructorID">
             {{#each instructor_list}}
                 <option value={{this.instructorID}}>{{this.instructorLastName}}, {{this.instructorFirstName}}</option>
             {{/each}}

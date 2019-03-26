@@ -8,31 +8,19 @@
   {{> sidebar }}
   <div id='addDataBox'>
     <div id='loginFormDiv'>
-      <form method="post">
-        <div id="login__wrapper">
-          <h2>Edit or Delete Classroom Session</h2>
-          <div id="ClassroomSessions">
-            <div class="form__group">
-              <select style="width:100%; height:34px" name="courseRecordID" value="{{session_list.courseRecordID}}">
-                {{#each sessionslist}}
-                <option value={{this.courseRecordID}}>{{this.Type}} -- {{this.site}}, {{this.classroomName}} -- {{this.startTime}}</option>
-                {{/each}}
-              </select>
-              <input id="login-submit" class="submit_button shadow" type="submit" value="Edit Session"
-                formaction="/editClassroomSession">
-              <input id="login-submit" class="submit_button shadow" type="submit" value="Delete Session"
-                formaction="/deleteClassroomSession">
+      <div id="login__wrapper">
+        <h2>Edit Classroom Session</h2>
+        <form method="post" action="/submitEditClassroomSession">
 
-              <label for="courseRecordID" class="form__label">Select Classroom Session</label>
+            <div class="form__group">
+              {{#each session_list}}
+              <input value="{{this.courseID}}" id="courseID" class="form__field" type="text"
+                name="courseID" placeholder="ID" readonly>
+              {{/each}}
+              <label for="courseID" class="form__label">Course ID</label>
             </div>
-          </div>
-        </form>
-          <form action="/addClassroomSession" method="post">
-
-            <h2>Edit Classroom Session</h2>
-
             <div class="form__group">
-              <select name="courseTypeID" style="width:100%; height:34px" value={{this.courseTypeID}}>
+              <select name="courseTypeID" style="width:100%; height:34px" value={{session_list.courseTypeID}}>
 
                 {{#each coursetypeslist}}
                 <option value={{this.courseTypeID}}>{{this.Type}}</option>
@@ -44,19 +32,23 @@
             </div>
 
             <div class="form__group">
+              {{#each session_list}}
               <input id="startTime" class="form__field" type="datetime-local" name="startTime"
                 placeholder="Enter Start Time" value={{this.startTime}}>
+              {{/each}}
               <label for="startTime" class="form__label">Start Time: </label>
             </div>
 
             <div class="form__group">
+              {{#each session_list}}
               <input id="endTime" class="form__field" type="datetime-local" name="endTime"
                placeholder="Enter End Time" value={{this.endTime}}>
+              {{/each}}
               <label for="endTime" class="form__label">End Time: </label>
             </div>
 
             <div class="form__group">
-              <select name="classroomID" style="width:100%; height:34px" value={{this.classroomID}}>
+              <select name="classroomID" style="width:100%; height:34px" value={{session_list.classroomID}}>
                 {{#each sitesList}}
                 <option value={{this.classroomID}}>{{this.site}}--{{this.classroomName}}</option>
                 {{/each}}
@@ -64,18 +56,11 @@
               </select>
               <label for="classroom" class="form__label">Select Classroom</label>
             </div>
-
-            <div class="form__group">
-              <textarea id="comments" class="form__field" rows="5" name="comments"
-                placeholder="Additional Comments" value={{this.comments}}></textarea>
-              <label for="comments" class="form__label">Additional Comments </label>
-            </div>
-            <input id="login-submit" class="submit_button shadow" type="submit" value="Submit"
-              formaction="/submitEditClassroomSession">
-            <a href="/registrationForm">
+            <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+            </form>
+            <a href="/ba_admin">
               <button class='submit_button shadow'>Cancel</button>
             </a>
-          </form>
         </div>
     </div>
 
