@@ -165,7 +165,7 @@ router.get('/inputs/new_learner', (request, response) => {
 });
 
 router.get('/inputs/learners_into_courses', (request, response) => {
-    db_functions.get_instructors_in_session().then((result) => {
+    db_functions.get_instructors_for_learner().then((result) => {
         db_functions.get_learners().then((result2) => {
             db_functions.get_KLRs().then((result3) => {
             response.render('./inputs/learners_into_courses.hbs', {

@@ -52,7 +52,7 @@ var getAllGeneral = (tablename) => {
 var get_instructors_in_session = () => {
     return new Promise((resolve, reject) => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
-        var query = `select courseRecordID, Type, site, startTime, classroomName from classroomcourserecord inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
+        var query = `select courseID, Type, site, startTime, classroomName from classroomcourse inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -63,6 +63,19 @@ var get_instructors_in_session = () => {
     });
 }
 
+var get_instructors_for_learner = () => {
+    return new Promise((resolve, reject) => {
+        // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
+        var query = `select courseRecordID, Type, site, startTime, classroomName from classroomcourserecord inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
 
 var get_instructors = () => {
     return new Promise((resolve, reject) => {
@@ -176,7 +189,7 @@ var insertInstructor = (obj) => {
     objvalues.push(Object.values(obj).slice(-2, -1)[0])
 
     return new Promise((resolve, reject) => {
-        var query = `INSERT INTO instructor (${objKeys}) VALUES (?,?,?,?)`
+        var query = `REPLACE INTO instructor (${objKeys}) VALUES (?,?,?,?)`
         connection.query(query, objvalues, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -217,6 +230,7 @@ var insertInstructorAvailability = (obj) => {
     if (Object.keys(obj).length <= 6) {
         return Promise.resolve();
     }
+
     var keys = [];
     var values = [];
 
@@ -240,6 +254,7 @@ var insertInstructorAvailability = (obj) => {
             }
         });
     })
+
 }
 
 var updateInstructorAB = (obj) => {
@@ -574,6 +589,7 @@ module.exports = {
     insertInstructorDays,
     get_instructor_schedules,
     get_instructors_in_session,
+    get_instructors_for_learner,
     insertGeneralData,
     deleteGeneralData,
     updateGeneralData,
