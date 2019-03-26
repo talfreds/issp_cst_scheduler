@@ -24,7 +24,7 @@ var app = express();
 
 app.use(
     cookieSession({
-        name: "loginSession",
+        name: "loginSession", 
         keys: ["thiswillbesecretlater"],
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     })

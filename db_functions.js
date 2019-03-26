@@ -8,8 +8,6 @@ var connection = config.connection;
 
 var app = express();
 
-// why isnt this an arrow function?
-// dont ask me
 connection.connect(function(err) {
     if (err) {
         console.error('Database connection failed: ' + err.stack);
@@ -52,7 +50,7 @@ var getAllGeneral = (tablename) => {
 var get_instructors_in_session = () => {
     return new Promise((resolve, reject) => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
-        var query = `select courseID, Type, site, startTime from classroomcourse join coursetype on coursetype.courseTypeID = classroomcourse.courseTypeID join classroom on classroomcourse.classroomID = classroom.classroomID;`;
+        var query = `select courseRecordID, Type, site, startTime, classroomName from classroomcourserecord inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -66,8 +64,8 @@ var get_instructors_in_session = () => {
 
 var get_instructors = () => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor`;
-
+        //var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor where activation = 1 ORDER BY instructorLastName`;
+        var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor ORDER BY instructorLastName`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -214,14 +212,17 @@ var updateInstructor = (obj) => {
 
 
 var insertInstructorAvailability = (obj) => {
-    if (Object.keys(obj).length <= 6) {
+    /*
+     The new data will be insert into the instructor row which has the largeest instructorID 
+    */
+    if (Object.keys(obj).length <= 6) {    //if keys is smaller or equal to 6, then it means no instructor availability is entered.
         return Promise.resolve();
     }
     var keys = [];
     var values = [];
 
-    for (i = 0; i < Object.keys(obj).length - 6; i++) {
-        keys.push(Object.keys(obj)[i + 4])
+    for (i = 0; i < Object.keys(obj).length - 6; i++) {   //minus all attributes other than instructor availability
+        keys.push(Object.keys(obj)[i + 4])                // avaiability start at index [4] 
         values.push(Object.values(obj)[i + 4])
     }
 
@@ -230,7 +231,7 @@ var insertInstructorAvailability = (obj) => {
     var values_vars = ',?'.repeat(keys.length - 2);
 
     return new Promise((resolve, reject) => {
-        var query = `INSERT INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `,(select instructorID from instructor where instructorEmail=${connection.escape(Object.values(obj)[3])}))`
+        var query = `INSERT INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `,(select max(instructorID) from instructor))`
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -358,7 +359,10 @@ var insertInstructorDays = (obj, tablename) => {
 
 var get_all_instructors_teaching_day = (date) => {
     return new Promise((resolve, reject) => {
+
         var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourserecord ccr on i.instructorID = ccr.instructorID where courseDate = ` + connection.escape(date);
+        //var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourse ccr on i.instructorID = ccr.instructorID where DATE(startTime) = ` + connection.escape(date);
+
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -382,9 +386,14 @@ var get_data_from_database = (sqlquery, param) => {
     });
 }
 
-var get_instructor_schedules = (instructor_id) => {
+var get_instructor_work_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT startTime AS start_date, endTime AS end_date, comments AS text FROM classroomcourserecord WHERE instructorID = ` + connection.escape(instructor_id);
+        var query = `SELECT classroomcourse.courseID, classroomcourse.startTime AS start_date, classroomcourse.endTime AS end_date, instructor.instructorLastName, instructor.instructorFirstName, classroom.classroomName, classroom.site, classroom.comments, coursetype.Type 
+        FROM classroomcourse 
+        JOIN instructor ON classroomcourse.instructorID = instructor.instructorID 
+        JOIN classroom ON classroomcourse.classroomID = classroom.classroomID 
+        JOIN coursetype ON classroomcourse.courseTypeID = coursetype.courseTypeID 
+        WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id) + ';';
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -394,6 +403,69 @@ var get_instructor_schedules = (instructor_id) => {
         });
     });
 }
+
+var get_instructor_class_list = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT classroomcourse.instructorID, classroomcourserecord.learnerID, learner.learnerLastname, learner.learnerFirstName, klr.klrID, klr.klrName
+        FROM classroomcourse
+        JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.classroomcourseID
+        JOIN learner ON learner.learnerID = classroomcourserecord.learnerID
+        JOIN klr ON classroomcourserecord.klrID = klr.klrID
+        WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id) + ';';
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+
+var get_instructorvacation_schedules = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT instructorvacationsStart AS start_date, instructorvacationsEnd AS end_date, comments AS text FROM instructorvacations WHERE instructors = ` + connection.escape(instructor_id);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+
+var get_instructor_officedays_schedules = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT instructorofficedaysStart AS start_date, instructorofficedaysEnd AS end_date, comments AS text FROM instructorofficedays WHERE instructors = ` + connection.escape(instructor_id);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+var get_instructorleaves_schedules = (instructor_id) => {
+    return new Promise((resolve, reject) => {
+        var query = `SELECT instructorLeavesStart AS start_date, instructorLeavesEnd AS end_date, comments AS text FROM instructorleaves WHERE instructors = ` + connection.escape(instructor_id);
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+
+
+
 
 var assign_instructor_session = (obj) => {
     console.log(obj);
@@ -432,25 +504,6 @@ var assign_learner_session = (obj) => {
         });
     })
 }
-
-// var updateGeneralData = (obj, tablename) => {
-//     console.log(obj)
-
-//     var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
-
-//     return new Promise((resolve, reject) => {
-//         var query = `REPLACE INTO ` + tablename + ` (${Object.keys(obj)}) VALUES (?` + values_vars + `)`
-//         var values = Object.values(obj)
-//         connection.query(query, values, function(err, queryResult, fields) {
-//             if (err) {
-//                 reject(err);
-//             } else {
-//                 resolve(queryResult);
-//                 console.log("Number of records inserted: " + queryResult.affectedRows);
-//             }
-//         });
-//     })
-// }
 
 var updateGeneralData = (obj, tablename) => {
     console.log(obj)
@@ -572,7 +625,7 @@ module.exports = {
     insertInstructorAvailability,
     updateInstructorAB,
     insertInstructorDays,
-    get_instructor_schedules,
+    get_instructor_work_schedules,
     get_instructors_in_session,
     insertGeneralData,
     deleteGeneralData,
@@ -584,5 +637,9 @@ module.exports = {
     getAllGeneral,
     getEditLearner,
     getClassroomSession,
-    getSessionList
+    getSessionList,
+    get_instructor_class_list,
+    get_instructorvacation_schedules,
+    get_instructor_officedays_schedules,
+    get_instructorleaves_schedules
 };
