@@ -609,7 +609,7 @@ router.post('/deleteKLR', (request, response) => {
 });
 
 router.post('/addClassroomSession', (request, response) => {
-    var tablename = 'classroomcourserecord';
+    var tablename = 'classroomcourse';
 
     db_functions.insertGeneralData(request.body, tablename).then((result) => {
         console.log(request.body);
@@ -646,7 +646,7 @@ router.post('/editClassroomSession', (request, response) => {
 });
 
 router.post('/submitEditClassroomSession', (request, response) => {
-    var tablename = 'classroomcourserecord';
+    var tablename = 'classroomcourse';
 
     db_functions.updateGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);
@@ -663,7 +663,7 @@ router.post('/submitEditClassroomSession', (request, response) => {
 });
 
 router.post('/deleteClassroomSession', (request, response) => {
-    var tablename = 'classroomcourserecord';
+    var tablename = 'classroomcourse';
 
     db_functions.deleteGeneralData(request.body, tablename).then((result) => {
         console.log("verify_status", result);

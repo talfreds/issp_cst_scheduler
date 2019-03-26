@@ -571,7 +571,7 @@ var deleteDualPK = (obj, tablename) => {
 
 var getClassroomSession = (obj) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT courserecordID, startTime, endTime, classroomID, comments FROM classroomcourserecord WHERE courseRecordID = ${obj.courseRecordID}`;
+        var query = `SELECT courseID, startTime, endTime, classroomID FROM classroomcourse WHERE courseID = ${obj.courseID}`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -584,7 +584,7 @@ var getClassroomSession = (obj) => {
 
 var getSessionList = () => {
     return new Promise((resolve, reject) => {
-        var query = `select courseRecordID,Type,site,classroomName,courseDate, startTime from classroomcourserecord join coursetype on classroomcourserecord.courseTypeID = coursetype.courseTypeID join classroom on classroom.classroomID = classroomcourserecord.classroomID;`;
+        var query = `select courseID,Type,site,classroomName, startTime from classroomcourse join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID join classroom on classroom.classroomID = classroomcourse.classroomID;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
