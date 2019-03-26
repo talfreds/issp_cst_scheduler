@@ -18,21 +18,21 @@ router.post('/instructor_schedule', (request, response) => {
                 instructor_officedays.forEach((offWorkDate) => {
                     offWorkDate.start_date = offWorkDate.start_date.format("YYYY-MM-DD hh:mm");
                     offWorkDate.end_date = offWorkDate.end_date.format("YYYY-MM-DD hh:mm");
-                    offWorkDate.text = 'Office Day' + offWorkDate.text;
+                    offWorkDate.text = 'Office Day: ' + offWorkDate.text;
                     offWorkDate.color = 'grey';
                 });
 
                 instructorleaves.forEach((offWorkDate) => {
                     offWorkDate.start_date = offWorkDate.start_date.format("YYYY-MM-DD hh:mm");
                     offWorkDate.end_date = offWorkDate.end_date.format("YYYY-MM-DD hh:mm");
-                    offWorkDate.text = 'On Leave' + offWorkDate.text
+                    offWorkDate.text = 'On Leave: ' + offWorkDate.text
                     offWorkDate.color = 'red';
                 });
 
                 instructorvacation.forEach((offWorkDate) => {
                     offWorkDate.start_date = offWorkDate.start_date.format("YYYY-MM-DD hh:mm");
                     offWorkDate.end_date = offWorkDate.end_date.format("YYYY-MM-DD hh:mm");
-                    offWorkDate.text = 'Booked Vacation' + offWorkDate.text
+                    offWorkDate.text = 'Booked Vacation: ' + offWorkDate.text
                     offWorkDate.color = 'green';
                 });
 
