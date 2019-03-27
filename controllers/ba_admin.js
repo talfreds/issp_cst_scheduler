@@ -176,7 +176,6 @@ router.get('/inputs/learners_into_courses', (request, response) => {
         })
     })
 });
-});
 
 
 router.get('/inputs/instructor_to_session', (request, response) => {
