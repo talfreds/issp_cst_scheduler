@@ -50,7 +50,7 @@ var getAllGeneral = (tablename) => {
 var get_instructors_in_session = () => {
     return new Promise((resolve, reject) => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
-        var query = `select courseRecordID, Type, site, startTime, classroomName from classroomcourserecord inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
+        var query = `select courseRecordID, Type, site, startTime, classroomName from classroomcourserecord inner join classroomcourse on classroomcourserecord.classroomcourseID = classroomcourse.courseID inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -215,14 +215,14 @@ var insertInstructorAvailability = (obj) => {
     /*
      The new data will be insert into the instructor row which has the largeest instructorID 
     */
-    if (Object.keys(obj).length <= 6) {    //if keys is smaller or equal to 6, then it means no instructor availability is entered.
+    if (Object.keys(obj).length <= 6) { //if keys is smaller or equal to 6, then it means no instructor availability is entered.
         return Promise.resolve();
     }
     var keys = [];
     var values = [];
 
-    for (i = 0; i < Object.keys(obj).length - 6; i++) {   //minus all attributes other than instructor availability
-        keys.push(Object.keys(obj)[i + 4])                // avaiability start at index [4] 
+    for (i = 0; i < Object.keys(obj).length - 6; i++) { //minus all attributes other than instructor availability
+        keys.push(Object.keys(obj)[i + 4]) // avaiability start at index [4] 
         values.push(Object.values(obj)[i + 4])
     }
 
@@ -492,7 +492,7 @@ var assign_learner_session = (obj) => {
     var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
 
     return new Promise((resolve, reject) => {
-        var query = `UPDATE classroomcourserecord SET learnerID = ${obj.Learners} WHERE courseRecordID = ${obj.Sessions}`;
+        var query = `UPDATE classroomcourserecord SET learnerID = ${obj.Learners}, klrID=${obj.klrs}, JIRA=${obj.JIRA} WHERE courseRecordID = ${obj.Sessions}`;
         var values = Object.values(obj)
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
