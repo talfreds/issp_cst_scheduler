@@ -381,7 +381,7 @@ var get_data_from_database = (sqlquery, param) => {
 
 var get_instructor_work_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT classroomcourse.courseID, classroomcourse.startTime AS start_date, classroomcourse.endTime AS end_date, instructor.instructorLastName, instructor.instructorFirstName, classroom.classroomName, classroom.site, classroom.comments, coursetype.Type 
+        var query = `SELECT classroomcourse.startTime AS start_date, classroomcourse.endTime AS end_date, instructor.instructorLastName, instructor.instructorFirstName, classroom.classroomName, classroom.site, classroom.comments, coursetype.Type 
         FROM classroomcourse 
         JOIN instructor ON classroomcourse.instructorID = instructor.instructorID 
         JOIN classroom ON classroomcourse.classroomID = classroom.classroomID 
@@ -399,7 +399,7 @@ var get_instructor_work_schedules = (instructor_id) => {
 
 var get_instructor_class_list = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT classroomcourse.instructorID, classroomcourserecord.learnerID, learner.learnerLastname, learner.learnerFirstName, klr.klrID, klr.klrName
+        var query = `SELECT classroomcourse.instructorID, classroomcourserecord.learnerID, learner.learnerLastname, learner.learnerFirstName, klr.klrID, klr.klrName, classroomcourserecord.JIRA
         FROM classroomcourse
         JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.classroomcourseID
         JOIN learner ON learner.learnerID = classroomcourserecord.learnerID
