@@ -42,8 +42,12 @@ tr:nth-child(odd) {}
 </table>
 <table>
     {{!-- <tr background="/image/home_page.jpg"> --}}
-    <tr style="background-image:url('/image/home_page.jpg');background-repeat:no-repeat;background-size:cover;">
+    <tr >
         <td>
+        <img src="/image/home_bg.png"  style="position:relative;top:-80px;" height="auto" width="800">
+        </td>
+
+        <td style="position:absolute;top:85px;right:-75px">
         <center>
             <h2> Instructor Schedule Access</h2>
         </center>
@@ -62,9 +66,6 @@ tr:nth-child(odd) {}
             </div>
         </div>
 
-        </td>
-
-        <td>
         {{#unless loggedIn}}
         {{> loginForm }}
         {{/unless}}

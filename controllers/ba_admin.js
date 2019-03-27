@@ -141,7 +141,7 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
 });
 
 router.get('/inputs/new_learner', (request, response) => {
-    db_functions.get_learners().then((result2) => {
+    db_functions.getAllGeneral('learner').then((result2) => {
         response.render('./inputs/new_learner.hbs', {
             learner_list: result2,
             active6: 'font-weight:bold; color:#0c5aa8;'
@@ -151,14 +151,20 @@ router.get('/inputs/new_learner', (request, response) => {
 
 router.get('/inputs/learners_into_courses', (request, response) => {
     db_functions.get_instructors_in_session().then((result) => {
-        db_functions.get_learners().then((result2) => {
+        db_functions.getAllGeneral('learner').then((result2) => {
             db_functions.getAllGeneral('klr').then((result3) => {
-                response.render('./inputs/learners_into_courses.hbs', {
-                    active3: 'font-weight:bold; color:#0c5aa8;',
-                    session_list: result,
-                    learner_list: result2,
-                    klr_list: result3
-                });
+                db_functions.getAllGeneral('instructorcourses').then((instructorcourses) => {
+                    db_functions.getAllGeneral('coursetypesavailableklrs').then((coursetypesavailableklrs) => {
+                        response.render('./inputs/learners_into_courses.hbs', {
+                            active3: 'font-weight:bold; color:#0c5aa8;',
+                            session_list: result,
+                            learner_list: result2,
+                            klr_list: result3,
+                            instructor_klr: instructorcourses,
+                            coursetype_klr: coursetypesavailableklrs
+                        });
+                    })
+                })
             })
         }).catch((error) => {
             var sessions = [{
@@ -169,6 +175,7 @@ router.get('/inputs/learners_into_courses', (request, response) => {
             });
         })
     })
+});
 });
 
 
