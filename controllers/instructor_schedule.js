@@ -44,6 +44,12 @@ router.post('/instructor_schedule', (request, response) => {
                         instructor_classes.forEach((courseDate) => {
                             courseDate.start_date = courseDate.start_date.format("YYYY-MM-DD hh:mm");
                             courseDate.end_date = courseDate.end_date.format("YYYY-MM-DD hh:mm");
+                            courseDate.text = `${courseDate.Type}  --  ${courseDate.site}  --  ${courseDate.classroomName} \n -- Taught By: ${courseDate.instructorFirstName} ${courseDate.instructorLastName}`;
+                            for (let i = 0; i < class_lists.length; i++) {
+                                if (class_lists[i].instructorID == request.body.Instructors) {
+                                    courseDate.text = courseDate.text + `\n ________________________________  ${class_lists[i].learnerFirstName} ${class_lists[i].learnerLastname} -- ${class_lists[i].klrName} -- ${class_lists[i].JIRA}`
+                                }
+                            }
                         });
                         var parsed_instructor_classes_result = JSON.stringify(instructor_classes);
                         console.log(request.body.Instructors);
@@ -55,7 +61,7 @@ router.post('/instructor_schedule', (request, response) => {
 
 
                         // once modified, add the modified list to this array
-                        let instructor_schedule_combined = instructor_officedays.concat(instructorleaves, instructorvacation)
+                        let instructor_schedule_combined = instructor_officedays.concat(instructorleaves, instructorvacation, instructor_classes)
                         console.log(instructor_schedule_combined);
                         let instructor_schedule_combined_stringified = JSON.stringify(instructor_schedule_combined);
 
