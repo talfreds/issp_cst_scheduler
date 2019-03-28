@@ -372,7 +372,7 @@ var insertInstructorDays = (obj, tablename) => {
 var get_all_instructors_teaching_day = (date) => {
     return new Promise((resolve, reject) => {
 
-        //var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourserecord ccr on i.instructorID = ccr.instructorID where courseDate = ` + connection.escape(date);
+
         var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourse ccr on i.instructorID = ccr.instructorID where DATE(startTime) = ` + connection.escape(date);
 
         connection.query(query, function(err, queryResult, fields) {
