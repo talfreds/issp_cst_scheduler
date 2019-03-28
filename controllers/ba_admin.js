@@ -141,7 +141,7 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
 });
 
 router.get('/inputs/new_learner', (request, response) => {
-    db_functions.get_learners().then((result2) => {
+    db_functions.getAllGeneral('learner').then((result2) => {
         response.render('./inputs/new_learner.hbs', {
             learner_list: result2,
             active6: 'font-weight:bold; color:#0c5aa8;'
@@ -150,32 +150,31 @@ router.get('/inputs/new_learner', (request, response) => {
 });
 
 router.get('/inputs/learners_into_courses', (request, response) => {
-    db_functions.get_instructors_in_session().then((result) => {
-        db_functions.get_learners().then((result2) => {
+    db_functions.get_instructors_for_learner().then((result) => {
+        db_functions.getAllGeneral('learner').then((result2) => {
             db_functions.getAllGeneral('klr').then((result3) => {
-                response.render('./inputs/learners_into_courses.hbs', {
-                    session_list: result,
-                    learner_list: result2,
-                    klr_list: result3
-                });
+                db_functions.getAllGeneral('instructorcourses').then((instructorcourses) => {
+                    db_functions.getAllGeneral('coursetypesavailableklrs').then((coursetypesavailableklrs) => {
+                        response.render('./inputs/learners_into_courses.hbs', {
+                            active3: 'font-weight:bold; color:#0c5aa8;',
+                            session_list: result,
+                            learner_list: result2,
+                            klr_list: result3,
+                            instructor_klr: instructorcourses,
+                            coursetype_klr: coursetypesavailableklrs
+                        });
+                    })
+                })
             })
-            db_functions.get_KLRs().then((result3) => {
+        }).catch((error) => {
+            var sessions = [{
+                courseName: 'No sessions found'
+            }];
             response.render('./inputs/learners_into_courses.hbs', {
-                session_list: result,
-                learner_list: result2,
-                klr_list: result3,
-                active3: 'font-weight:bold; color:#0c5aa8;'
+                session_list: sessions
             });
         })
-    }).catch((error) => {
-        var sessions = [{
-            courseName: 'No sessions found'
-        }];
-        response.render('./inputs/learners_into_courses.hbs', {
-            session_list: sessions
-        });
     })
-});
 });
 
 
@@ -246,7 +245,9 @@ router.post('/inputs/edit_site_classroom', (request, response) => {
             }
         }
         response.render('./inputs/edit_site_classroom.hbs', {
-            classroom_details: classroom_details_object
+            classroom_details: classroom_details_object,
+            active7: 'font-weight:bold; color:#0c5aa8;'
+
         });
     }).catch((error) => {
         console.log(error);
@@ -266,8 +267,8 @@ router.get('/inputs/instructor_vacations', (request, response) => {
             vacations: null,
             instructorID: null,
             edit: false,
-            instructorLastName:null,
-            instructorFirstName:null,
+            instructorLastName: null,
+            instructorFirstName: null,
             active12: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
@@ -284,8 +285,8 @@ router.get('/inputs/instructor_office_days', (request, response) => {
             instructor_list: result2,
             officeDays: null,
             edit: false,
-            instructorLastName:null,
-            instructorFirstName:null,
+            instructorLastName: null,
+            instructorFirstName: null,
             active14: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {
@@ -301,8 +302,8 @@ router.get('/inputs/instructor_leaves', (request, response) => {
             instructor_list: result2,
             leaves: null,
             edit: false,
-            instructorLastName:null,
-            instructorFirstName:null,
+            instructorLastName: null,
+            instructorFirstName: null,
             active13: 'font-weight:bold; color:#0c5aa8;'
         });
     }).catch((error) => {

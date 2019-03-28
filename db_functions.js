@@ -50,7 +50,11 @@ var getAllGeneral = (tablename) => {
 var get_instructors_in_session = () => {
     return new Promise((resolve, reject) => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
-        var query = `select courseRecordID, Type, site, startTime, classroomName from classroomcourserecord inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
+        var query = `select courseID, Type, site, startTime, classroomName, classroomcourse.instructorID, instructorLastName, instructorFirstName
+        from classroomcourse 
+        inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
+        inner join classroom on classroomcourse.classroomID = classroom.classroomID 
+        left join instructor on classroomcourse.instructorID = instructor.instructorID where startTime >= NOW();`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -61,6 +65,41 @@ var get_instructors_in_session = () => {
     });
 }
 
+var get_learners_in_session = () => {
+    return new Promise((resolve, reject) => {
+        // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
+        var query = `select courseRecordID, Type, site, startTime, classroomName, classroomcourserecord.learnerID, learnerLastName, learnerFirstName
+        from classroomcourserecord
+        inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID
+        inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
+        inner join classroom on classroomcourse.classroomID = classroom.classroomID 
+        left join learner on classroomcourserecord.learnerID = learner.learnerID where startTime >= NOW();`;
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+var get_instructors_for_learner = () => {
+    return new Promise((resolve, reject) => {
+        // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
+        var query = `select courseID, Type, site, startTime, classroomName
+        from classroomcourse
+        inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
+        inner join classroom on classroomcourse.classroomID = classroom.classroomID where startTime >= NOW();`;
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
 
 var get_instructors = () => {
     return new Promise((resolve, reject) => {
@@ -90,35 +129,6 @@ var get_this_instructor = (obj) => {
             }
         });
     })
-}
-
-
-var get_learners = () => {
-    return new Promise((resolve, reject) => {
-        var query = `SELECT learnerID, learnerFirstName, learnerLastName FROM learner`;
-        connection.query(query, function(err, queryResult, fields) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(queryResult)
-            }
-        });
-    });
-}
-
-
-var get_KLRs = () => {
-    return new Promise((resolve, reject) => {
-        var query = `SELECT klrID, klrName FROM KLR`;
-
-        connection.query(query, function(err, queryResult, fields) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(queryResult)
-            }
-        });
-    });
 }
 
 var insertClassroom = (obj, tablename) => {
@@ -215,14 +225,15 @@ var insertInstructorAvailability = (obj) => {
     /*
      The new data will be insert into the instructor row which has the largeest instructorID 
     */
-    if (Object.keys(obj).length <= 6) {    //if keys is smaller or equal to 6, then it means no instructor availability is entered.
+    if (Object.keys(obj).length <= 6) { //if keys is smaller or equal to 6, then it means no instructor availability is entered.
         return Promise.resolve();
     }
+
     var keys = [];
     var values = [];
 
-    for (i = 0; i < Object.keys(obj).length - 6; i++) {   //minus all attributes other than instructor availability
-        keys.push(Object.keys(obj)[i + 4])                // avaiability start at index [4] 
+    for (i = 0; i < Object.keys(obj).length - 6; i++) { //minus all attributes other than instructor availability
+        keys.push(Object.keys(obj)[i + 4]) // avaiability start at index [4] 
         values.push(Object.values(obj)[i + 4])
     }
 
@@ -241,6 +252,7 @@ var insertInstructorAvailability = (obj) => {
             }
         });
     })
+
 }
 
 var updateInstructorAB = (obj) => {
@@ -258,7 +270,7 @@ var updateInstructorAB = (obj) => {
     var values_vars = ',?'.repeat(keys.length - 1);
     console.log('inid:', connection.escape(obj.instructorID))
     return new Promise((resolve, reject) => {
-        var query = `REPLACE INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `)`
+        var query = `INSERT INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `)`
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -360,7 +372,7 @@ var insertInstructorDays = (obj, tablename) => {
 var get_all_instructors_teaching_day = (date) => {
     return new Promise((resolve, reject) => {
 
-        
+
         var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourse ccr on i.instructorID = ccr.instructorID where DATE(startTime) = ` + connection.escape(date);
 
         connection.query(query, function(err, queryResult, fields) {
@@ -388,7 +400,7 @@ var get_data_from_database = (sqlquery, param) => {
 
 var get_instructor_work_schedules = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT classroomcourse.courseID, classroomcourse.startTime AS start_date, classroomcourse.endTime AS end_date, instructor.instructorLastName, instructor.instructorFirstName, classroom.classroomName, classroom.site, classroom.comments, coursetype.Type 
+        var query = `SELECT classroomcourse.startTime AS start_date, classroomcourse.endTime AS end_date, instructor.instructorLastName, instructor.instructorFirstName, classroom.classroomName, classroom.site, classroom.comments, coursetype.Type 
         FROM classroomcourse 
         JOIN instructor ON classroomcourse.instructorID = instructor.instructorID 
         JOIN classroom ON classroomcourse.classroomID = classroom.classroomID 
@@ -406,9 +418,9 @@ var get_instructor_work_schedules = (instructor_id) => {
 
 var get_instructor_class_list = (instructor_id) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT classroomcourse.instructorID, classroomcourserecord.learnerID, learner.learnerLastname, learner.learnerFirstName, klr.klrID, klr.klrName
+        var query = `SELECT classroomcourse.instructorID, classroomcourserecord.learnerID, learner.learnerLastname, learner.learnerFirstName, klr.klrID, klr.klrName, classroomcourserecord.JIRA
         FROM classroomcourse
-        JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.classroomcourseID
+        JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.courseID
         JOIN learner ON learner.learnerID = classroomcourserecord.learnerID
         JOIN klr ON classroomcourserecord.klrID = klr.klrID
         WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id) + ';';
@@ -473,7 +485,7 @@ var assign_instructor_session = (obj) => {
     var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
 
     return new Promise((resolve, reject) => {
-        var query = `UPDATE classroomcourserecord SET instructorID = ${obj.Instructors} WHERE courseRecordID = ${obj.Sessions}`;
+        var query = `UPDATE classroomcourse SET instructorID = ${obj.instructorID} WHERE courseID = ${obj.courseID}`;
         var values = Object.values(obj)
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
@@ -486,13 +498,13 @@ var assign_instructor_session = (obj) => {
     })
 }
 
-var assign_learner_session = (obj) => {
+var remove_from_session = (obj, tablename, humanid, tableid) => {
     console.log(obj);
 
     var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
 
     return new Promise((resolve, reject) => {
-        var query = `UPDATE classroomcourserecord SET learnerID = ${obj.Learners} WHERE courseRecordID = ${obj.Sessions}`;
+        var query = `UPDATE ` + tablename + ` SET `+ humanid + `ID = NULL WHERE `+ tableid +` = ${obj.ID}`;
         var values = Object.values(obj)
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
@@ -571,7 +583,7 @@ var deleteDualPK = (obj, tablename) => {
 
 var getClassroomSession = (obj) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT courserecordID, startTime, endTime, classroomID, comments FROM classroomcourserecord WHERE courseRecordID = ${obj.courseRecordID}`;
+        var query = `SELECT courseID, startTime, endTime, classroomID FROM classroomcourse WHERE courseID = ${obj.courseID}`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -584,7 +596,7 @@ var getClassroomSession = (obj) => {
 
 var getSessionList = () => {
     return new Promise((resolve, reject) => {
-        var query = `select courseRecordID,Type,site,classroomName,courseDate, startTime from classroomcourserecord join coursetype on classroomcourserecord.courseTypeID = coursetype.courseTypeID join classroom on classroom.classroomID = classroomcourserecord.classroomID;`;
+        var query = `select courseID,Type,site,classroomName, startTime from classroomcourse join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID join classroom on classroom.classroomID = classroomcourse.classroomID;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -617,7 +629,6 @@ module.exports = {
     get_instructors,
     get_this_instructor,
     get_instructors_ab_day,
-    get_learners,
     get_data_from_database,
     insertClassroom,
     insertInstructor,
@@ -627,12 +638,13 @@ module.exports = {
     insertInstructorDays,
     get_instructor_work_schedules,
     get_instructors_in_session,
+    get_learners_in_session,
+    get_instructors_for_learner,
     insertGeneralData,
     deleteGeneralData,
     updateGeneralData,
-    get_KLRs,
     assign_instructor_session,
-    assign_learner_session,
+    remove_from_session,
     get_all_instructors_teaching_day,
     getAllGeneral,
     getEditLearner,

@@ -13,9 +13,9 @@
           <h2>Edit or Delete Classroom Session</h2>
           <div id="ClassroomSessions">
             <div class="form__group">
-              <select style="width:100%; height:34px" name="courseRecordID">
+              <select style="width:100%; height:34px" name="courseID">
                 {{#each sessionsList}}
-                <option value={{this.courseRecordID}}>{{this.Type}} -- {{this.site}}, {{this.classroomName}} -- {{this.startTime}}</option>
+                <option value={{this.courseID}}>{{this.Type}} -- {{this.site}}, {{this.classroomName}} -- {{this.startTime}}</option>
                 {{/each}}
               </select>
               <input id="login-submit" class="submit_button shadow" type="submit" value="Edit Session"
@@ -23,7 +23,7 @@
               <input id="login-submit" class="submit_button shadow" type="submit" value="Delete Session"
                 formaction="/deleteClassroomSession">
 
-              <label for="courseRecordID" class="form__label">Select Classroom Session</label>
+              <label for="courseID" class="form__label">Select Classroom Session</label>
             </div>
           </div>
         </form>
@@ -63,15 +63,9 @@
               </select>
               <label for="classroom" class="form__label">Select Classroom</label>
             </div>
-
-            <div class="form__group">
-              <textarea id="comments" class="form__field" rows="5" name="comments"
-                placeholder="Additional Comments"></textarea>
-              <label for="comments" class="form__label">Additional Comments </label>
-            </div>
             <input id="login-submit" class="submit_button shadow" type="submit" value="Submit"
               formaction="/addClassroomSession">
-            <a href="/registrationForm">
+            <a href="/ba_admin">
               <button class='submit_button shadow'>Cancel</button>
             </a>
           </form>
