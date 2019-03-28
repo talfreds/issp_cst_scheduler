@@ -157,7 +157,9 @@ router.post('/editInstructor', (request, response) => {
                     Sunday: (result3[0]) ? result3[0].Sunday : null,
                     comment: result[0].comments,
                     instructorID: instructorID,
-                    update_instructor: true
+                    update_instructor: true,
+                    active10: 'font-weight:bold; color:#0c5aa8;'
+
                 });
             });
         })
@@ -285,7 +287,9 @@ router.post('/editInstructorVacations', (request, response) => {
                     instructorID: request.body.Instructors,
                     edit: true,
                     instructorLastName: result3[0].instructorLastName,
-                    instructorFirstName: result3[0].instructorFirstName
+                    instructorFirstName: result3[0].instructorFirstName,
+                    active12: 'font-weight:bold; color:#0c5aa8;'
+
                 });
             })
         })
@@ -365,7 +369,9 @@ router.post('/editInstructorLeaves', (request, response) => {
                     instructorID: request.body.Instructors,
                     edit: true,
                     instructorLastName: result3[0].instructorLastName,
-                    instructorFirstName: result3[0].instructorFirstName
+                    instructorFirstName: result3[0].instructorFirstName,
+                    active13: 'font-weight:bold; color:#0c5aa8;'
+
                 });
             })
         })
@@ -444,7 +450,9 @@ router.post('/editInstructorOfficeDays', (request, response) => {
                     instructorID: request.body.Instructors,
                     edit: true,
                     instructorLastName: result3[0].instructorLastName,
-                    instructorFirstName: result3[0].instructorFirstName
+                    instructorFirstName: result3[0].instructorFirstName,
+                    active14: 'font-weight:bold; color:#0c5aa8;'
+
                 });
             })
         })
@@ -637,7 +645,9 @@ router.post('/editClassroomSession', (request, response) => {
                         session_list: sessionResult,
                         sessionslist: courserecord,
                         coursetypeslist: coursetypes,
-                        sitesList: sites
+                        sitesList: sites,
+                        active7: 'font-weight:bold; color:#0c5aa8;'
+
                     });
                 })
             })
@@ -814,7 +824,9 @@ router.post('/edit_learner', (request, response) => {
         response.render('./inputs/edit_learner.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            learner_list: result
+            learner_list: result,
+            active6: 'font-weight:bold; color:#0c5aa8;'
+
         });
     });
 });
@@ -839,6 +851,7 @@ router.post('/removeAssignedInstructors', (request, response) => {
             loggedIn: request.session.loggedIn,
             user: 'temp',
             instructor_list: result,
+            active2: 'font-weight:bold; color:#0c5aa8;'
         });
     });
 });
@@ -849,6 +862,8 @@ router.post('/removeAssignedLearners', (request, response) => {
             loggedIn: request.session.loggedIn,
             user: 'temp',
             learner_list: result,
+            active3: 'font-weight:bold; color:#0c5aa8;'
+
         });
     });
 });

@@ -231,7 +231,7 @@ blink {
 #sidebar {
     position: absolute;
     left: 0;
-    top: 15%;
+    top: -4%;
     margin: 5%;
     font-weight: lighter;
     line-height: 1.6;

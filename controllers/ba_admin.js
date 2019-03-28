@@ -245,7 +245,9 @@ router.post('/inputs/edit_site_classroom', (request, response) => {
             }
         }
         response.render('./inputs/edit_site_classroom.hbs', {
-            classroom_details: classroom_details_object
+            classroom_details: classroom_details_object,
+            active7: 'font-weight:bold; color:#0c5aa8;'
+
         });
     }).catch((error) => {
         console.log(error);
