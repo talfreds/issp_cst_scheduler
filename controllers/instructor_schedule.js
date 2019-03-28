@@ -42,6 +42,7 @@ router.post('/instructor_schedule', (request, response) => {
 
                         console.log('class_lists                        ', class_lists)
                         instructor_classes.forEach((courseDate) => {
+                            console.log(courseDate.start_date);
                             courseDate.start_date = courseDate.start_date.format("YYYY-MM-DD hh:mm");
                             courseDate.end_date = courseDate.end_date.format("YYYY-MM-DD hh:mm");
                             courseDate.text = `${courseDate.Type}  --  ${courseDate.site}  --  ${courseDate.classroomName} \n -- Taught By: ${courseDate.instructorFirstName} ${courseDate.instructorLastName}`;
