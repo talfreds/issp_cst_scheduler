@@ -24,7 +24,7 @@ var app = express();
 
 app.use(
     cookieSession({
-        name: "loginSession", 
+        name: "loginSession",
         keys: ["thiswillbesecretlater"],
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     })
@@ -50,6 +50,26 @@ hbs.registerHelper('formatDate', (text) => {
     return [year, month, day].join('-');
 });
 
+//register.helper
+hbs.registerHelper('formatDatetime', (text) => {
+    var d = new Date(text),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear(),
+        hour = d.getHours(),
+        minutes = d.getMinutes();
+    hourString = hour.toString();
+    minutesString = minutes.toString();
+
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    if (hourString.length < 2) hourString = '0' + hourString;
+    if (minutesString.length < 2) minutesString = '0' + minutesString;
+
+    return [year, month, day].join('-') + "T" + [hourString, minutesString].join(':');
+});
+
 // body parser allows for easy reading from forms
 app.use(bodyParser.json());
 app.use(
@@ -64,20 +84,21 @@ hbs.registerHelper('getProperty', function(context, key) {
 
 hbs.registerHelper('getInstructorNameFromID', function(context, key) {
     for (i = 0; i < context.length; i++) {
-        if (context[i].instructorID == key) {router.post('/assignLearner', (request, response) => {
-    db_functions.insertGeneralData(request.body, 'classroomcourserecord').then((result) => {
-        console.log("verify_status", result);
-        response.render('ba_admin.hbs', {
-            databaseConfirmation: true
-        });
-    }).catch((error) => {
-        console.log(error);
-        response.render('ba_admin.hbs', {
-            databaseError: true
-        });
-    })
+        if (context[i].instructorID == key) {
+            router.post('/assignLearner', (request, response) => {
+                db_functions.insertGeneralData(request.body, 'classroomcourserecord').then((result) => {
+                    console.log("verify_status", result);
+                    response.render('ba_admin.hbs', {
+                        databaseConfirmation: true
+                    });
+                }).catch((error) => {
+                    console.log(error);
+                    response.render('ba_admin.hbs', {
+                        databaseError: true
+                    });
+                })
 
-});
+            });
             return context[i].instructorLastName + ', ' + context[i].instructorFirstName;
         }
     }
@@ -96,6 +117,15 @@ hbs.registerHelper('getSessionTypeFromID', function(context, key) {
         if (context[i].courseTypeID == key) {
             return context[i].Type;
         }
+    }
+});
+
+hbs.registerHelper('DefaultValueDropdown', function(sessionID, tableID) {
+    console.log("Session ID: " + sessionID + ", Table ID: " + tableID);
+    if (sessionID == tableID) {
+        return "selected";
+    } else {
+        return " ";
     }
 });
 

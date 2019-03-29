@@ -70,7 +70,7 @@ var get_learners_in_session = () => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
         var query = `select courseRecordID, Type, site, startTime, classroomName, classroomcourserecord.learnerID, learnerLastName, learnerFirstName
         from classroomcourserecord
-        inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID
+        inner join classroomcourse on classroomcourserecord.classroomcourseID = classroomcourse.courseID
         inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
         inner join classroom on classroomcourse.classroomID = classroom.classroomID 
         left join learner on classroomcourserecord.learnerID = learner.learnerID where startTime >= NOW();`;
@@ -504,7 +504,7 @@ var remove_from_session = (obj, tablename, humanid, tableid) => {
     var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
 
     return new Promise((resolve, reject) => {
-        var query = `UPDATE ` + tablename + ` SET `+ humanid + `ID = NULL WHERE `+ tableid +` = ${obj.ID}`;
+        var query = `UPDATE ` + tablename + ` SET ` + humanid + `ID = NULL WHERE ` + tableid + ` = ${obj.ID}`;
         var values = Object.values(obj)
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
@@ -583,7 +583,7 @@ var deleteDualPK = (obj, tablename) => {
 
 var getClassroomSession = (obj) => {
     return new Promise((resolve, reject) => {
-        var query = `SELECT courseID, startTime, endTime, classroomID FROM classroomcourse WHERE courseID = ${obj.courseID}`;
+        var query = `SELECT * FROM classroomcourse WHERE courseID = ${obj.courseID}`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
