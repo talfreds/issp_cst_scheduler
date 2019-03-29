@@ -30,14 +30,15 @@ tr:nth-child(odd) {}
         <td>
         <center>
         <div>
+            <br>
+            <br>
             <h1> CST Course Scheduler </h1>
-            <h1>Dev link for convenience</h1>
-            {{!-- {{#if loggedIn}} --}}
-            <a href="/ba_admin">Business Analyst Administration Inputs</a>
-            <div>
-                <h1> CST Course Scheduler </h1>
-            </div>
-            {{!-- {{/if}} --}}
+            <!--<h1>Dev link for convenience</h1>
+            
+                {{!-- {{#if loggedIn}} --}}
+                <a href="/ba_admin">Business Analyst Administration Inputs</a>
+                {{!-- {{/if}} --}}
+            -->
         </center>
         </td>
     </tr>
@@ -46,15 +47,16 @@ tr:nth-child(odd) {}
     {{!-- <tr background="/image/home_page.jpg"> --}}
     <tr >
         <td>
-        <img src="/image/home_bg.png"  style="position:relative;top:-80px;" height="330px" width="900px">
+    
+        <a href="/ba_admin"><div id="admin_panel"></div><div id="inside_panel"><h2 style="top:40%;position:relative;color:white;font-size:40px;font-weight:100;">Admin Panel</h2></div></a>
         </td>
 
-        <td style="position:absolute;top:165px;right:-75px">
+        <td style="position:absolute;top:200px;right:-75px">
         <center>
-            <h2> Instructor Schedule Access</h2>
         </center>
 
-        <div id="login__wrapper">
+        <div id="login__wrapper" style="width:300px;">
+            <h2>Instructor Schedule Access</h2>
             <div class="form__group">
                 <form action="/instructor_schedule" method="post">
                 <select name="Instructors">
