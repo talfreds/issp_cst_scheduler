@@ -150,7 +150,7 @@ router.get('/inputs/new_learner', (request, response) => {
 });
 
 router.get('/inputs/learners_into_courses', (request, response) => {
-    db_functions.get_instructors_in_session().then((result) => {
+    db_functions.get_instructors_for_learner().then((result) => {
         db_functions.getAllGeneral('learner').then((result2) => {
             db_functions.getAllGeneral('klr').then((result3) => {
                 db_functions.getAllGeneral('instructorcourses').then((instructorcourses) => {
@@ -245,7 +245,9 @@ router.post('/inputs/edit_site_classroom', (request, response) => {
             }
         }
         response.render('./inputs/edit_site_classroom.hbs', {
-            classroom_details: classroom_details_object
+            classroom_details: classroom_details_object,
+            active7: 'font-weight:bold; color:#0c5aa8;'
+
         });
     }).catch((error) => {
         console.log(error);

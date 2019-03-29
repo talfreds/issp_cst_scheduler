@@ -8,7 +8,7 @@
   {{> sidebar }}
   <div id='addDataBox'>
     <div id='loginFormDiv'>
-      <form action="/assignInstructor" method="post">
+      <form method="post">
 
         <div id="login__wrapper">
             <h2>Assign Instructors to Session</h2>
@@ -19,6 +19,8 @@
                 {{/each}}
 
         </select>   
+        <input id="login-submit" class="submit_button shadow" type="submit" formaction="/removeAssignedInstructors" value="Remove Assigned Instructors">
+
         <label for="instructor" class="form__label">Select Session Name</label>
         </div>
 
@@ -35,10 +37,10 @@
         </div>
         </div>
     
-        <input id="login-submit" class="submit_button shadow" type="submit" value="Submit">
+        <input id="login-submit" class="submit_button shadow" type="submit" formaction="/assignInstructor" value="Submit">
       </form>
-    <a href="/ba_admin"> 
-      <button class='submit_button shadow'>Cancel</button>
+    <a href="/ba_admin">
+      <button type="button" class='submit_button shadow'>Cancel</button>
     </a>
     </div>
   </div>

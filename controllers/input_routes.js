@@ -157,7 +157,9 @@ router.post('/editInstructor', (request, response) => {
                     Sunday: (result3[0]) ? result3[0].Sunday : null,
                     comment: result[0].comments,
                     instructorID: instructorID,
-                    update_instructor: true
+                    update_instructor: true,
+                    active10: 'font-weight:bold; color:#0c5aa8;'
+
                 });
             });
         })
@@ -285,7 +287,9 @@ router.post('/editInstructorVacations', (request, response) => {
                     instructorID: request.body.Instructors,
                     edit: true,
                     instructorLastName: result3[0].instructorLastName,
-                    instructorFirstName: result3[0].instructorFirstName
+                    instructorFirstName: result3[0].instructorFirstName,
+                    active12: 'font-weight:bold; color:#0c5aa8;'
+
                 });
             })
         })
@@ -365,7 +369,9 @@ router.post('/editInstructorLeaves', (request, response) => {
                     instructorID: request.body.Instructors,
                     edit: true,
                     instructorLastName: result3[0].instructorLastName,
-                    instructorFirstName: result3[0].instructorFirstName
+                    instructorFirstName: result3[0].instructorFirstName,
+                    active13: 'font-weight:bold; color:#0c5aa8;'
+
                 });
             })
         })
@@ -444,7 +450,9 @@ router.post('/editInstructorOfficeDays', (request, response) => {
                     instructorID: request.body.Instructors,
                     edit: true,
                     instructorLastName: result3[0].instructorLastName,
-                    instructorFirstName: result3[0].instructorFirstName
+                    instructorFirstName: result3[0].instructorFirstName,
+                    active14: 'font-weight:bold; color:#0c5aa8;'
+
                 });
             })
         })
@@ -637,7 +645,9 @@ router.post('/editClassroomSession', (request, response) => {
                         session_list: sessionResult,
                         sessionslist: courserecord,
                         coursetypeslist: coursetypes,
-                        sitesList: sites
+                        sitesList: sites,
+                        active7: 'font-weight:bold; color:#0c5aa8;'
+
                     });
                 })
             })
@@ -781,12 +791,42 @@ router.post('/assignLearner', (request, response) => {
 
 });
 
+router.post('/removeLearner', (request, response) => {
+    db_functions.remove_from_session(request.body, 'classroomcourserecord', 'learner', 'courseRecordID').then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+});
+
+router.post('/removeInstructor', (request, response) => {
+    db_functions.remove_from_session(request.body, 'classroomcourse', 'instructor', 'courseID').then((result) => {
+        console.log("verify_status", result);
+        response.render('ba_admin.hbs', {
+            databaseConfirmation: true
+        });
+    }).catch((error) => {
+        console.log(error);
+        response.render('ba_admin.hbs', {
+            databaseError: true
+        });
+    })
+});
+
 router.post('/edit_learner', (request, response) => {
     db_functions.getEditLearner(request.body).then((result) => {
         response.render('./inputs/edit_learner.hbs', {
             loggedIn: request.session.loggedIn,
             user: 'temp',
-            learner_list: result
+            learner_list: result,
+            active6: 'font-weight:bold; color:#0c5aa8;'
+
         });
     });
 });
@@ -803,6 +843,29 @@ router.post("/editLearnerInfo", (request, response) => {
             databaseError: true
         });
     })
+});
+
+router.post('/removeAssignedInstructors', (request, response) => {
+    db_functions.get_instructors_in_session(request.body).then((result) => {
+        response.render('./inputs/remove_assigned_instructors.hbs', {
+            loggedIn: request.session.loggedIn,
+            user: 'temp',
+            instructor_list: result,
+            active2: 'font-weight:bold; color:#0c5aa8;'
+        });
+    });
+});
+
+router.post('/removeAssignedLearners', (request, response) => {
+    db_functions.get_learners_in_session(request.body).then((result) => {
+        response.render('./inputs/remove_assigned_learners.hbs', {
+            loggedIn: request.session.loggedIn,
+            user: 'temp',
+            learner_list: result,
+            active3: 'font-weight:bold; color:#0c5aa8;'
+
+        });
+    });
 });
 
 module.exports = router;

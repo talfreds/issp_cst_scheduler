@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<header>
+    <title> Remove Learners From Session </title>
+    <link href = '/css/home.css' rel="stylesheet" type="text/css"/>
+</header>
+
+<body>
+  {{> sidebar }}
+ <div id='addDataBox'>
+    <div id='loginFormDiv'>
+        <div id="login__wrapper" style="right:0; position:absolute; width:60%; top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);">
+            {{#each learner_list}}
+            <form method="post">
+              <div class="form__group" style="margin-top:0;">
+                  <input type="hidden" id="course-id" name="ID" value="{{this.courseRecordID}}">
+                  <input style="background-color:white; border: 0.5px solid #777;" readonly value="{{this.Type}} - {{this.site}} - {{this.classroomName}} - {{this.startTime}}" id="session" class="form__field" type="text" name="session" placeholder="session" value={{this.courseRecordID}}>
+                  <label for="session" class="form__label">Session</label>
+                </div>
+                <div class="form__group" style="margin-top:0; padding:0;">
+                  <input type="hidden" id="learner-id" name="learnerID" value="{{this.learnerID}}">
+                  <input style="background-color:white; width:auto; text-align:center; border: 0.5px solid #777;" readonly value="{{this.learnerLastName}}, {{this.learnerFirstName}}" id="learner" class="form__field" type="text" name="learner" placeholder="learner"></input>
+                </div>
+
+                <input id="remove-learner" class="submit_button shadow" formaction="/removeLearner" type="submit" value="Remove">
+             </form>
+            {{/each}}
+
+    <br>
+    <br>
+    <a href="/ba_admin"> 
+      <button class='submit_button shadow'>Cancel</button>
+      </div>
+    </div>
+
+    </a>
+    </div>
+  </div>
+</body>
+
+<script>
+ 
+</script>

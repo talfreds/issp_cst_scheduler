@@ -50,10 +50,30 @@ var getAllGeneral = (tablename) => {
 var get_instructors_in_session = () => {
     return new Promise((resolve, reject) => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
-        var query = `select courseID, Type, site, startTime, classroomName 
+        var query = `select courseID, Type, site, startTime, classroomName, classroomcourse.instructorID, instructorLastName, instructorFirstName
         from classroomcourse 
         inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
-        inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
+        inner join classroom on classroomcourse.classroomID = classroom.classroomID 
+        left join instructor on classroomcourse.instructorID = instructor.instructorID where startTime >= NOW();`;
+        connection.query(query, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult)
+            }
+        });
+    });
+}
+
+var get_learners_in_session = () => {
+    return new Promise((resolve, reject) => {
+        // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
+        var query = `select courseRecordID, Type, site, startTime, classroomName, classroomcourserecord.learnerID, learnerLastName, learnerFirstName
+        from classroomcourserecord
+        inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID
+        inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
+        inner join classroom on classroomcourse.classroomID = classroom.classroomID 
+        left join learner on classroomcourserecord.learnerID = learner.learnerID where startTime >= NOW();`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -67,11 +87,10 @@ var get_instructors_in_session = () => {
 var get_instructors_for_learner = () => {
     return new Promise((resolve, reject) => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
-        var query = `select courseRecordID, Type, site, startTime, classroomName 
-        from classroomcourserecord 
-        inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID 
+        var query = `select courseID, Type, site, startTime, classroomName
+        from classroomcourse
         inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
-        inner join classroom on classroomcourse.classroomID = classroom.classroomID;`;
+        inner join classroom on classroomcourse.classroomID = classroom.classroomID where startTime >= NOW();`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -251,7 +270,7 @@ var updateInstructorAB = (obj) => {
     var values_vars = ',?'.repeat(keys.length - 1);
     console.log('inid:', connection.escape(obj.instructorID))
     return new Promise((resolve, reject) => {
-        var query = `REPLACE INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `)`
+        var query = `INSERT INTO instructoravailabledays (${keys}) VALUES (?` + values_vars + `)`
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -353,7 +372,7 @@ var insertInstructorDays = (obj, tablename) => {
 var get_all_instructors_teaching_day = (date) => {
     return new Promise((resolve, reject) => {
 
-        //var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourserecord ccr on i.instructorID = ccr.instructorID where courseDate = ` + connection.escape(date);
+
         var query = `select distinct i.instructorfirstName, i.instructorlastname from instructor i inner join classroomcourse ccr on i.instructorID = ccr.instructorID where DATE(startTime) = ` + connection.escape(date);
 
         connection.query(query, function(err, queryResult, fields) {
@@ -467,6 +486,25 @@ var assign_instructor_session = (obj) => {
 
     return new Promise((resolve, reject) => {
         var query = `UPDATE classroomcourse SET instructorID = ${obj.instructorID} WHERE courseID = ${obj.courseID}`;
+        var values = Object.values(obj)
+        connection.query(query, values, function(err, queryResult, fields) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(queryResult);
+                console.log("Number of records inserted: " + queryResult.affectedRows);
+            }
+        });
+    })
+}
+
+var remove_from_session = (obj, tablename, humanid, tableid) => {
+    console.log(obj);
+
+    var values_vars = ',?'.repeat(Object.keys(obj).length - 1);
+
+    return new Promise((resolve, reject) => {
+        var query = `UPDATE ` + tablename + ` SET `+ humanid + `ID = NULL WHERE `+ tableid +` = ${obj.ID}`;
         var values = Object.values(obj)
         connection.query(query, values, function(err, queryResult, fields) {
             if (err) {
@@ -600,11 +638,13 @@ module.exports = {
     insertInstructorDays,
     get_instructor_work_schedules,
     get_instructors_in_session,
+    get_learners_in_session,
     get_instructors_for_learner,
     insertGeneralData,
     deleteGeneralData,
     updateGeneralData,
     assign_instructor_session,
+    remove_from_session,
     get_all_instructors_teaching_day,
     getAllGeneral,
     getEditLearner,
