@@ -420,7 +420,7 @@ var get_instructor_class_list = (instructor_id) => {
     return new Promise((resolve, reject) => {
         var query = `SELECT classroomcourse.instructorID, classroomcourserecord.learnerID, learner.learnerLastname, learner.learnerFirstName, klr.klrID, klr.klrName, classroomcourserecord.JIRA
         FROM classroomcourse
-        JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.courseID
+        JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.classroomcourseID
         JOIN learner ON learner.learnerID = classroomcourserecord.learnerID
         JOIN klr ON classroomcourserecord.klrID = klr.klrID
         WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id) + ';';
