@@ -20,9 +20,11 @@ th, td {
 
 tr:nth-child(odd) {}
 </style>
-<body onbeforeunload="return">
+<body onbeforeunload="return" onload=display_ct();>
     <img style="position: absolute; height: 102px; width: 250px; z-index: 1000;" src="/image/cst_logo.png" alt="CST Logo">
-
+    <div id="date_time_display">
+        <p>Date/Time: <span id="datetime"></span></p>
+    </div>
 <table>
     <tr>
         <td>
@@ -44,10 +46,10 @@ tr:nth-child(odd) {}
     {{!-- <tr background="/image/home_page.jpg"> --}}
     <tr >
         <td>
-        <img src="/image/home_bg.png"  style="position:relative;top:-80px;" height="auto" width="800">
+        <img src="/image/home_bg.png"  style="position:relative;top:-80px;" height="330px" width="900px">
         </td>
 
-        <td style="position:absolute;top:85px;right:-75px">
+        <td style="position:absolute;top:165px;right:-75px">
         <center>
             <h2> Instructor Schedule Access</h2>
         </center>
@@ -79,6 +81,8 @@ tr:nth-child(odd) {}
     </tr>
 </table>
 
+
+<script src="/javascript/input_forms.js"></script>
 </body>
 
 </html>
