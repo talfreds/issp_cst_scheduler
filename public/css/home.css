@@ -195,17 +195,6 @@ a:active {
         0 10px 10px rgba(0,0,0,.2),
         0 20px 20px rgba(0,0,0,.15);
 }
-#bg{
-    top:0;
-    bottom:0;
-    width:100%;
-    left:0;
-    position:absolute;
-    background-image: url("/image/background.jpg");
-    z-index: -100;
-    background-repeat: no-repeat;
-    background-size:cover;
-}
 
 #sidebar {
     position: absolute;
