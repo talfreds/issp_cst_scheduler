@@ -4,6 +4,7 @@ body {
     background-color: #F3F2EE;
     margin-left: 9.5%;
     margin-right: 9.5%;
+    margin-top:3%;
 }
 
 html {
@@ -11,6 +12,7 @@ html {
     color: #444;
     margin: 0px;
 }
+
 
 .form__group {
     position: relative;
@@ -150,6 +152,35 @@ table {
     color: white;
     }
 
+
+
+    #instructor_on_day {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+        position: absolute;
+        left:30vw;
+      }
+      
+    #instructor_on_day td, #instructor_on_day th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    height: 10px;
+    }
+    
+    #instructor_on_day tr:nth-child(even){background-color: #f2f2f2;}
+    #instructor_on_day tr:nth-child(odd){background-color: #ffffff;}
+    
+    #instructor_on_day tr:hover {background-color: #ddd;}
+    
+    #instructor_on_day th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    }
+
 a:link {
     color: #777;
     text-decoration: unset;
@@ -240,17 +271,83 @@ select {
 #date_time_display {
     position: fixed;
     vertical-align: middle;
-    background-color: rgb(226, 225, 214);
-    border: #009788 1px solid;
-    top: 5vh;
-    right: 9vw;
+    border: 1px solid lightgray;
+    top: 1vh;
+    right: 6vw;
+    padding: 3%;
+    padding-bottom:5px;
     height: 15vh;
-    width: 20vw;
+    width: 278px;
     font-size: 20px;
-    font-weight: 30;
-    color: rgb(19, 233, 19);
-    text-shadow: 2px 2px 4px #000000;
+    color: #444;
     text-align: center;
     display: inline-block;
     background-size: contain;
+    box-shadow: 6px 6px 9px -7px rgba(0,0,0,0.75);
 }
+
+
+#admin_panel:hover {
+    filter: brightness(50%);
+}
+
+#admin_panel {
+    box-shadow: 6px 6px 9px -7px rgba(0,0,0,0.75);
+    background-image: url("/image/home_bg.png");
+    background-size: cover;
+    height: 379px;
+    width: 760px;
+    position:absolute;
+    top:42%;
+    text-align:center;
+    vertical-align: center;
+    z-index:10;
+    display:block;
+    filter:brightness(75%);
+}
+
+#inside_panel {
+    height: 379px;
+    width: 760px;
+    position:absolute;
+    top:42%;
+    text-align:center;
+    vertical-align: center;
+    z-index:11;
+    display:block;
+}
+
+#inside_panel:hover{
+    background-color: rgba(50,50,50,0.3);
+}
+
+#admin_link {
+    display: none;
+}
+
+#instructor_on_day {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 50%;
+        position: absolute;
+        left:30vw;
+      }
+      
+    #instructor_on_day td, #instructor_on_day th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    height: 10px;
+    }
+    
+    #instructor_on_day tr:nth-child(even){background-color: #f2f2f2;}
+    #instructor_on_day tr:nth-child(odd){background-color: #ffffff;}
+    
+    #instructor_on_day tr:hover {background-color: #ddd;}
+    
+    #instructor_on_day th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    }

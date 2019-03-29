@@ -85,20 +85,6 @@ hbs.registerHelper('getProperty', function(context, key) {
 hbs.registerHelper('getInstructorNameFromID', function(context, key) {
     for (i = 0; i < context.length; i++) {
         if (context[i].instructorID == key) {
-            router.post('/assignLearner', (request, response) => {
-                db_functions.insertGeneralData(request.body, 'classroomcourserecord').then((result) => {
-                    console.log("verify_status", result);
-                    response.render('ba_admin.hbs', {
-                        databaseConfirmation: true
-                    });
-                }).catch((error) => {
-                    console.log(error);
-                    response.render('ba_admin.hbs', {
-                        databaseError: true
-                    });
-                })
-
-            });
             return context[i].instructorLastName + ', ' + context[i].instructorFirstName;
         }
     }

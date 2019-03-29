@@ -12,6 +12,7 @@ router.get('/ba_admin', (request, response) => {
 
 
 router.get('/inputs/course_session', (request, response) => {
+    
     db_functions.getAllGeneral('classroomcourserecord').then((courserecord) => {
         db_functions.getAllGeneral('coursetype').then((coursetypes) => {
             db_functions.getAllGeneral('classroom').then((sites) => {
