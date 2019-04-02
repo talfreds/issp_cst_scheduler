@@ -260,13 +260,12 @@ select {
 
 #date_time_display {
     position: absolute;
-    vertical-align: middle;
     border: 1px solid lightgray;
-    top:5px;
-    right: 6.5vw;
-    padding: 5px;
+    right: 6vw;
+    padding: 50px;
+    padding-bottom: 25px;
     height: 15vh;
-    width: 23.5vw;
+    width: 18vw;
     font-size: 20px;
     font-weight:100;
     color: #444;
