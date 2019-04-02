@@ -259,13 +259,12 @@ select {
 }
 
 #date_time_display {
-    position: absolute;
     border: 1px solid lightgray;
-    right: 6vw;
-    padding: 50px;
-    padding-bottom: 25px;
+    padding: 5%;
+    padding-bottom: 2%;
+    margin-bottom: 10px;
     height: 15vh;
-    width: 18vw;
+    width: 300px;
     font-size: 20px;
     font-weight:100;
     color: #444;
