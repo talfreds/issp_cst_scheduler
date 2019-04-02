@@ -792,7 +792,7 @@ router.post('/assignLearner', (request, response) => {
 });
 
 router.post('/removeLearner', (request, response) => {
-    db_functions.remove_from_session(request.body, 'classroomcourserecord', 'learner', 'courseRecordID').then((result) => {
+    db_functions.deleteGeneralData(request.body, 'classroomcourserecord').then((result) => {
         console.log("verify_status", result);
         response.render('ba_admin.hbs', {
             databaseConfirmation: true

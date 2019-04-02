@@ -54,7 +54,8 @@ var get_instructors_in_session = () => {
         from classroomcourse 
         inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
         inner join classroom on classroomcourse.classroomID = classroom.classroomID 
-        left join instructor on classroomcourse.instructorID = instructor.instructorID where startTime >= NOW();`;
+        left join instructor on classroomcourse.instructorID = instructor.instructorID where startTime >= NOW()
+        ORDER BY startTime;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -70,10 +71,11 @@ var get_learners_in_session = () => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
         var query = `select courseRecordID, Type, site, startTime, classroomName, classroomcourserecord.learnerID, learnerLastName, learnerFirstName
         from classroomcourserecord
-        inner join classroomcourse on classroomcourserecord.classroomcourseID = classroomcourse.courseID
+        inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID
         inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
         inner join classroom on classroomcourse.classroomID = classroom.classroomID 
-        left join learner on classroomcourserecord.learnerID = learner.learnerID where startTime >= NOW();`;
+        left join learner on classroomcourserecord.learnerID = learner.learnerID where startTime >= NOW()
+        ORDER BY startTime;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -90,7 +92,8 @@ var get_instructors_for_learner = () => {
         var query = `select courseID, Type, site, startTime, classroomName
         from classroomcourse
         inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
-        inner join classroom on classroomcourse.classroomID = classroom.classroomID where startTime >= NOW();`;
+        inner join classroom on classroomcourse.classroomID = classroom.classroomID where startTime >= NOW() and instructorID is NOT NULL
+        ORDER BY startTime;`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
@@ -420,7 +423,7 @@ var get_instructor_class_list = (instructor_id) => {
     return new Promise((resolve, reject) => {
         var query = `SELECT classroomcourse.instructorID, classroomcourserecord.learnerID, learner.learnerLastname, learner.learnerFirstName, klr.klrID, klr.klrName, classroomcourserecord.JIRA
         FROM classroomcourse
-        JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.classroomcourseID
+        JOIN classroomcourserecord ON classroomcourse.courseID = classroomcourserecord.courseRecordID
         JOIN learner ON learner.learnerID = classroomcourserecord.learnerID
         JOIN klr ON classroomcourserecord.klrID = klr.klrID
         WHERE classroomcourse.instructorID = ` + connection.escape(instructor_id) + ';';
