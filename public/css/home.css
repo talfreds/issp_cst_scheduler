@@ -298,7 +298,7 @@ select {
     height: 50vh;
     width: 55vw;
     position:absolute;
-    top:42%;
+    top:40%;
     text-align:center;
     z-index:11;
     display:block;
