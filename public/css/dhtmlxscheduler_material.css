@@ -1656,7 +1656,8 @@ div.icon_delete {
     cursor: pointer;
     right: 16px;
     background-color: none;
-    background-image: url(imgs_dhx_material/arrow_right.svg);
+    /* background-image: url(imgs_dhx_material/arrow_right.svg); */
+    background-image: url(imgs/right_arrow.png); 
     background-position: center center;
     background-repeat: no-repeat;
     height: 30px;

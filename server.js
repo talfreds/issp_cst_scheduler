@@ -24,7 +24,7 @@ var app = express();
 
 app.use(
     cookieSession({
-        name: "loginSession", 
+        name: "loginSession",
         keys: ["thiswillbesecretlater"],
         maxAge: 24 * 60 * 60 * 1000 // 24 hours
     })
@@ -48,6 +48,26 @@ hbs.registerHelper('formatDate', (text) => {
     if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
+});
+
+//register.helper
+hbs.registerHelper('formatDatetime', (text) => {
+    var d = new Date(text),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear(),
+        hour = d.getHours(),
+        minutes = d.getMinutes();
+    hourString = hour.toString();
+    minutesString = minutes.toString();
+
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+    if (hourString.length < 2) hourString = '0' + hourString;
+    if (minutesString.length < 2) minutesString = '0' + minutesString;
+
+    return [year, month, day].join('-') + "T" + [hourString, minutesString].join(':');
 });
 
 // body parser allows for easy reading from forms
@@ -83,6 +103,15 @@ hbs.registerHelper('getSessionTypeFromID', function(context, key) {
         if (context[i].courseTypeID == key) {
             return context[i].Type;
         }
+    }
+});
+
+hbs.registerHelper('DefaultValueDropdown', function(sessionID, tableID) {
+    console.log("Session ID: " + sessionID + ", Table ID: " + tableID);
+    if (sessionID == tableID) {
+        return "selected";
+    } else {
+        return " ";
     }
 });
 

@@ -13,17 +13,15 @@
         <form method="post" action="/submitEditClassroomSession">
 
             <div class="form__group">
-              {{#each session_list}}
-              <input value="{{this.courseID}}" id="courseID" class="form__field" type="text"
+              <input value="{{session_list.courseID}}" id="courseID" class="form__field" type="text"
                 name="courseID" placeholder="ID" readonly>
-              {{/each}}
               <label for="courseID" class="form__label">Course ID</label>
             </div>
             <div class="form__group">
-              <select name="courseTypeID" style="width:100%; height:34px" value={{session_list.courseTypeID}}>
+              <select name="courseTypeID" style="width:100%; height:34px">
 
                 {{#each coursetypeslist}}
-                <option value={{this.courseTypeID}}>{{this.Type}}</option>
+                <option value={{this.courseTypeID}} {{DefaultValueDropdown ../session_list.courseTypeID this.courseTypeID}}>{{this.Type}}</option>
                 {{/each}}
 
               </select>
@@ -32,25 +30,22 @@
             </div>
 
             <div class="form__group">
-              {{#each session_list}}
               <input id="startTime" class="form__field" type="datetime-local" name="startTime"
-                placeholder="Enter Start Time" value={{this.startTime}}>
-              {{/each}}
+                placeholder="Enter Start Time" value="{{formatDatetime session_list.startTime}}">
               <label for="startTime" class="form__label">Start Time: </label>
             </div>
 
             <div class="form__group">
-              {{#each session_list}}
               <input id="endTime" class="form__field" type="datetime-local" name="endTime"
-               placeholder="Enter End Time" value={{this.endTime}}>
-              {{/each}}
+               placeholder="Enter End Time" value="{{formatDatetime session_list.endTime}}">
               <label for="endTime" class="form__label">End Time: </label>
             </div>
 
             <div class="form__group">
-              <select name="classroomID" style="width:100%; height:34px" value={{session_list.classroomID}}>
+              <select name="classroomID" style="width:100%; height:34px">
                 {{#each sitesList}}
-                <option value={{this.classroomID}}>{{this.site}}--{{this.classroomName}}</option>
+                <!--Create Helper that takes two variables and returns selected if it equals-->
+                <option value={{this.classroomID}} {{DefaultValueDropdown ../session_list.classroomID this.classroomID}}>{{this.site}}--{{this.classroomName}}</option>
                 {{/each}}
 
               </select>

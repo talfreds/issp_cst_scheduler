@@ -639,10 +639,10 @@ router.post('/editClassroomSession', (request, response) => {
         db_functions.getSessionList().then((courserecord) => {
             db_functions.getAllGeneral('coursetype').then((coursetypes) => {
                 db_functions.getAllGeneral('classroom').then((sites) => {
-                    console.log(sessionResult);
+                    console.log(sessionResult[0]);
                     response.render('./inputs/edit_course_session.hbs', {
                         loggedIn: request.session.loggedIn,
-                        session_list: sessionResult,
+                        session_list: sessionResult[0],
                         sessionslist: courserecord,
                         coursetypeslist: coursetypes,
                         sitesList: sites,
@@ -792,7 +792,7 @@ router.post('/assignLearner', (request, response) => {
 });
 
 router.post('/removeLearner', (request, response) => {
-    db_functions.remove_from_session(request.body, 'classroomcourserecord', 'learner', 'courseRecordID').then((result) => {
+    db_functions.deleteGeneralData(request.body, 'classroomcourserecord').then((result) => {
         console.log("verify_status", result);
         response.render('ba_admin.hbs', {
             databaseConfirmation: true
