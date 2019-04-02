@@ -22,9 +22,6 @@ tr:nth-child(odd) {}
 </style>
 <body onbeforeunload="return" onload=display_ct();>
     <img style="position: absolute; height: 102px; width: 250px; z-index: 1000;" src="/image/cst_logo.png" alt="CST Logo">
-    <div id="date_time_display">
-        <p>Date/Time: <span id="datetime"></span></p>
-    </div>
 <table>
     <tr>
         <td>
@@ -52,9 +49,9 @@ tr:nth-child(odd) {}
         </td>
 
         <td style="position:absolute;top:200px;right:-75px">
-        <center>
-        </center>
-
+<div id="date_time_display">
+        <p>Date/Time: <span id="datetime"></span></p>
+    </div>
         <div id="login__wrapper" style="width:300px;">
             <h2>Instructor Schedule Access</h2>
             <div class="form__group">

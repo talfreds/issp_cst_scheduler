@@ -240,7 +240,7 @@ select {
 }
 
 #date_time_display {
-    position: fixed;
+    position: absolute;
     vertical-align: middle;
     border: 1px solid lightgray;
     top: 1vh;
