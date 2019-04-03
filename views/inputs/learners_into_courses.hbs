@@ -15,7 +15,7 @@
 
         <div id="Sessions">
           <div class="form__group">  
-        <select style="width:100%; height:34px" name="courseID">
+        <select style="width:100%; height:34px" name="courseID" onload=setStates(this) onchange=setStates(this)>
                 {{#each session_list}}
                     <option value={{this.courseID}}>{{this.Type}} - {{this.site}} - {{this.classroomName}} - {{formatDatetime this.startTime}}</option>
                 {{/each}}
@@ -41,13 +41,12 @@
           <br>
         <div id="klrSessions">
         <div class="form__group">
-        <select style="width:100%; height:34px" name="klrID">
-            {{#each klr_list}}
-                <option value={{this.klrID}}>{{this.klrName}}</option>
-            {{/each}}
+                  <select style="width:100%; height:34px" name="klrID" id="klr_select">
+           
 
         </select>   
           <label for="Session" class="form__label">Select KLR</label>
+
         </div>
         </div>
 
@@ -66,4 +65,25 @@
 </body>
 
 <script>
+  {{!-- first, create individual klr lists based on instructor id and courseid --}}
+  var session_list =  {{{klr_per_course}}};
+
+  var select = document.getElementById('klr_select');
+
+  function setStates(el) {
+    if (el.value) {
+      select.options.length = 0;
+      var list = session_list[el.value];
+      for (key in list) {
+        var opt = document.createElement('option');
+        opt.value = key;
+        opt.innerHTML = list[key];
+        select.appendChild(opt);
+      }
+    }
+  }
+
+
+  {{!-- then, modify our select dropdown so it contains the correct list of KLRs --}}
+
 </script>
