@@ -26,14 +26,7 @@ tr:nth-child(odd) {}
         <div>
             <br>
             <br>
-            <a href="ba_admin">
-            <h1 style="margin-right:5vw;font-size:40px;font-weight:200;"> CST Course Scheduler </h1></a>
-            <!--<h1>Dev link for convenience</h1>
-            
-                {{!-- {{#if loggedIn}} --}}
-                <a href="/ba_admin">Business Analyst Administration Inputs</a>
-                {{!-- {{/if}} --}}
-            -->
+            <h1 style="margin-right:5vw;font-size:40px;font-weight:200;"> CST Course Scheduler </h1>
         </center>
         </td>
     </tr>
@@ -42,8 +35,10 @@ tr:nth-child(odd) {}
     {{!-- <tr background="/image/home_page.jpg"> --}}
     <tr >
         <td>
-    
-        <a href="/ba_admin"><div id="admin_panel"></div><div id="inside_panel"><h2 style="top:40%;position:relative;color:white;font-size:40px;font-weight:100;">Admin Panel</h2></div></a>
+            {{#if loggedIn}}
+        <a href="/ba_admin">
+        {{/if}}
+        <div id="admin_panel"></div><div id="inside_panel"><h2 style="top:40%;position:relative;color:white;font-size:40px;font-weight:100;">{{#if loggedIn}}Admin Panel{{/if}}</h2></div>{{#if loggedIn}}</a> {{/if}}
         </td>
 
         <td style="position:absolute;top:5.5%;right:-75px">

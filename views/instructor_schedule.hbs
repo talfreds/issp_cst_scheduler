@@ -24,6 +24,7 @@
 </head>
 
 <body>
+    <center><a href='/'>Home</a></center>
     <div id="scheduler_here" class="dhx_cal_container" style='width:100%; height:100%;'>
         <div class="dhx_cal_navline">
             <div class="dhx_cal_prev_button">&nbsp;</div>
@@ -46,7 +47,7 @@
         {{!-- for read only, may be redundant --}}
         scheduler.attachEvent("onBeforeDrag", function(){return false;});
         scheduler.attachEvent("onClick", function(){return false;});
-        {{!-- scheduler.config.dblclick_create = false; --}}
+        scheduler.config.dblclick_create = false;
         {{!-- scheduler.attachEvent("onDoubleClick", scheduler.getLightbox()); --}}
 
         scheduler.config.readonly_form = true;
