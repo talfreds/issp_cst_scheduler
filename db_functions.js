@@ -104,7 +104,7 @@ var get_instructors_for_learner = () => {
 var get_instructors = () => {
     return new Promise((resolve, reject) => {
         //var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor where activation = 1 ORDER BY instructorLastName`;
-        var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor ORDER BY instructorLastName`;
+        var query = `SELECT instructorID, instructorLastName, instructorFirstName FROM instructor ORDER BY instructorLastName, instructorFirstName`;
         connection.query(query, function(err, queryResult, fields) {
             if (err) {
                 reject(err);
