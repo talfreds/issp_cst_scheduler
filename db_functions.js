@@ -71,7 +71,7 @@ var get_learners_in_session = () => {
         // var query = `SELECT courseName, courseRecordID FROM classroomcourserecord group by courseName`;
         var query = `select courseRecordID, Type, site, startTime, classroomName, classroomcourserecord.learnerID, learnerLastName, learnerFirstName
         from classroomcourserecord
-        inner join classroomcourse on classroomcourserecord.courseID = classroomcourse.courseID
+        inner join classroomcourse on classroomcourserecord.classroomcourseID = classroomcourse.courseID
         inner join coursetype on classroomcourse.courseTypeID = coursetype.courseTypeID 
         inner join classroom on classroomcourse.classroomID = classroom.classroomID 
         left join learner on classroomcourserecord.learnerID = learner.learnerID where startTime >= NOW()

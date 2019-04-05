@@ -15,7 +15,7 @@
 
         <div id="Sessions">
           <div class="form__group">  
-        <select style="width:100%; height:34px" name="classroomCourseID" onload=setStates(this) onchange=setStates(this)>
+        <select style="width:100%; height:34px" name="classroomcourseID" onload=setStates(this) onchange=setStates(this)>
            <option>Select a Course</option>
                 {{#each session_list}}
                     <option value={{this.courseID}}>{{this.Type}} - {{this.site}} - {{this.classroomName}} - {{formatDatetime this.startTime}}</option>
