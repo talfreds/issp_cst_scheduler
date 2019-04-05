@@ -10,7 +10,7 @@ const mysql = require('mysql');
 // for this module to work we need native password authentication.. so run this in a mysql terminal
 // in production we can create another user and run on the same network..
 //  ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'Password';
-var connection = mysql.createConnection({
+var connection = mysql.createConnection(process.env.JAWSDB_URL || {
     host: process.env.host || 'localhost',
     user: process.env.user || 'root',
     password: process.env.password || 'Password',

@@ -12,7 +12,7 @@ router.get('/ba_admin', (request, response) => {
 
 
 router.get('/inputs/course_session', (request, response) => {
-    
+
     db_functions.getAllGeneral('classroomcourserecord').then((courserecord) => {
         db_functions.getAllGeneral('coursetype').then((coursetypes) => {
             db_functions.getAllGeneral('classroom').then((sites) => {
@@ -150,19 +150,62 @@ router.get('/inputs/new_learner', (request, response) => {
     });
 });
 
+var get_valid_KLRs_for_courseID = (instructorcourses, coursetypesavailableklrs, courses_list, klr_list) => {
+    let valid_KLRs_by_courseID = {};
+    for (let i = 0; i < courses_list.length; i++) {
+        let valid_klr_IDs_for_this_course = {};
+        console.log('this course_list object', courses_list[i]);
+        for (let a = 0; a < instructorcourses.length; a++) {
+            if (courses_list[i].instructorID == instructorcourses[a].instructorID) {
+                for (let b = 0; b < coursetypesavailableklrs.length; b++) {
+                    if (courses_list[i].courseTypeID == coursetypesavailableklrs[b].courseTypeID) {
+                        valid_klr_IDs_for_this_course[coursetypesavailableklrs[b].klrID] = "";
+                        console.log('match found, klr ID is:', coursetypesavailableklrs[b].klrID)
+                    }
+                }
+            }
+
+        }
+
+        console.log(valid_klr_IDs_for_this_course);
+        for (const [key, value] of Object.entries(valid_klr_IDs_for_this_course)) {
+            for (let x = 0; x < klr_list.length; x++) {
+                if (key == klr_list[x].klrID) {
+                    valid_klr_IDs_for_this_course[key] = klr_list[x].klrName;
+                }
+
+            }
+        }
+        console.log(valid_klr_IDs_for_this_course);
+
+
+
+        valid_KLRs_by_courseID[courses_list[i].courseID] = valid_klr_IDs_for_this_course;
+
+    }
+
+    return valid_KLRs_by_courseID;
+}
+
 router.get('/inputs/learners_into_courses', (request, response) => {
-    db_functions.get_instructors_for_learner().then((result) => {
-        db_functions.getAllGeneral('learner').then((result2) => {
-            db_functions.getAllGeneral('klr').then((result3) => {
+    db_functions.get_instructors_for_learner().then((sessions) => {
+        db_functions.getAllGeneral('learner').then((learners) => {
+            db_functions.getAllGeneral('klr').then((klr) => {
                 db_functions.getAllGeneral('instructorcourses').then((instructorcourses) => {
                     db_functions.getAllGeneral('coursetypesavailableklrs').then((coursetypesavailableklrs) => {
+                        console.log('instructorcourses', instructorcourses);
+                        console.log('coursetypesavailableklrs', coursetypesavailableklrs);
+                        console.log('session_list', sessions);
+
+                        let valid_klr_per_course = JSON.stringify(get_valid_KLRs_for_courseID(instructorcourses, coursetypesavailableklrs, sessions, klr))
                         response.render('./inputs/learners_into_courses.hbs', {
                             active3: 'font-weight:bold; color:#0c5aa8;',
-                            session_list: result,
-                            learner_list: result2,
-                            klr_list: result3,
+                            session_list: sessions,
+                            learner_list: learners,
+                            klr_list: klr,
                             instructor_klr: instructorcourses,
-                            coursetype_klr: coursetypesavailableklrs
+                            coursetype_klr: coursetypesavailableklrs,
+                            klr_per_course: valid_klr_per_course
                         });
                     })
                 })
@@ -177,6 +220,8 @@ router.get('/inputs/learners_into_courses', (request, response) => {
         })
     })
 });
+
+
 
 
 router.get('/inputs/instructor_to_session', (request, response) => {

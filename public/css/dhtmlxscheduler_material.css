@@ -1619,12 +1619,12 @@ div.icon_delete {
     z-index: 5;
     top: 0
 }
-
+ 
 .dhx_cal_prev_button {
     cursor: pointer;
     right: 148px;
     background-color: none;
-    background-image: url(imgs_dhx_material/arrow_left.svg);
+    background-image: url(./imgs_dhx_material/arrow_left.svg);
     background-position: center center;
     background-repeat: no-repeat;
     height: 30px;
@@ -1657,7 +1657,7 @@ div.icon_delete {
     right: 16px;
     background-color: none;
     /* background-image: url(imgs_dhx_material/arrow_right.svg); */
-    background-image: url(imgs/right_arrow.png); 
+    background-image: url(./imgs_dhx_material/arrow_right.svg); 
     background-position: center center;
     background-repeat: no-repeat;
     height: 30px;
@@ -3351,7 +3351,7 @@ div.dhx_year_tooltip .dhx_tooltip_line {
 }
 
 div.dhx_year_tooltip .dhx_tooltip_line .dhx_event_icon.icon_details {
-    background: url(imgs_dhx_material/agenda-calendar.svg) center center no-repeat;
+    background: url(./imgs_dhx_material/agenda-calendar.png) center center no-repeat;
     width: 40px;
     height: 40px;
     position: absolute;
@@ -3431,7 +3431,7 @@ div.dhx_year_tooltip .dhx_tooltip_line .dhx_tooltip_date {
 
 .dhx_agenda_area .dhx_agenda_line .dhx_event_icon,
 .dhx_map_area .dhx_map_line .dhx_event_icon {
-    background: url(imgs_dhx_material/agenda-calendar.svg) center center no-repeat;
+    background: url(./imgs_dhx_material/agenda-calendar.png) center center no-repeat;
     height: 33px;
     width: 33px;
     margin: 2px 0 0 3px;
