@@ -49,8 +49,8 @@ router.post('/instructor_schedule', (request, response) => {
                             courseDate.end_date = courseDate.end_date.format("YYYY-MM-DD hh:mm");
                             courseDate.text = `${courseDate.Type}  --  ${courseDate.site}  --  ${courseDate.classroomName} \n -- Taught By: ${courseDate.instructorFirstName} ${courseDate.instructorLastName}`;
                             for (let i = 0; i < class_lists.length; i++) {
-                                if (class_lists[i].instructorID == request.body.Instructors) {
-                                    courseDate.text = courseDate.text + `\n ________________________________  ${class_lists[i].learnerFirstName} ${class_lists[i].learnerLastname} -- ${class_lists[i].klrName} -- ${class_lists[i].JIRA}`
+                                if (class_lists[i].courseID == courseDate.courseID) {
+                                    courseDate.text = courseDate.text + `\n __________________________________  ${class_lists[i].learnerFirstName} ${class_lists[i].learnerLastname} -- ${class_lists[i].klrName} -- ${class_lists[i].JIRA}`
                                 }
                             }
                         });

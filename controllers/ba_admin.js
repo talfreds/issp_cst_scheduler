@@ -142,9 +142,15 @@ router.get('/inputs/KLR_with_Name_of_Sessions', (request, response) => {
 });
 
 router.get('/inputs/new_learner', (request, response) => {
-    db_functions.getAllGeneral('learner').then((result2) => {
+    db_functions.getAllGeneral('learner').then((learners_list_unsorted) => {
+        sorted_learners = learners_list_unsorted.sort(function(a, b) {
+            a = a.learnerLastName.toLowerCase();
+            b = b.learnerLastName.toLowerCase();
+            return a < b ? -1 : a > b ? 1 : 0;
+        });
+
         response.render('./inputs/new_learner.hbs', {
-            learner_list: result2,
+            learner_list: sorted_learners,
             active6: 'font-weight:bold; color:#0c5aa8;'
         });
     });
@@ -190,6 +196,12 @@ var get_valid_KLRs_for_courseID = (instructorcourses, coursetypesavailableklrs, 
 router.get('/inputs/learners_into_courses', (request, response) => {
     db_functions.get_instructors_for_learner().then((sessions) => {
         db_functions.getAllGeneral('learner').then((learners) => {
+            sorted_learners = learners.sort(function(a, b) {
+                a = a.learnerLastName.toLowerCase();
+                b = b.learnerLastName.toLowerCase();
+                return a < b ? -1 : a > b ? 1 : 0;
+            });
+
             db_functions.getAllGeneral('klr').then((klr) => {
                 db_functions.getAllGeneral('instructorcourses').then((instructorcourses) => {
                     db_functions.getAllGeneral('coursetypesavailableklrs').then((coursetypesavailableklrs) => {
@@ -201,7 +213,7 @@ router.get('/inputs/learners_into_courses', (request, response) => {
                         response.render('./inputs/learners_into_courses.hbs', {
                             active3: 'font-weight:bold; color:#0c5aa8;',
                             session_list: sessions,
-                            learner_list: learners,
+                            learner_list: sorted_learners,
                             klr_list: klr,
                             instructor_klr: instructorcourses,
                             coursetype_klr: coursetypesavailableklrs,
